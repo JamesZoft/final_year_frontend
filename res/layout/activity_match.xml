@@ -1,0 +1,15 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/relativeLayout1"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content">
+	
+	<TextView
+		android:id  ="@+DropDownList/SelectBox"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
+	
+	<Button android:id="@+DropDownList/create"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:background="@drawable/ic_launcher"/>
+</RelativeLayout>
