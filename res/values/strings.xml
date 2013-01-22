@@ -23,5 +23,31 @@
     <string name="refresh">Refresh results</string>
     <string name="title_activity_drop_down_list_demo">DropDownListDemo</string>
     <string name="select_string">Select</string>
+    <string name="country_prompt">Choose a country</string>
+    <string name="pick_toppings">Pick the toppings</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="filter_prefs">Filter preferences</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    
+    
+    <string-array name="toppings">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+ 
+    <string-array name="country_arrays">
+        <item>Malaysia</item>
+        <item>United States</item>
+        <item>Indonesia</item>
+        <item>France</item>
+        <item>Italy</item>
+        <item>Singapore</item>
+        <item>New Zealand</item>
+        <item>India</item>
+    </string-array>
+ 
 
 </resources>

@@ -1,0 +1,23 @@
+/home/james/workspace/Erebus/bin/classes.dex : \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/PreferencesFragment$1.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/R$attr.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/R$id.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/BuildConfig.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/R$style.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/PreferencesFragment$3.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/PreferencesFragment.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/R.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/R$menu.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/TournamentActivity.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/MatchActivity.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/R$layout.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/R$drawable.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/CustomOnItemSelectedListener.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/R$string.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/MainActivity.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/NotificationActivity.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/R$bool.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/R$color.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/R$array.class \
+/home/james/workspace/Erebus/bin/classes/com/james/erebus/PreferencesFragment$2.class \
+/home/james/workspace/Erebus/bin/dexedLibs/android-support-v13-ab6147dcca3f6f996c070001e83c6d0f.jar \

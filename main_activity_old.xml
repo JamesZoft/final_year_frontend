@@ -1,0 +1,68 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.james.Erebus"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="top"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+    <!--
+        TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        < android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+=        android:text="@string/hello_world" /
+    -->
+    
+    
+     <Button
+        android:id="@+id/notification_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.01"
+        android:background="@drawable/custom_button"
+        android:text="@string/notifications"
+        android:textSize="40sp"
+        android:textColor="@color/white" />
+     
+    <Button
+        android:id="@+id/find_tournys"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.01"
+        android:background="@drawable/custom_button"
+        android:text="@string/title_find_tournys"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/find_matches"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.01"
+        android:background="@drawable/custom_button"
+        android:text="@string/title_find_matches"
+        android:textColor="@color/white" />
+    
+
+    <Button
+        android:id="@+id/my_tournys"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.01"
+        android:background="@drawable/custom_button"
+        android:text="@string/title_my_tournys"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/my_matches"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.01"
+        android:background="@drawable/custom_button"
+        android:text="@string/title_my_matches"
+        android:textColor="@color/white" />
+
+</LinearLayout>

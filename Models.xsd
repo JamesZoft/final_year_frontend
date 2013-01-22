@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="models.repr" elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns="models.repr">
+
+    <element name="Tournament" type="tns:Tournament"></element>
+
+    <complexType name="Tournament">
+    	<sequence>
+    		<element name="entry_reqs" type="string" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<element name="format" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="links" type="string" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<element name="location" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="name" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="prizes" type="string" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<element name="sponsor" type="string" maxOccurs="1"
+    			minOccurs="0">
+    		</element>
+    		<element name="start_date" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    		<element name="status" type="string" maxOccurs="1"
+    			minOccurs="1">
+    		</element>
+    	</sequence>
+    </complexType>
+</schema>
