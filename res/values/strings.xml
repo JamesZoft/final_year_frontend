@@ -31,6 +31,13 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     
+    <string-array name="texts">
+        <item>banana</item>
+        <item>tomato</item>
+        <item>mango</item>
+        <item>pepper</item>
+    </string-array>
+    
     
     <string-array name="toppings">
         <item>1</item>

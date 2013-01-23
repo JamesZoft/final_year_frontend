@@ -19,6 +19,9 @@
 # view AndroidManifest.xml #generated:41
 -keep class com.james.erebus.TournamentActivity { <init>(...); }
 
+# onClick res/layout/activity_match.xml #generated:8
+-keepclassmembers class * { *** confirmPrefs(...); }
+
 # onClick res/layout/dialog_filter_preferences.xml #generated:5
 -keepclassmembers class * { *** onCreateDialog(...); }
 

@@ -9,8 +9,9 @@ package com.james.erebus;
 
 public final class R {
     public static final class array {
-        public static final int country_arrays=0x7f070001;
-        public static final int toppings=0x7f070000;
+        public static final int country_arrays=0x7f070002;
+        public static final int texts=0x7f070000;
+        public static final int toppings=0x7f070001;
     }
     public static final class attr {
     }

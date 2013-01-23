@@ -18,6 +18,7 @@ public class PreferencesFragment extends DialogFragment {
 
 	private ArrayList selectedItems;
 	private boolean mIsLargeLayout;
+
 	
 	public void showDialog() {
 	    FragmentManager fragmentManager = getFragmentManager();
@@ -70,6 +71,7 @@ public class PreferencesFragment extends DialogFragment {
 				// User clicked OK, so save the mSelectedItems results somewhere
 				// or return them to the component that opened the dialog
 				Log.d("dialogLog", "pressed ok!");
+				MatchActivity.okButtonPressed(selectedItems);
 			}
 		})
 		.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

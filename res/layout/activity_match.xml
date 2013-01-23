@@ -4,5 +4,21 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
         
+    
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:src="@drawable/ic_launcher"
+        android:onClick="confirmPrefs"
+        android:contentDescription="Button for changing prefs"
+        />
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="banana
+					tomato
+					mango"
+		/>
  
 </LinearLayout>
