@@ -12,13 +12,35 @@
         android:onClick="confirmPrefs"
         android:contentDescription="Button for changing prefs"
         />
-    
-    <TextView
+    <TableLayout
+        android:id="@+id/matchTable" 
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="banana
-					tomato
-					mango"
-		/>
+	    android:layout_height="match_parent"
+	    android:orientation="horizontal">
+	    <TableRow
+	        android:layout_width="match_parent"
+	    	android:layout_height="match_parent">
+	    	<TextView
+	    	    android:layout_width="match_parent"
+	    		android:layout_height="match_parent"
+	    	    android:text="banana" />
+	    </TableRow>
+	    <TableRow
+	        android:layout_width="match_parent"
+	    	android:layout_height="match_parent">
+	    	<TextView
+	    	    android:layout_width="match_parent"
+	    		android:layout_height="match_parent"
+	    	    android:text="tomato" />
+	    </TableRow>
+	    <TableRow
+	        android:layout_width="match_parent"
+	    	android:layout_height="match_parent">
+	    	<TextView
+	    	    android:layout_width="match_parent"
+	    		android:layout_height="match_parent"
+	    	    android:text="mango" />
+	    </TableRow>
+    </TableLayout>
  
 </LinearLayout>

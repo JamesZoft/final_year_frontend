@@ -21,27 +21,32 @@
         android:measureWithLargestChild="true"
         android:orientation="horizontal" >
 	
-    <Button android:id="@+id/tournys"
-           android:layout_width="200dp"
-           android:layout_height="wrap_content"
-           android:background="@drawable/custom_button"
-           android:onClick="onTournamentButtonPress"
-           android:text="@string/tournys">
-    </Button>
-	<Button android:id="@+id/matches"
-	    android:layout_width="200dp"
-	    android:layout_height="wrap_content"
-	    android:background="@drawable/custom_button"
-	    android:onClick="onMatchButtonPress"
-	    android:text="@string/matches">
-	</Button>
-	<Button android:id="@+id/notifications"
-	    android:layout_width="200dp"
-	    android:layout_height="wrap_content"
-	    android:background="@drawable/custom_button"
-	    android:onClick="onNotificationsButtonPress"
-	    android:text="@string/notifications">
-	</Button>
+	    <Button
+	        android:id="@+id/tournys"
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/custom_button"
+	        android:onClick="onTournamentButtonPress"
+	        android:layout_weight="1"
+	        android:text="@string/tournys" >
+	    </Button>
+		<Button
+		    android:id="@+id/matches"
+		    android:layout_width="0dip"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/custom_button"
+		    android:onClick="onMatchButtonPress"
+		    android:layout_weight="1"
+		    android:text="@string/matches" >
+		</Button>
+		<Button android:id="@+id/notifications"
+		    android:layout_width="0dip"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/custom_button"
+		    android:onClick="onNotificationsButtonPress"
+		    android:layout_weight="1"
+		    android:text="@string/notifications">
+		</Button>
 
-</LinearLayout>
+	</LinearLayout>
 </LinearLayout>

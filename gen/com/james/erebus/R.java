@@ -10,8 +10,8 @@ package com.james.erebus;
 public final class R {
     public static final class array {
         public static final int country_arrays=0x7f070002;
+        public static final int match_filter_preferences=0x7f070001;
         public static final int texts=0x7f070000;
-        public static final int toppings=0x7f070001;
     }
     public static final class attr {
     }
@@ -45,11 +45,12 @@ public final class R {
         public static final int starcraft2logo=0x7f020004;
     }
     public static final class id {
-        public static final int edit_message=0x7f0a0005;
+        public static final int edit_message=0x7f0a0006;
         public static final int layout1=0x7f0a0000;
+        public static final int matchTable=0x7f0a0005;
         public static final int matches=0x7f0a0003;
-        public static final int menu_settings=0x7f0a0007;
-        public static final int myTitle=0x7f0a0006;
+        public static final int menu_settings=0x7f0a0008;
+        public static final int myTitle=0x7f0a0007;
         public static final int notifications=0x7f0a0004;
         public static final int pager=0x7f0a0001;
         public static final int tournys=0x7f0a0002;
@@ -59,8 +60,8 @@ public final class R {
         public static final int activity_match=0x7f030001;
         public static final int activity_notification=0x7f030002;
         public static final int activity_tournament=0x7f030003;
-        public static final int dialog_filter_preferences=0x7f030004;
-        public static final int main=0x7f030005;
+        public static final int main=0x7f030004;
+        public static final int match_dialog_filter_preferences=0x7f030005;
         public static final int mytitle=0x7f030006;
     }
     public static final class menu {
@@ -77,8 +78,8 @@ public final class R {
         public static final int clearFilters=0x7f060012;
         public static final int country_prompt=0x7f060016;
         public static final int edit_message=0x7f060001;
-        public static final int filter_prefs=0x7f06001a;
         public static final int hello_world=0x7f060006;
+        public static final int match_filter_prefs=0x7f06001a;
         public static final int matches=0x7f06000d;
         public static final int menu_settings=0x7f060003;
         public static final int notification_content=0x7f06000b;

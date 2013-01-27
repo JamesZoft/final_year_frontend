@@ -27,7 +27,7 @@
     <string name="pick_toppings">Pick the toppings</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="filter_prefs">Filter preferences</string>
+    <string name="match_filter_prefs">Match filter preferences</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     
@@ -39,10 +39,12 @@
     </string-array>
     
     
-    <string-array name="toppings">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
+    <string-array name="match_filter_preferences">
+        <item>Subscribed matches</item>
+        <item>Unsubscribed matches</item>
+        <item>Ongoing matches</item>
+        <item>Past matches</item>
+        <item>Future matches</item>
     </string-array>
  
     <string-array name="country_arrays">
