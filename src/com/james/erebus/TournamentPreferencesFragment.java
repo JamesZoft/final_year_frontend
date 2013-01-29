@@ -11,12 +11,13 @@ import android.view.LayoutInflater;
 
 public class TournamentPreferencesFragment extends ParentPreferencesFragment{
 	
+	private ArrayList selectedItems;
+	
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		filterTitleNumber = R.string.match_filter_prefs;
-		layoutNumber = R.layout.match_dialog_filter_preferences;
-		filterPrefsNumber = R.array.match_filter_preferences;
+		filterTitleNumber = R.string.tournament_filter_prefs;
+		filterPrefsNumber = R.array.tournament_filter_preferences;
 		
 		mIsLargeLayout = getResources().getBoolean(R.bool.large_layout);
 		ArrayList items = MatchActivity.getSelectedItems();
@@ -38,10 +39,8 @@ public class TournamentPreferencesFragment extends ParentPreferencesFragment{
 			
 		}
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		LayoutInflater inflator = getActivity().getLayoutInflater();
-		builder.setView(inflator.inflate(layoutNumber, null));
 		// Set the dialog title
-		builder.setTitle(R.string.match_filter_prefs)
+		builder.setTitle(R.string.tournament_filter_prefs)
 		// Specify the list array, the items to be selected by default (null for none),
 		// and the listener through which to receive callbacks when items are selected
 				.setMultiChoiceItems(filterPrefsNumber, generateTickedBoxes(selectedItems),

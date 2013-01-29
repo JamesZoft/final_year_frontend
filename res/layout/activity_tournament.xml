@@ -1,14 +1,45 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".TournamentActivity" >
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world" />
+   <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:src="@drawable/ic_launcher"
+        android:onClick="confirmPrefs"
+        android:contentDescription="Button for changing prefs"
+        />
+    <TableLayout
+        android:id="@+id/tournyTable" 
+        android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="horizontal">
+	    <TableRow
+	        android:layout_width="match_parent"
+	    	android:layout_height="match_parent">
+	    	<TextView
+	    	    android:layout_width="match_parent"
+	    		android:layout_height="match_parent"
+	    	    android:text="banana" />
+	    </TableRow>
+	    <TableRow
+	        android:layout_width="match_parent"
+	    	android:layout_height="match_parent">
+	    	<TextView
+	    	    android:layout_width="match_parent"
+	    		android:layout_height="match_parent"
+	    	    android:text="tomato" />
+	    </TableRow>
+	    <TableRow
+	        android:layout_width="match_parent"
+	    	android:layout_height="match_parent">
+	    	<TextView
+	    	    android:layout_width="match_parent"
+	    		android:layout_height="match_parent"
+	    	    android:text="mango" />
+	    </TableRow>
+    </TableLayout>
 
-</RelativeLayout>
+</LinearLayout>

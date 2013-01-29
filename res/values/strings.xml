@@ -28,6 +28,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="match_filter_prefs">Match filter preferences</string>
+    <string name="tournament_filter_prefs">Tournament filter preferences</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     
@@ -45,6 +46,14 @@
         <item>Ongoing matches</item>
         <item>Past matches</item>
         <item>Future matches</item>
+    </string-array>
+    
+     <string-array name="tournament_filter_preferences">
+        <item>Subscribed tournaments</item>
+        <item>Unsubscribed tournaments</item>
+        <item>Ongoing tournaments</item>
+        <item>Past tournaments</item>
+        <item>Future tournaments</item>
     </string-array>
  
     <string-array name="country_arrays">

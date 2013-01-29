@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 
 public class ParentPreferencesFragment extends DialogFragment {
 	
+	
+	
 	public interface NoticeDialogListener {
         public void onDialogPositiveClick(DialogFragment dialog);
         public void onDialogNegativeClick(DialogFragment dialog);
@@ -29,7 +31,6 @@ public class ParentPreferencesFragment extends DialogFragment {
 	protected static ArrayList selectedItems;
 	protected boolean mIsLargeLayout;
 	
-	protected int layoutNumber;
 	protected int filterPrefsNumber;
 	protected int filterTitleNumber;
 	
@@ -125,8 +126,6 @@ public class ParentPreferencesFragment extends DialogFragment {
 			
 		}
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		LayoutInflater inflator = getActivity().getLayoutInflater();
-		builder.setView(inflator.inflate(layoutNumber, null));
 		// Set the dialog title
 		builder.setTitle(filterTitleNumber)
 		// Specify the list array, the items to be selected by default (null for none),

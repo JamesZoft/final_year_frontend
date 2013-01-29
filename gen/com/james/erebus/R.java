@@ -9,9 +9,10 @@ package com.james.erebus;
 
 public final class R {
     public static final class array {
-        public static final int country_arrays=0x7f070002;
+        public static final int country_arrays=0x7f070003;
         public static final int match_filter_preferences=0x7f070001;
         public static final int texts=0x7f070000;
+        public static final int tournament_filter_preferences=0x7f070002;
     }
     public static final class attr {
     }
@@ -41,18 +42,22 @@ public final class R {
         public static final int button_text_color=0x7f020000;
         public static final int custom_button=0x7f020001;
         public static final int drop_down_image=0x7f020002;
-        public static final int ic_launcher=0x7f020003;
-        public static final int starcraft2logo=0x7f020004;
+        public static final int funnel=0x7f020003;
+        public static final int ic_launcher=0x7f020004;
+        public static final int starcraft2logo=0x7f020005;
     }
     public static final class id {
-        public static final int edit_message=0x7f0a0006;
+        public static final int button1=0x7f0a0007;
+        public static final int editText1=0x7f0a0005;
+        public static final int edit_message=0x7f0a0009;
         public static final int layout1=0x7f0a0000;
-        public static final int matchTable=0x7f0a0005;
+        public static final int matchButtonsLayout=0x7f0a0006;
         public static final int matches=0x7f0a0003;
-        public static final int menu_settings=0x7f0a0008;
-        public static final int myTitle=0x7f0a0007;
+        public static final int menu_settings=0x7f0a000b;
+        public static final int myTitle=0x7f0a000a;
         public static final int notifications=0x7f0a0004;
         public static final int pager=0x7f0a0001;
+        public static final int tournyTable=0x7f0a0008;
         public static final int tournys=0x7f0a0002;
     }
     public static final class layout {
@@ -61,8 +66,7 @@ public final class R {
         public static final int activity_notification=0x7f030002;
         public static final int activity_tournament=0x7f030003;
         public static final int main=0x7f030004;
-        public static final int match_dialog_filter_preferences=0x7f030005;
-        public static final int mytitle=0x7f030006;
+        public static final int mytitle=0x7f030005;
     }
     public static final class menu {
         public static final int activity_drop_down_list_demo=0x7f090000;
@@ -85,7 +89,7 @@ public final class R {
         public static final int notification_content=0x7f06000b;
         public static final int notifications=0x7f06000c;
         public static final int ok=0x7f060018;
-        public static final int password=0x7f06001c;
+        public static final int password=0x7f06001d;
         public static final int pick_toppings=0x7f060017;
         public static final int refresh=0x7f060013;
         public static final int select_string=0x7f060015;
@@ -99,8 +103,9 @@ public final class R {
         public static final int title_find_tournys=0x7f060007;
         public static final int title_my_matches=0x7f06000a;
         public static final int title_my_tournys=0x7f060009;
+        public static final int tournament_filter_prefs=0x7f06001b;
         public static final int tournys=0x7f06000e;
-        public static final int username=0x7f06001b;
+        public static final int username=0x7f06001c;
     }
     public static final class style {
         /** 

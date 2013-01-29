@@ -12,11 +12,12 @@ import android.util.Log;
 
 public class MatchPreferencesFragment extends ParentPreferencesFragment{
 	
+	
+	
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		filterTitleNumber = R.string.match_filter_prefs;
-		layoutNumber = R.layout.match_dialog_filter_preferences;
 		filterPrefsNumber = R.array.match_filter_preferences;
 		
 		mIsLargeLayout = getResources().getBoolean(R.bool.large_layout);
@@ -39,8 +40,6 @@ public class MatchPreferencesFragment extends ParentPreferencesFragment{
 			
 		}
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		LayoutInflater inflator = getActivity().getLayoutInflater();
-		builder.setView(inflator.inflate(layoutNumber, null));
 		// Set the dialog title
 		builder.setTitle(R.string.match_filter_prefs)
 		// Specify the list array, the items to be selected by default (null for none),

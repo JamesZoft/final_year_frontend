@@ -4,13 +4,13 @@
 /home/james/workspace/Erebus/res/drawable/drop_down_image.png \
 /home/james/workspace/Erebus/res/drawable/custom_button.xml \
 /home/james/workspace/Erebus/res/drawable/button_text_color.xml \
+/home/james/workspace/Erebus/res/drawable/funnel.png \
 /home/james/workspace/Erebus/res/layout/activity_notification.xml \
 /home/james/workspace/Erebus/res/layout/main.xml \
 /home/james/workspace/Erebus/res/layout/activity_match.xml \
 /home/james/workspace/Erebus/res/layout/mytitle.xml \
 /home/james/workspace/Erebus/res/layout/activity_main.xml \
 /home/james/workspace/Erebus/res/layout/activity_tournament.xml \
-/home/james/workspace/Erebus/res/layout/dialog_filter_preferences.xml \
 /home/james/workspace/Erebus/res/drawable-mdpi/starcraft2logo.png \
 /home/james/workspace/Erebus/res/drawable-mdpi/ic_launcher.png \
 /home/james/workspace/Erebus/res/values-large/bools.xml \
@@ -30,4 +30,9 @@
 /home/james/workspace/Erebus/res/menu/activity_tournament.xml \
 /home/james/workspace/Erebus/res/drawable-xhdpi/starcraft2logo.png \
 /home/james/workspace/Erebus/res/drawable-xhdpi/ic_launcher.png \
+/home/james/workspace/Erebus/bin/res/drawable-hdpi/ic_launcher.png \
+/home/james/workspace/Erebus/bin/res/drawable/funnel.png \
+/home/james/workspace/Erebus/bin/res/drawable-mdpi/ic_launcher.png \
+/home/james/workspace/Erebus/bin/res/drawable-ldpi/ic_launcher.png \
+/home/james/workspace/Erebus/bin/res/drawable-xhdpi/ic_launcher.png \
 /home/james/workspace/Erebus/bin/AndroidManifest.xml \
