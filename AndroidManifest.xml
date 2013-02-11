@@ -14,7 +14,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
-            android:name="com.james.erebus.MainActivity"
+            android:name="com.james.erebus.core.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,45 +23,45 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.james.erebus.DisplayMessageActivity"
+            android:name="com.james.erebus.core.DisplayMessageActivity"
             android:label="@string/title_activity_display_message"
-            android:parentActivityName="com.james.erebus.MainActivity" >
+            android:parentActivityName="com.james.erebus.core.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.james.erebus.MainActivity" />
+                android:value="com.james.erebus.core.MainActivity" />
         </activity>
         <activity
-            android:name="com.james.erebus.MatchActivity"
+            android:name="com.james.erebus.core.MatchActivity"
             android:label="@string/title_activity_match"
-            android:parentActivityName="com.james.erebus.MainActivity" >
+            android:parentActivityName="com.james.erebus.core.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.james.erebus.MainActivity" />
+                android:value="com.james.erebus.core.MainActivity" />
         </activity>
         <activity
-            android:name="com.james.erebus.TournamentActivity"
+            android:name="com.james.erebus.core.TournamentActivity"
             android:label="@string/title_activity_tournament"
-            android:parentActivityName="com.james.erebus.MainActivity" >
+            android:parentActivityName="com.james.erebus.core.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.james.erebus.MainActivity" />
+                android:value="com.james.erebus.core.MainActivity" />
         </activity>
         <activity
-            android:name="com.james.erebus.NotificationActivity"
+            android:name="com.james.erebus.core.NotificationActivity"
             android:label="@string/title_activity_notification"
-            android:parentActivityName="com.james.erebus.MainActivity" >
+            android:parentActivityName="com.james.erebus.core.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.james.erebus.MainActivity" />
+                android:value="com.james.erebus.core.MainActivity" />
         </activity>
         <activity
-            android:name="com.james.erebus.DropDownListDemo"
+            android:name="com.james.erebus.core.DropDownListDemo"
             android:label="@string/title_activity_drop_down_list_demo"
-            android:parentActivityName="com.james.erebus.MainActivity" >
+            android:parentActivityName="com.james.erebus.core.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.james.erebus.MainActivity" />
+                android:value="com.james.erebus.core.MainActivity" />
         </activity>
     </application>
-
+<uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest>

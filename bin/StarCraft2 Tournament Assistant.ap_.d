@@ -1,6 +1,7 @@
 /home/james/workspace/Erebus/bin/StarCraft2 Tournament Assistant.ap_ \
  : /home/james/workspace/Erebus/res/drawable-hdpi/starcraft2logo.png \
 /home/james/workspace/Erebus/res/drawable-hdpi/ic_launcher.png \
+/home/james/workspace/Erebus/res/drawable/refresh.png \
 /home/james/workspace/Erebus/res/drawable/drop_down_image.png \
 /home/james/workspace/Erebus/res/drawable/custom_button.xml \
 /home/james/workspace/Erebus/res/drawable/button_text_color.xml \
@@ -31,6 +32,7 @@
 /home/james/workspace/Erebus/res/drawable-xhdpi/starcraft2logo.png \
 /home/james/workspace/Erebus/res/drawable-xhdpi/ic_launcher.png \
 /home/james/workspace/Erebus/bin/res/drawable-hdpi/ic_launcher.png \
+/home/james/workspace/Erebus/bin/res/drawable/refresh.png \
 /home/james/workspace/Erebus/bin/res/drawable/funnel.png \
 /home/james/workspace/Erebus/bin/res/drawable-mdpi/ic_launcher.png \
 /home/james/workspace/Erebus/bin/res/drawable-ldpi/ic_launcher.png \

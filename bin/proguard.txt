@@ -2,22 +2,22 @@
 -keep class android.support.v4.view.ViewPager { <init>(...); }
 
 # view AndroidManifest.xml #generated:25
--keep class com.james.erebus.DisplayMessageActivity { <init>(...); }
+-keep class com.james.erebus.core.DisplayMessageActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:57
--keep class com.james.erebus.DropDownListDemo { <init>(...); }
+-keep class com.james.erebus.core.DropDownListDemo { <init>(...); }
 
 # view AndroidManifest.xml #generated:16
--keep class com.james.erebus.MainActivity { <init>(...); }
+-keep class com.james.erebus.core.MainActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:33
--keep class com.james.erebus.MatchActivity { <init>(...); }
+-keep class com.james.erebus.core.MatchActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:49
--keep class com.james.erebus.NotificationActivity { <init>(...); }
+-keep class com.james.erebus.core.NotificationActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:41
--keep class com.james.erebus.TournamentActivity { <init>(...); }
+-keep class com.james.erebus.core.TournamentActivity { <init>(...); }
 
 # onClick res/layout/activity_match.xml #generated:11
 # onClick res/layout/activity_tournament.xml #generated:7
@@ -31,6 +31,9 @@
 
 # onClick res/layout/activity_main.xml #generated:24
 -keepclassmembers class * { *** onTournamentButtonPress(...); }
+
+# onClick res/layout/activity_match.xml #generated:17
+-keepclassmembers class * { *** refresh(...); }
 
 # onClick res/layout/main.xml #generated:13
 -keepclassmembers class * { *** sendMessage(...); }

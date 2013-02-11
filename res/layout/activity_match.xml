@@ -14,6 +14,12 @@
 	        android:contentDescription="Button for changing prefs"
 	        android:onClick="confirmPrefs"
 	        android:src="@drawable/funnel" />
+	    <ImageButton
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:contentDescription="Refresh button"
+	        android:onClick="refresh"
+	        android:src="@drawable/refresh" />
 
 	    <EditText
 	        android:id="@+id/editText1"
