@@ -9,7 +9,7 @@ public abstract class Retriever {
 	 * @param args
 	 */
 
-	protected final String baseUrl = "http://192.168.0.11:3000";
+	protected final String baseUrl = "http://teamfrag.net:3001";
 
 	public abstract void updatePage(); 
 
@@ -31,3 +31,4 @@ public abstract class Retriever {
 			System.setProperty("http.keepAlive", "false");
 		}
 	}
+}

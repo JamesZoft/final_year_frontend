@@ -28,7 +28,7 @@ public class TournamentActivity extends Activity implements TournamentPreference
 	  public void onDialogPositiveClick(DialogFragment dialog) {
 	      // User touched the dialog's positive button
 		  setSelectedItems(TournamentPreferencesFragment.getSelectedItems());
-		  filterResults();
+		  //filterResults();
 	  }
 
 	  @Override

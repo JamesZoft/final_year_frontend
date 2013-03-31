@@ -91,10 +91,10 @@ public class TournamentRetriever extends Retriever{
 	 */
 	public JSONArray getTournaments()
 	{
-		disableConnectionReuseIfNecessary();
+		//disableConnectionReuseIfNecessary();
 		URL url;
 		try {
-			url = new URL("http://192.168.0.11:3000/tournaments.json");
+			url = new URL("http://teamfrag.net:3001/tournaments.json");
 			HttpURLConnection c = (HttpURLConnection)url.openConnection();
 	        InputStream in = new BufferedInputStream(c.getInputStream());
 	        JSONTokener jt = new JSONTokener(in);
