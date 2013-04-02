@@ -2,17 +2,13 @@ package com.james.erebus.networking;
 
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.List;
-import java.util.Map.Entry;
 
 import com.james.erebus.JSONJava.JSONArray;
 import com.james.erebus.JSONJava.JSONException;
@@ -22,6 +18,22 @@ import com.james.erebus.JSONJava.JSONTokener;
 
 
 public class TournamentRetriever extends Retriever{
+	
+	URI uri;
+	
+	public TournamentRetriever()
+	{
+		try {
+			uri = new URI("http://teamfrag.net:3001/tournaments.json");
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public URI getURI()
+	{
+		return uri;
+	}
 
 	@Override
 	public void updatePage()
@@ -81,39 +93,11 @@ public class TournamentRetriever extends Retriever{
 		//t.getTournaments();
 		t.getBySubbed();
 	}
-	/**
-	 * 
-	 * @return JSONArray if query was valid, null otherwise
-	 */
-	public JSONArray getTournaments()
-	{
-		//disableConnectionReuseIfNecessary();
-		URL url;
-		try {
-			url = new URL("http://teamfrag.net:3001/tournaments.json");
-			HttpURLConnection c = (HttpURLConnection)url.openConnection();
-	        InputStream in = new BufferedInputStream(c.getInputStream());
-	        JSONTokener jt = new JSONTokener(in);
-	        JSONArray tournaments = new JSONArray(jt);
-	        //System.out.println(tournaments.toString());
-	        return tournaments;
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-       
-	}
+	
 
 	public void getBySubbed() 
 	{
-		JSONArray tournaments = getTournaments();
+		JSONArray tournaments = retrieve(getURI());
 		JSONArray subbedTournys = new JSONArray();
 		for(int i = 0; i < tournaments.length(); i++)
 		{

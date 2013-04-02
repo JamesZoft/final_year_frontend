@@ -1,6 +1,5 @@
 package com.james.erebus.core;
 
-import com.james.erebus.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,7 +18,7 @@ public class MainActivity extends Activity {
         //RuntimeInlineAnnotationReader.cachePackageAnnotation( , new XmlSchemaMine(""));
     	 //requestWindowFeature(Window.);
     	super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(com.james.erebus.R.layout.activity_main);
 		// Show the Up button in the action bar.
 		//getActionBar().setDisplayHomeAsUpEnabled(true);
         

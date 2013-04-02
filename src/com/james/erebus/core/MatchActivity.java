@@ -2,9 +2,6 @@ package com.james.erebus.core;
 
 import java.util.ArrayList;
 
-
-import com.james.erebus.R;
-
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Bundle;
@@ -121,13 +118,13 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
   private void displayMatches() throws JSONException
   {
 	  MatchRetriever m = new MatchRetriever();
-	  JSONArray matches = m.getMatches(); //get all matches from match database
+	  JSONArray matches = m.retrieve(m.getURI()); //get all matches from match database
 	  
 	  if(matches == null)
 	  {
 		  //do something here, means user had no internet to get the matches
 	  }
-	  LinearLayout layout = (LinearLayout) findViewById(R.id.matchButtonsLayout);
+	  LinearLayout layout = (LinearLayout) findViewById(com.james.erebus.R.id.matchButtonsLayout);
 	  ArrayList<TournyMatchOptions> matchOptions = getSelectedItems(); //get the filters that were selected
 	  layout.removeAllViews();
 	  ArrayList<Button> matchButtons = new ArrayList<Button>();
@@ -136,9 +133,9 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 		  JSONObject obj = (JSONObject) matches.get(i); //construct a json object for it
 		  Button newButton = new Button(this); //construct a button
 		  if(obj.getString("parentTournament").length() != 0) //some if/elses for setting the text
-			  newButton.setText(obj.getString("player1") + " vs " + obj.getString("player2") + ": " + obj.getString("parentTournament"));
+			  newButton.setText(obj.getString("player1") + " vs " + obj.getString("player2") + ": " + obj.getString("parentTournament") + "(" + obj.getString("status") + ")");
 		  else
-			  newButton.setText(obj.getString("player1") + " vs " + obj.getString("player2"));
+			  newButton.setText(obj.getString("player1") + " vs " + obj.getString("player2") + "(" + obj.getString("status") + ")");
 		  newButton.setOnClickListener(new View.OnClickListener() { // set the onClick method
 			
 			@Override
@@ -164,7 +161,7 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 			  matchButtons.add(newButton);
 		  }
 		  //if the user only wants matches that are ongoing 
-		  else if(obj.getString("status").equals("ongoing") && matchOptions.contains(MatchOptions.ongoing))
+		  else if(obj.getString("status").equals("ongoing") && matchOptions.contains(TournyMatchOptions.ongoing))
 		  {
 			  matchButtons.add(newButton);
 		  }
@@ -181,7 +178,7 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
   public void onCreate(Bundle savedInstanceState) {
 	StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.activity_match);
+	setContentView(com.james.erebus.R.layout.activity_match);
 	try {
 		displayMatches();
 	} catch (JSONException e) {

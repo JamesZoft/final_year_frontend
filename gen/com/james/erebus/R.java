@@ -59,7 +59,7 @@ public final class R {
         public static final int myTitle=0x7f0a0009;
         public static final int notifications=0x7f0a0004;
         public static final int pager=0x7f0a0001;
-        public static final int tournyTable=0x7f0a0007;
+        public static final int tournamentButtonsLayout=0x7f0a0007;
         public static final int tournys=0x7f0a0002;
     }
     public static final class layout {

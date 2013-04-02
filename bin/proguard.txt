@@ -20,7 +20,7 @@
 -keep class com.james.erebus.core.TournamentActivity { <init>(...); }
 
 # onClick res/layout/activity_match.xml #generated:11
-# onClick res/layout/activity_tournament.xml #generated:7
+# onClick res/layout/activity_tournament.xml #generated:11
 -keepclassmembers class * { *** confirmPrefs(...); }
 
 # onClick res/layout/activity_main.xml #generated:33
@@ -33,6 +33,7 @@
 -keepclassmembers class * { *** onTournamentButtonPress(...); }
 
 # onClick res/layout/activity_match.xml #generated:17
+# onClick res/layout/activity_tournament.xml #generated:17
 -keepclassmembers class * { *** refresh(...); }
 
 # onClick res/layout/main.xml #generated:13

@@ -1,7 +1,6 @@
 package com.james.erebus.core;
 
-import com.james.erebus.R;
-
+ 
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -13,7 +12,7 @@ public class NotificationActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_notification);
+		setContentView(com.james.erebus.R.layout.activity_notification);
 		// Show the Up button in the action bar.
 		//getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
@@ -21,7 +20,7 @@ public class NotificationActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_notification, menu);
+		getMenuInflater().inflate(com.james.erebus.R.menu.activity_notification, menu);
 		return true;
 	}
 

@@ -2,7 +2,6 @@ package com.james.erebus.core;
 
 import java.util.ArrayList;
 
-import com.james.erebus.R;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,14 +12,14 @@ import android.util.Log;
 
 public class MatchPreferencesFragment extends ParentPreferencesFragment{
 	
-	
+	private static ArrayList<TournyMatchOptions> selectedItems;
 	
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		filterTitleNumber = R.string.match_filter_prefs;
-		filterPrefsNumber = R.array.match_filter_preferences;
+		filterTitleNumber = com.james.erebus.R.string.match_filter_prefs;
+		filterPrefsNumber = com.james.erebus.R.array.match_filter_preferences;
 		
-		mIsLargeLayout = getResources().getBoolean(R.bool.large_layout);
+		mIsLargeLayout = getResources().getBoolean(com.james.erebus.R.bool.large_layout);
 		ArrayList<TournyMatchOptions> items = MatchActivity.getSelectedItems();
 		if(items != null)
 			System.out.println("is items empty?:" + items.isEmpty());
@@ -33,7 +32,7 @@ public class MatchPreferencesFragment extends ParentPreferencesFragment{
 		{
 			System.out.println("previous items");
 			selectedItems = items;
-			for(Object o : selectedItems)
+			for(TournyMatchOptions o : selectedItems)
 			{
 				System.out.println("an object: " + o);
 			}
@@ -41,7 +40,7 @@ public class MatchPreferencesFragment extends ParentPreferencesFragment{
 		}
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		// Set the dialog title
-		builder.setTitle(R.string.match_filter_prefs)
+		builder.setTitle(com.james.erebus.R.string.match_filter_prefs)
 		// Specify the list array, the items to be selected by default (null for none),
 		// and the listener through which to receive callbacks when items are selected
 				.setMultiChoiceItems(filterPrefsNumber, generateTickedBoxes(selectedItems),
@@ -69,7 +68,7 @@ public class MatchPreferencesFragment extends ParentPreferencesFragment{
 			}
 		})
 		// Set the action buttons
-		.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+		.setPositiveButton(com.james.erebus.R.string.ok, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				// User clicked OK, so save the mSelectedItems results somewhere
@@ -81,7 +80,7 @@ public class MatchPreferencesFragment extends ParentPreferencesFragment{
 				mListener.onDialogPositiveClick(MatchPreferencesFragment.this);
 			}
 		})
-		.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+		.setNegativeButton(com.james.erebus.R.string.cancel, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				Log.d("dialogLog", "pressed cancel!");
@@ -91,6 +90,11 @@ public class MatchPreferencesFragment extends ParentPreferencesFragment{
 		});
 
 		return builder.create();
+	}
+	
+	public static ArrayList<TournyMatchOptions> getSelectedItems()
+	{
+		return selectedItems;
 	}
 
 
