@@ -7,5 +7,5 @@ public enum TournyMatchOptions {
 	ongoing,
 	past,
 	future
-
+	
 }

@@ -9,25 +9,23 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 
 public class TournamentPreferencesFragment extends ParentPreferencesFragment{
 	
-	private ArrayList selectedItems;
+	private ArrayList<TournyMatchOptions> selectedItems;
 	
-	@SuppressWarnings("rawtypes")
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		filterTitleNumber = R.string.tournament_filter_prefs;
 		filterPrefsNumber = R.array.tournament_filter_preferences;
 		
 		mIsLargeLayout = getResources().getBoolean(R.bool.large_layout);
-		ArrayList items = MatchActivity.getSelectedItems();
+		ArrayList<TournyMatchOptions> items = TournamentActivity.getSelectedItems();
 		if(items != null)
 			System.out.println("is items empty?:" + items.isEmpty());
 		if(items == null || (items.isEmpty()))// Where we track the selected items
 		{
-			selectedItems = new ArrayList();
+			selectedItems = new ArrayList<TournyMatchOptions>();
 			System.out.println("empty/null");
 		}
 		else
@@ -48,7 +46,6 @@ public class TournamentPreferencesFragment extends ParentPreferencesFragment{
 				.setMultiChoiceItems(filterPrefsNumber, generateTickedBoxes(selectedItems),
 
 				new DialogInterface.OnMultiChoiceClickListener() {
-			@SuppressWarnings("unchecked")
 			@Override
 			public void onClick(DialogInterface dialog, int which,
 					boolean isChecked) {

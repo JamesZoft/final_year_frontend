@@ -7,7 +7,6 @@ import com.james.erebus.R;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.view.LayoutInflater;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -16,19 +15,18 @@ public class MatchPreferencesFragment extends ParentPreferencesFragment{
 	
 	
 	
-	@SuppressWarnings("rawtypes")
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		filterTitleNumber = R.string.match_filter_prefs;
 		filterPrefsNumber = R.array.match_filter_preferences;
 		
 		mIsLargeLayout = getResources().getBoolean(R.bool.large_layout);
-		ArrayList items = MatchActivity.getSelectedItems();
+		ArrayList<TournyMatchOptions> items = MatchActivity.getSelectedItems();
 		if(items != null)
 			System.out.println("is items empty?:" + items.isEmpty());
 		if(items == null || (items.isEmpty()))// Where we track the selected items
 		{
-			selectedItems = new ArrayList();
+			selectedItems = new ArrayList<TournyMatchOptions>();
 			System.out.println("empty/null");
 		}
 		else
@@ -49,7 +47,6 @@ public class MatchPreferencesFragment extends ParentPreferencesFragment{
 				.setMultiChoiceItems(filterPrefsNumber, generateTickedBoxes(selectedItems),
 
 				new DialogInterface.OnMultiChoiceClickListener() {
-			@SuppressWarnings("unchecked")
 			@Override
 			public void onClick(DialogInterface dialog, int which,
 					boolean isChecked) {
@@ -57,9 +54,17 @@ public class MatchPreferencesFragment extends ParentPreferencesFragment{
 				if (isChecked) {
 					// If the user checked the item, add it to the selected items
 					selectedItems.add(mp);
-				} else if (selectedItems.contains(mp)) {
+				} else  {
+					
+					ArrayList<TournyMatchOptions> selectedItemsCopy = new ArrayList<TournyMatchOptions> (selectedItems);
 					// Else, if the item is already in the array, remove it 
-					selectedItems.remove(mp);
+					for(TournyMatchOptions tmo : selectedItems)
+					{
+						if (tmo.compareTo(mp) == 0)
+							selectedItemsCopy.remove(mp);
+					}
+					selectedItems = selectedItemsCopy;
+					
 				}
 			}
 		})

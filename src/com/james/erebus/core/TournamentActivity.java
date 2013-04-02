@@ -7,17 +7,11 @@ import com.james.erebus.R;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TableLayout;
-import android.support.v4.app.NavUtils;
 
 public class TournamentActivity extends Activity implements TournamentPreferencesFragment.NoticeDialogListener{
 
-	@SuppressWarnings("rawtypes")
-	private static ArrayList selectedItems;
+	private static ArrayList<TournyMatchOptions> selectedItems;
 	 
 	  public void confirmPrefs(View v) {
 		    DialogFragment newFragment = new TournamentPreferencesFragment();
@@ -36,7 +30,7 @@ public class TournamentActivity extends Activity implements TournamentPreference
 	      // User touched the dialog's negative button
 	      //Do nothing
 	  }
-	  
+	  /*
 	  private void filterResults()
 	  {
 		  @SuppressWarnings("unused")
@@ -54,19 +48,18 @@ public class TournamentActivity extends Activity implements TournamentPreference
 			  Log.d("filterResults2", "removed subbed things from tournament things");
 		  }
 		  
-		  for(Object o : selectedItems)
+		  for(TournyMatchOptions o : selectedItems)
 		  {
 			  System.out.println("tournyitem: " + o);
 		  }
-	  }
+	  }*/
 	  
-	  @SuppressWarnings("rawtypes")
-	public static ArrayList getSelectedItems()
+	public static ArrayList<TournyMatchOptions> getSelectedItems()
 	  {
 		  return selectedItems;
 	  }
 	  
-	  private void setSelectedItems(@SuppressWarnings("rawtypes") ArrayList items)
+	  private void setSelectedItems(ArrayList<TournyMatchOptions> items)
 	  {
 		  selectedItems = items;
 	  }

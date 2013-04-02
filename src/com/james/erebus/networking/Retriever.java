@@ -13,21 +13,15 @@ public abstract class Retriever {
 
 	public abstract void updatePage(); 
 
-	public abstract void getBySubbed();
-
-	public abstract void getByUnsubbed();
-
-	public abstract void getByOngoing();
-
 	public abstract void getByPast();
 
 	public abstract void getByFuture();
-
-	public abstract void getEntryByName();
+	
+	public abstract void getByOngoing();
 
 	protected void disableConnectionReuseIfNecessary() {
 		// HTTP connection reuse which was buggy pre-froyo
-		if (Integer.parseInt(Build.VERSION.SDK) < Build.VERSION_CODES.FROYO) {
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO) {
 			System.setProperty("http.keepAlive", "false");
 		}
 	}

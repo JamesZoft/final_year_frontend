@@ -2,21 +2,16 @@ package com.james.erebus.core;
 
 import java.util.ArrayList;
 
-import com.james.erebus.R;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 
-public class ParentPreferencesFragment extends DialogFragment {
+public abstract class ParentPreferencesFragment extends DialogFragment {
 	
 	
 	
@@ -29,8 +24,7 @@ public class ParentPreferencesFragment extends DialogFragment {
 	protected NoticeDialogListener mListener;
     
 
-    @SuppressWarnings("rawtypes")
-	protected static ArrayList selectedItems;
+	protected static ArrayList<TournyMatchOptions> selectedItems;
 	protected boolean mIsLargeLayout;
 	
 	protected int filterPrefsNumber;
@@ -63,17 +57,17 @@ public class ParentPreferencesFragment extends DialogFragment {
 		switch(id)
 		{
 		case 0: return TournyMatchOptions.subbed;
-		case 1: return TournyMatchOptions.unsubbed; 
+		case 1: return TournyMatchOptions.unsubbed;
 		case 2: return TournyMatchOptions.ongoing; 
-		case 3: return TournyMatchOptions.future; 
-		case 4: return TournyMatchOptions.past; 
+		case 3: return TournyMatchOptions.past; 
+		case 4: return TournyMatchOptions.future; 
 		default: return null;
 		}
 	}
 	
-	public boolean[] generateTickedBoxes(@SuppressWarnings("rawtypes") ArrayList prefs)
+	public boolean[] generateTickedBoxes(ArrayList<TournyMatchOptions> prefs)
 	{
-		boolean[] bArr = new boolean[5];
+		boolean[] bArr = new boolean[TournyMatchOptions.values().length];
 		int i = 0;
 		for(TournyMatchOptions mp : TournyMatchOptions.values())
 		{
@@ -99,22 +93,20 @@ public class ParentPreferencesFragment extends DialogFragment {
         }
     }
 	
-	@SuppressWarnings("rawtypes")
-	public static ArrayList getSelectedItems()
+	public static ArrayList<TournyMatchOptions> getSelectedItems()
 	{
 		return selectedItems;
 	}
 
-	@SuppressWarnings("rawtypes")
 	@Override
-	public Dialog onCreateDialog(Bundle savedInstanceState) {
+	public abstract Dialog onCreateDialog(Bundle savedInstanceState); /*{
 		mIsLargeLayout = getResources().getBoolean(R.bool.large_layout);
-		ArrayList items = MatchActivity.getSelectedItems();
+		ArrayList<TournyMatchOptions> items = MatchActivity.getSelectedItems();
 		if(items != null)
 			System.out.println("is items empty?:" + items.isEmpty());
 		if(items == null || (items.isEmpty()))// Where we track the selected items
 		{
-			selectedItems = new ArrayList();
+			selectedItems = new ArrayList<TournyMatchOptions>();
 			System.out.println("empty/null");
 		}
 		else
@@ -172,7 +164,7 @@ public class ParentPreferencesFragment extends DialogFragment {
 		});
 
 		return builder.create();
-	}
+	}*/
 
 
 }

@@ -49,7 +49,7 @@ public class TournamentRetriever extends Retriever{
 	}
 	
 	public static void main(String[] args)
-	{/*
+	{
 		 URL url;
 	        try {
 	            url = new URL("http://192.168.0.11:3000/tournaments.json");
@@ -62,13 +62,10 @@ public class TournamentRetriever extends Retriever{
 	            	System.out.println(ja.get(i));
 	            }
 	        } catch (MalformedURLException e) {
-	            // TODO Auto-generated catch block
 	            e.printStackTrace();
 	        } catch (IOException e) {
-	            // TODO Auto-generated catch block
 	            e.printStackTrace();
 	        } catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	   
@@ -76,10 +73,9 @@ public class TournamentRetriever extends Retriever{
 			JSONObject jo1 = new JSONObject("{\"id\":28,\"updated_at\":\"2013-01-10T00:00:00Z\",\"status\":\"status1\",\"location\":\"location1\",\"name\":\"name1\",\"created_at\":\"2013-01-10T00:00:00Z\",\"prizes\":\"prize1\",\"links\":\"somelinks1\",\"format\":\"format1\",\"sponsor\":\"sponsor1\",\"start_date\":\"07/01/2013\",\"entry_reqs\":\"entryreqs1\"}");
 			System.out.println(jo1);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    */
+	    
 		
 		TournamentRetriever t = new TournamentRetriever();
 		//t.getTournaments();
@@ -115,7 +111,6 @@ public class TournamentRetriever extends Retriever{
        
 	}
 
-	@Override
 	public void getBySubbed() 
 	{
 		JSONArray tournaments = getTournaments();
@@ -144,12 +139,11 @@ public class TournamentRetriever extends Retriever{
 		}
 	}
 
-	@Override
 	public void getByUnsubbed() {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
 	public void getByOngoing() {
 		// TODO Auto-generated method stub
@@ -168,8 +162,7 @@ public class TournamentRetriever extends Retriever{
 		
 	}
 
-	@Override
-	public void getEntryByName() {
+	public void getTournyByName() {
 		// TODO Auto-generated method stub
 		
 	}
