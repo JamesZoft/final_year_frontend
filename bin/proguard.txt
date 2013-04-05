@@ -13,15 +13,25 @@
 # view AndroidManifest.xml #generated:33
 -keep class com.james.erebus.core.MatchActivity { <init>(...); }
 
+# view AndroidManifest.xml #generated:65
+-keep class com.james.erebus.core.MatchButtonActivity { <init>(...); }
+
 # view AndroidManifest.xml #generated:49
 -keep class com.james.erebus.core.NotificationActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:41
 -keep class com.james.erebus.core.TournamentActivity { <init>(...); }
 
+# view AndroidManifest.xml #generated:73
+-keep class com.james.erebus.core.TournamentButtonActivity { <init>(...); }
+
 # onClick res/layout/activity_match.xml #generated:11
 # onClick res/layout/activity_tournament.xml #generated:11
 -keepclassmembers class * { *** confirmPrefs(...); }
+
+# onClick res/layout/activity_match.xml #generated:35
+# onClick res/layout/activity_tournament.xml #generated:35
+-keepclassmembers class * { *** freeTextSearch(...); }
 
 # onClick res/layout/activity_main.xml #generated:33
 -keepclassmembers class * { *** onMatchButtonPress(...); }

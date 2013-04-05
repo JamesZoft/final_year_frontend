@@ -1,10 +1,12 @@
 package com.james.erebus.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.james.erebus.JSONJava.JSONArray;
 import com.james.erebus.JSONJava.JSONException;
 import com.james.erebus.JSONJava.JSONObject;
+import com.james.erebus.misc.MiscJsonHelpers;
 import com.james.erebus.networking.TournamentRetriever;
 
 import android.os.Bundle;
@@ -15,11 +17,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 public class TournamentActivity extends Activity implements TournamentPreferencesFragment.NoticeDialogListener{
 
 	private static ArrayList<TournyMatchOptions> selectedItems;
+	JSONArray tournaments;
+	LinearLayout layout;
 
 	public void confirmPrefs(View v) {
 		DialogFragment newFragment = new TournamentPreferencesFragment();
@@ -42,29 +48,7 @@ public class TournamentActivity extends Activity implements TournamentPreference
 		// User touched the dialog's negative button
 		//Do nothing
 	}
-	/*
-	  private void filterResults()
-	  {
-		  @SuppressWarnings("unused")
-		  TableLayout matches = (TableLayout)findViewById(R.id.tournyTable);
-		  if(selectedItems == null)
-		  {
-			  throw new IllegalStateException("selectedItems null");
-		  }
-		  if(selectedItems.contains(TournyMatchOptions.subbed))
-		  {
-			  Log.d("filterResults2", "removed subbed things from tournament things");
-		  }
-		  if(selectedItems.contains(TournyMatchOptions.unsubbed))
-		  {
-			  Log.d("filterResults2", "removed subbed things from tournament things");
-		  }
-
-		  for(TournyMatchOptions o : selectedItems)
-		  {
-			  System.out.println("tournyitem: " + o);
-		  }
-	  }*/
+	
 
 	public static ArrayList<TournyMatchOptions> getSelectedItems()
 	{
@@ -75,17 +59,62 @@ public class TournamentActivity extends Activity implements TournamentPreference
 	{
 		selectedItems = items;
 	}
+	
+	public void freeTextSearch(View v)
+	{
+		EditText et = (EditText) findViewById(com.james.erebus.R.id.searchTextTournaments);
+		ArrayList<String> searchWords = new ArrayList<String>(Arrays.asList(et.getText().toString().split(" ")));
+		ArrayList<Button> buttons = new ArrayList<Button>();
+		for(int i = 0; i < tournaments.length(); i++)
+		{
+			try {
+				JSONObject obj = tournaments.getJSONObject(i);
+				String values = MiscJsonHelpers.getValuesFromJsonObject(obj);
+				for(String s : searchWords)
+				{
+					if(values.contains(s))
+					{
+						Button newButton = new Button(this); //construct a button
+
+						newButton.setText(obj.getString("name") + ", status: " + obj.getString("status"));
+
+						newButton.setOnClickListener(new View.OnClickListener() { // set the onClick method
+
+							@Override
+							public void onClick(View v) {
+								//
+							}
+						});
+						buttons.add(newButton);
+					}
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		layout.removeAllViews();
+		for(Button newButton : buttons)
+		{
+			newButton.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+			layout.addView(newButton);
+		}
+
+
+	}
 
 	private void displayTournaments() throws JSONException
 	{
 		TournamentRetriever t = new TournamentRetriever();
-		JSONArray tournaments = t.retrieve(t.getURI()); //get all matches from match database
-
+		tournaments = t.retrieve(t.getURI()); //get all matches from match database
+		layout = (LinearLayout) findViewById(com.james.erebus.R.id.tournamentButtonsLayout);
 		if(tournaments == null)
 		{
-			//do something here, means user had no internet to get the matches
+			TextView tv = new TextView(this);
+			  tv.setText("The app was unable to retrieve information from the server: please check you have a" +
+			  		" valid internet connection, then try again.");
+			  layout.addView(tv);
+			  return;
 		}
-		LinearLayout layout = (LinearLayout) findViewById(com.james.erebus.R.id.tournamentButtonsLayout);
 		ArrayList<TournyMatchOptions> tournamentOptions = getSelectedItems(); //get the filters that were selected
 		layout.removeAllViews();
 		ArrayList<Button> tournamentButtons = new ArrayList<Button>();

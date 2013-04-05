@@ -31,15 +31,13 @@
     <string name="tournament_filter_prefs">Tournament filter preferences</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    
+
     <string-array name="texts">
         <item>banana</item>
         <item>tomato</item>
         <item>mango</item>
         <item>pepper</item>
     </string-array>
-    
-    
     <string-array name="match_filter_preferences">
         <item>Subscribed matches</item>
         <item>Unsubscribed matches</item>
@@ -47,15 +45,13 @@
         <item>Past matches</item>
         <item>Future matches</item>
     </string-array>
-    
-     <string-array name="tournament_filter_preferences">
+    <string-array name="tournament_filter_preferences">
         <item>Subscribed tournaments</item>
         <item>Unsubscribed tournaments</item>
         <item>Ongoing tournaments</item>
         <item>Past tournaments</item>
         <item>Future tournaments</item>
     </string-array>
- 
     <string-array name="country_arrays">
         <item>Malaysia</item>
         <item>United States</item>
@@ -66,6 +62,8 @@
         <item>New Zealand</item>
         <item>India</item>
     </string-array>
- 
+
+    <string name="title_activity_match_button">MatchButtonActivity</string>
+    <string name="title_activity_tournament_button">TournamentButtonActivity</string>
 
 </resources>

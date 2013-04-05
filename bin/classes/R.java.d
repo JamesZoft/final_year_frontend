@@ -4,6 +4,8 @@
 /home/james/workspace/ErebusNew/res/drawable-xxhdpi/ic_launcher.png \
 /home/james/workspace/ErebusNew/res/drawable/refresh.png \
 /home/james/workspace/ErebusNew/res/drawable/funnel_old.png \
+/home/james/workspace/ErebusNew/res/drawable/search_icon.png \
+/home/james/workspace/ErebusNew/res/drawable/search_icon_xcf.xcf \
 /home/james/workspace/ErebusNew/res/drawable/drop_down_image.png \
 /home/james/workspace/ErebusNew/res/drawable/custom_button.xml \
 /home/james/workspace/ErebusNew/res/drawable/button_text_color.xml \
@@ -12,7 +14,9 @@
 /home/james/workspace/ErebusNew/res/layout/activity_notification.xml \
 /home/james/workspace/ErebusNew/res/layout/main.xml \
 /home/james/workspace/ErebusNew/res/layout/activity_match.xml \
+/home/james/workspace/ErebusNew/res/layout/activity_match_button.xml \
 /home/james/workspace/ErebusNew/res/layout/mytitle.xml \
+/home/james/workspace/ErebusNew/res/layout/activity_tournament_button.xml \
 /home/james/workspace/ErebusNew/res/layout/activity_main.xml \
 /home/james/workspace/ErebusNew/res/layout/activity_tournament.xml \
 /home/james/workspace/ErebusNew/res/drawable-mdpi/starcraft2logo.png \
@@ -30,6 +34,8 @@
 /home/james/workspace/ErebusNew/res/menu/activity_drop_down_list_demo.xml \
 /home/james/workspace/ErebusNew/res/menu/activity_notification.xml \
 /home/james/workspace/ErebusNew/res/menu/activity_match.xml \
+/home/james/workspace/ErebusNew/res/menu/activity_match_button.xml \
+/home/james/workspace/ErebusNew/res/menu/activity_tournament_button.xml \
 /home/james/workspace/ErebusNew/res/menu/activity_main.xml \
 /home/james/workspace/ErebusNew/res/menu/activity_tournament.xml \
 /home/james/workspace/ErebusNew/res/drawable-xhdpi/starcraft2logo.png \
@@ -38,6 +44,7 @@
 /home/james/workspace/ErebusNew/bin/res/drawable-xxhdpi/ic_launcher.png \
 /home/james/workspace/ErebusNew/bin/res/drawable/refresh.png \
 /home/james/workspace/ErebusNew/bin/res/drawable/funnel_old.png \
+/home/james/workspace/ErebusNew/bin/res/drawable/search_icon.png \
 /home/james/workspace/ErebusNew/bin/res/drawable/funnel.png \
 /home/james/workspace/ErebusNew/bin/res/drawable-mdpi/ic_launcher.png \
 /home/james/workspace/ErebusNew/bin/res/drawable-ldpi/ic_launcher.png \

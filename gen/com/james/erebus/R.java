@@ -47,35 +47,46 @@ public final class R {
         public static final int funnel_old=0x7f020005;
         public static final int ic_launcher=0x7f020006;
         public static final int refresh=0x7f020007;
-        public static final int starcraft2logo=0x7f020008;
+        public static final int search_icon=0x7f020008;
+        public static final int search_icon_xcf=0x7f020009;
+        public static final int starcraft2logo=0x7f02000a;
     }
     public static final class id {
-        public static final int editText1=0x7f0a0005;
-        public static final int edit_message=0x7f0a0008;
+        public static final int edit_message=0x7f0a000d;
         public static final int layout1=0x7f0a0000;
-        public static final int matchButtonsLayout=0x7f0a0006;
+        public static final int matchButtonInfoBox=0x7f0a0009;
+        public static final int matchButtonLayout=0x7f0a0008;
+        public static final int matchButtonsLayout=0x7f0a0007;
         public static final int matches=0x7f0a0003;
-        public static final int menu_settings=0x7f0a000a;
-        public static final int myTitle=0x7f0a0009;
+        public static final int menu_settings=0x7f0a000f;
+        public static final int myTitle=0x7f0a000e;
         public static final int notifications=0x7f0a0004;
         public static final int pager=0x7f0a0001;
-        public static final int tournamentButtonsLayout=0x7f0a0007;
+        public static final int searchButtonMatches=0x7f0a0006;
+        public static final int searchButtonTournaments=0x7f0a000b;
+        public static final int searchTextMatches=0x7f0a0005;
+        public static final int searchTextTournaments=0x7f0a000a;
+        public static final int tournamentButtonsLayout=0x7f0a000c;
         public static final int tournys=0x7f0a0002;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int activity_match=0x7f030001;
-        public static final int activity_notification=0x7f030002;
-        public static final int activity_tournament=0x7f030003;
-        public static final int main=0x7f030004;
-        public static final int mytitle=0x7f030005;
+        public static final int activity_match_button=0x7f030002;
+        public static final int activity_notification=0x7f030003;
+        public static final int activity_tournament=0x7f030004;
+        public static final int activity_tournament_button=0x7f030005;
+        public static final int main=0x7f030006;
+        public static final int mytitle=0x7f030007;
     }
     public static final class menu {
         public static final int activity_drop_down_list_demo=0x7f090000;
         public static final int activity_main=0x7f090001;
         public static final int activity_match=0x7f090002;
-        public static final int activity_notification=0x7f090003;
-        public static final int activity_tournament=0x7f090004;
+        public static final int activity_match_button=0x7f090003;
+        public static final int activity_notification=0x7f090004;
+        public static final int activity_tournament=0x7f090005;
+        public static final int activity_tournament_button=0x7f090006;
     }
     public static final class string {
         public static final int app_name=0x7f060000;
@@ -99,8 +110,10 @@ public final class R {
         public static final int title_activity_drop_down_list_demo=0x7f060014;
         public static final int title_activity_main=0x7f060004;
         public static final int title_activity_match=0x7f06000f;
+        public static final int title_activity_match_button=0x7f06001e;
         public static final int title_activity_notification=0x7f060011;
         public static final int title_activity_tournament=0x7f060010;
+        public static final int title_activity_tournament_button=0x7f06001f;
         public static final int title_find_matches=0x7f060008;
         public static final int title_find_tournys=0x7f060007;
         public static final int title_my_matches=0x7f06000a;

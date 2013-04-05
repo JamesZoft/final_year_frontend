@@ -22,7 +22,7 @@
 	        android:src="@drawable/refresh" />
 
 	    <EditText
-	        android:id="@+id/editText1"
+	        android:id="@+id/searchTextTournaments"
 	        android:layout_width="0dip"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
@@ -31,6 +31,14 @@
 
 	        <requestFocus />
 	    </EditText>
+	    
+	    <ImageButton
+	        android:id="@+id/searchButtonTournaments"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/search_icon"
+	        android:contentDescription="Search button"
+	        android:onClick="freeTextSearch"/>
 	    
 	</LinearLayout>
 
