@@ -37,6 +37,14 @@ public class Match {
 	public void setLinks(String links) {
 		this.links = links;
 	}
+	private String time = "";
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
+	
 	
 
 }

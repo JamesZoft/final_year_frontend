@@ -2,7 +2,7 @@ package com.james.erebus.core;
 
 public abstract class TournamentFactory {
 	
-	public static Tournament createTournamentFromJson(String[] tournamentFields)
+	/*public static Tournament createTournamentFromJson(String[] tournamentFields)
 	{
 		if(tournamentFields.length != 9)
 		{
@@ -14,6 +14,6 @@ public abstract class TournamentFactory {
 					tournamentFields[3], tournamentFields[4], tournamentFields[5], tournamentFields[6], 
 					tournamentFields[7], tournamentFields[8]);
 		}
-	}
+	}*/
 
 }

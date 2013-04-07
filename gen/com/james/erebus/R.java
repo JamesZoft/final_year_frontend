@@ -52,21 +52,38 @@ public final class R {
         public static final int starcraft2logo=0x7f02000a;
     }
     public static final class id {
-        public static final int edit_message=0x7f0a000d;
+        public static final int edit_message=0x7f0a001e;
         public static final int layout1=0x7f0a0000;
-        public static final int matchButtonInfoBox=0x7f0a0009;
+        public static final int matchButtonDateBox=0x7f0a000b;
         public static final int matchButtonLayout=0x7f0a0008;
+        public static final int matchButtonLinksBox=0x7f0a000d;
+        public static final int matchButtonParentTournyBox=0x7f0a000a;
+        public static final int matchButtonTimeBox=0x7f0a000c;
+        public static final int matchButtonTitleBox=0x7f0a0009;
         public static final int matchButtonsLayout=0x7f0a0007;
+        public static final int matchSubscribeButton=0x7f0a000e;
         public static final int matches=0x7f0a0003;
-        public static final int menu_settings=0x7f0a000f;
-        public static final int myTitle=0x7f0a000e;
+        public static final int menu_settings=0x7f0a0020;
+        public static final int myTitle=0x7f0a001f;
         public static final int notifications=0x7f0a0004;
         public static final int pager=0x7f0a0001;
         public static final int searchButtonMatches=0x7f0a0006;
-        public static final int searchButtonTournaments=0x7f0a000b;
+        public static final int searchButtonTournaments=0x7f0a0010;
         public static final int searchTextMatches=0x7f0a0005;
-        public static final int searchTextTournaments=0x7f0a000a;
-        public static final int tournamentButtonsLayout=0x7f0a000c;
+        public static final int searchTextTournaments=0x7f0a000f;
+        public static final int tournamentButtonDateBox=0x7f0a0015;
+        public static final int tournamentButtonEntryReqsBox=0x7f0a001c;
+        public static final int tournamentButtonFormatBox=0x7f0a0019;
+        public static final int tournamentButtonLayout=0x7f0a0012;
+        public static final int tournamentButtonLinksBox=0x7f0a0017;
+        public static final int tournamentButtonLocationBox=0x7f0a0018;
+        public static final int tournamentButtonPrizesBox=0x7f0a001b;
+        public static final int tournamentButtonSponsorBox=0x7f0a001d;
+        public static final int tournamentButtonStatusBox=0x7f0a0014;
+        public static final int tournamentButtonSubbedBox=0x7f0a001a;
+        public static final int tournamentButtonTimeBox=0x7f0a0016;
+        public static final int tournamentButtonTitleBox=0x7f0a0013;
+        public static final int tournamentButtonsLayout=0x7f0a0011;
         public static final int tournys=0x7f0a0002;
     }
     public static final class layout {

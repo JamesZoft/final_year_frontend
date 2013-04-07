@@ -1,9 +1,14 @@
 package com.james.erebus.core;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 
 public class TournamentButtonActivity extends Activity {
@@ -14,14 +19,10 @@ public class TournamentButtonActivity extends Activity {
 		setContentView(com.james.erebus.R.layout.activity_tournament_button);
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		displayData(this.getIntent().getStringExtra("com.james.erebus.TournamentButtonActivity.dataValues"));
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(com.james.erebus.R.menu.activity_tournament_button, menu);
-		return true;
-	}
+	
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -38,6 +39,153 @@ public class TournamentButtonActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	private void displayData(String data)
+	{
+		String[] dataArr = data.split(",");
+		TextView tvTitle = (TextView)findViewById(com.james.erebus.R.id.tournamentButtonTitleBox);
+		tvTitle.setTextSize(50f);
+		TextView tvDate = (TextView)findViewById(com.james.erebus.R.id.tournamentButtonDateBox);
+		tvDate.setTextSize(20f);
+		TextView tvLinks = (TextView)findViewById(com.james.erebus.R.id.tournamentButtonLinksBox);
+		tvLinks.setTextSize(20f);
+		TextView tvLocation = (TextView)findViewById(com.james.erebus.R.id.tournamentButtonLocationBox);
+		tvLocation.setTextSize(20f);
+		TextView tvFormat = (TextView)findViewById(com.james.erebus.R.id.tournamentButtonFormatBox);
+		tvFormat.setTextSize(20f);
+		TextView tvStatus = (TextView)findViewById(com.james.erebus.R.id.tournamentButtonStatusBox);
+		tvStatus.setTextSize(20f);
+		TextView tvSponsor = (TextView)findViewById(com.james.erebus.R.id.tournamentButtonSponsorBox);
+		tvSponsor.setTextSize(20f);
+		TextView tvEntryReqs = (TextView)findViewById(com.james.erebus.R.id.tournamentButtonEntryReqsBox);
+		tvEntryReqs.setTextSize(20f);
+		TextView tvPrizes = (TextView)findViewById(com.james.erebus.R.id.tournamentButtonPrizesBox);
+		tvPrizes.setTextSize(20f);
+		
+		
+		Pattern patt = Pattern.compile("\"");
+		Tournament tournament = new Tournament();
+		for(int i = 0; i < dataArr.length; i++)
+		{
+			Matcher m = patt.matcher(dataArr[i]);
+			String entry = dataArr[i];
+			dataArr[i] = m.replaceAll("");
+			if(entry.contains("name"))
+			{
+				patt = Pattern.compile(".*name.*:");
+				m = patt.matcher(entry);
+				entry = m.replaceAll("");
+				patt = Pattern.compile("\"");
+				m = patt.matcher(entry);
+				entry = m.replaceAll("");
+				tournament.setName(entry);
+			}
+			if(entry.contains("location"))
+			{
+				patt = Pattern.compile(".*location.*:");
+				m = patt.matcher(entry);
+				entry = m.replaceAll("");
+				tournament.setLocation(entry);
+			}
+			if(entry.contains("format"))
+			{
+				patt = Pattern.compile(".*format.*:");
+				m = patt.matcher(entry);
+				entry = m.replaceAll("");
+				tournament.setFormat(entry);
+			}
+			if(entry.contains("subscribed"))
+			{
+				patt = Pattern.compile(".*subscribed.*:");
+				m = patt.matcher(entry);
+				entry = m.replaceAll("");
+				tournament.setSubscribed(entry);
+			}
+			if(entry.contains("start_date"))
+			{
+				Log.i("here", entry);
+				patt = Pattern.compile(".*start_date.*:");
+				m = patt.matcher(entry);
+				entry = m.replaceAll("");
+				//Log.i("here", entry);
+				if(entry.charAt(entry.length() - 1) == '}')
+					entry = entry.substring(0, (entry.length() - 1)); //get rid of erroneous } that regex won't remove
+				Log.i("here2", entry);
+				tournament.setStartDate(entry);
+			}
+			if(entry.contains("links"))
+			{
+				patt = Pattern.compile(".*links.*:");
+				m = patt.matcher(entry);
+				entry = m.replaceAll("");
+				if(entry.charAt(entry.length() - 1) == '\"')
+					entry = entry.substring(0, (entry.length() - 1));
+				if(entry.equals("null"))
+					tournament.setLinks("No links are available for this tournament");
+				else
+					tournament.setLinks(entry);
+			}
+			
+			if(entry.contains("sponsor"))
+			{
+				Log.i("sponsors", entry);
+				patt = Pattern.compile(".*sponsor.*:");
+				m = patt.matcher(entry);
+				entry = m.replaceAll("");
+				Log.i("sponsors1", entry);
+				tournament.setSponsor(entry);
+			}
+			if(entry.contains("entry_reqs"))
+			{
+				Log.i("entry_reqs", entry);
+				patt = Pattern.compile(".*entry_reqs.*:");
+				m = patt.matcher(entry);
+				entry = m.replaceAll("");
+				Log.i("entry_reqs1", entry);
+				tournament.setEntryReqs(entry);
+			}
+			if(entry.contains("ongoing"))
+			{
+				patt = Pattern.compile(".*ongoing.*:");
+				m = patt.matcher(entry);
+				entry = m.replaceAll("");
+				tournament.setOngoing(entry);
+			}
+			if(entry.contains("past"))
+			{
+				patt = Pattern.compile(".*past.*:");
+				m = patt.matcher(entry);
+				entry = m.replaceAll("");
+				tournament.setPast(entry);
+			}
+			if(entry.contains("future"))
+			{
+				patt = Pattern.compile(".*future.*:");
+				m = patt.matcher(entry);
+				entry = m.replaceAll("");
+				tournament.setFuture(entry);
+			}
+			if(entry.contains("prizes"))
+			{
+				Log.i("prizes", entry);
+				patt = Pattern.compile(".*prizes.*:");
+				m = patt.matcher(entry);
+				entry = m.replaceAll("");
+				Log.i("prizes1", entry);
+				tournament.setPrizes(entry);
+			}
+			
+		}
+		tvTitle.setText(tournament.getName());
+		tvDate.setText("Tournament date: " + tournament.getStartDate());
+		tvLinks.setText("More info: " + tournament.getLinks());
+		tvLocation.setText("Location: " + tournament.getLocation());
+		tvFormat.setText("Format: " + tournament.getFormat());
+		tvSponsor.setText("Sponsors: " + tournament.getSponsor());
+		tvEntryReqs.setText("Entry requirements: " + tournament.getEntryReqs());
+		tvPrizes.setText("Prize(s): " + tournament.getPrizes());
+		tvStatus.setText("Status: " + tournament.getStatus());
 	}
 
 }

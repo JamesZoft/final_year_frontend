@@ -10,10 +10,15 @@ public class Tournament {
 	private String prizes;
 	private String sponsor;
 	private String startDate;
-	private String status;
+	private String subscribed;
+	private String time;
+	private String ongoing;
+	private String past;
+	private String future;
 	
 	public Tournament(String entryReqs, String format, String links, String location, String name,
-	 String prizes, String sponsor, String startDate, String status)
+	 String prizes, String sponsor, String startDate, String subscribed, String time, 
+	 String ongoing, String future, String past)
 	{
 		this.entryReqs = entryReqs;
 		this.format = format;
@@ -23,7 +28,77 @@ public class Tournament {
 		this.prizes = prizes;
 		this.sponsor = sponsor;
 		this.startDate = startDate;
-		this.status = status;
+		this.subscribed = subscribed;
+		this.time = time;
+		this.ongoing = ongoing;
+		this.past = past;
+		this.future = future;
+	}
+	public Tournament()
+	{
+		
+	}
+	
+	public String getStatus()
+	{
+		String status = "Unknown";
+		if(ongoing.equals("true"))
+			status = "Ongoing";
+		else if(past.equals("true"))
+			status = "Finished";
+		else if(future.equals("true"))
+			status = "Not started";
+		return status;
+	}
+	
+	public String getFuture()
+	{
+		return future;
+	}
+	
+	public void setFuture(String future)
+	{
+		this.future = future;
+	}
+	
+	public String getPast()
+	{
+		return past;
+	}
+	
+	public void setPast(String past)
+	{
+		this.past = past;
+	}
+	
+	public String getOngoing()
+	{
+		return ongoing;
+	}
+	
+	public void setOngoing(String ongoing)
+	{
+		this.ongoing = ongoing;
+	}
+	
+	public String getSubscribed()
+	{
+		return subscribed;
+	}
+	
+	public void setSubscribed(String subscribed)
+	{
+		this.subscribed = subscribed;
+	}
+	
+	public String getTime()
+	{
+		return time;
+	}
+	
+	public void setTime(String time)
+	{
+		this.time = time;
 	}
 	
 	public String getEntryReqs() {
@@ -90,13 +165,7 @@ public class Tournament {
 		this.startDate = startDate;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
+	
 	
 	/*
 	 * 
@@ -113,7 +182,7 @@ public class Tournament {
 	
 	public String toString()
 	{
-		return "Name: " + name + "|Prize(s): " + prizes + "|Start date: " + startDate + "|Status :" + status
+		return "Name: " + name + "|Prize(s): " + prizes + "|Start date: " + startDate 
 				 + "|Format: " + format + "|Entry requirements: " + entryReqs + "|Location: " + location
 				 + "|Sponsor: " +  sponsor + "|Links: " + links;
 	}

@@ -3,20 +3,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MatchButtonActivity" >
-    
-     <LinearLayout
+
+    <GridLayout
         android:id="@+id/matchButtonLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:columnCount="1" >
+
         <TextView
-            android:id="@+id/matchButtonInfoBox"
+            android:id="@+id/matchButtonTitleBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/matchButtonParentTournyBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="1"
+            android:editable="false"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/matchButtonDateBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="2"
+            android:editable="false"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/matchButtonTimeBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="3"
+            android:editable="false"
+            android:gravity="center" />
+        <TextView
+            android:id="@+id/matchButtonLinksBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="4"
+            android:editable="false"
+            android:gravity="center"
+            android:autoLink="web" />
+
+        <Button
+            android:id="@+id/matchSubscribeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:editable="false" >
-        </TextView>
-         
-     </LinearLayout>    
-
+            android:layout_column="0"
+            android:layout_gravity="right|bottom"
+            android:layout_row="5" />
+       
+    </GridLayout>
+     
 </RelativeLayout>

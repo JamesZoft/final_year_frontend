@@ -13,7 +13,9 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
@@ -21,7 +23,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class TournamentActivity extends Activity implements TournamentPreferencesFragment.NoticeDialogListener{
+public class TournamentActivity extends Activity implements TournamentPreferencesFragment.NoticeDialogListener, OnClickListener{
 
 	private static ArrayList<TournyMatchOptions> selectedItems;
 	JSONArray tournaments;
@@ -76,15 +78,10 @@ public class TournamentActivity extends Activity implements TournamentPreference
 					{
 						Button newButton = new Button(this); //construct a button
 
-						newButton.setText(obj.getString("name") + ", status: " + obj.getString("status"));
+						newButton.setText(obj.getString("name"));
 
-						newButton.setOnClickListener(new View.OnClickListener() { // set the onClick method
-
-							@Override
-							public void onClick(View v) {
-								//
-							}
-						});
+						newButton.setOnClickListener(this);
+						newButton.setTag(obj);
 						buttons.add(newButton);
 					}
 				}
@@ -123,15 +120,10 @@ public class TournamentActivity extends Activity implements TournamentPreference
 			JSONObject obj = (JSONObject) tournaments.get(i); //construct a json object for it
 			Button newButton = new Button(this); //construct a button
 
-			newButton.setText(obj.getString("name") + ", status: " + obj.getString("status"));
+			newButton.setText(obj.getString("name"));
 
-			newButton.setOnClickListener(new View.OnClickListener() { // set the onClick method
-
-				@Override
-				public void onClick(View v) {
-					//
-				}
-			});
+			newButton.setOnClickListener(this);
+			newButton.setTag(obj);
 			if(tournamentOptions == null) //if the user hasnt clicked the filter button yet
 			{
 				tournamentButtons.add(newButton);
@@ -173,6 +165,14 @@ public class TournamentActivity extends Activity implements TournamentPreference
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		JSONObject values = (JSONObject)v.getTag();
+		Intent intent = new Intent(this, TournamentButtonActivity.class);
+		intent.putExtra("com.james.erebus.TournamentButtonActivity.dataValues", values.toString());
+		startActivity(intent);
 	}
 
 

@@ -15,6 +15,8 @@ import android.support.v4.app.NavUtils;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 public class MatchButtonActivity extends Activity {
+	
+	Match match;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +48,20 @@ public class MatchButtonActivity extends Activity {
 	private void displayData(String data)
 	{
 		String[] dataArr = data.split(",");
-		TextView tv = (TextView)findViewById(com.james.erebus.R.id.matchButtonInfoBox);
-		tv.setTextSize(80.0f);
-		tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+		TextView tvTitle = (TextView)findViewById(com.james.erebus.R.id.matchButtonTitleBox);
+		tvTitle.setTextSize(50f);
+		TextView tvDate = (TextView)findViewById(com.james.erebus.R.id.matchButtonDateBox);
+		tvDate.setTextSize(30f);
+		TextView tvLinks = (TextView)findViewById(com.james.erebus.R.id.matchButtonLinksBox);
+		tvLinks.setTextSize(30f);
+		TextView tvParentTourny = (TextView)findViewById(com.james.erebus.R.id.matchButtonParentTournyBox);
+		tvParentTourny.setTextSize(30f);
+		TextView tvTime = (TextView)findViewById(com.james.erebus.R.id.matchButtonTimeBox);
+		tvTime.setTextSize(30f);
+		
+		
 		Pattern patt = Pattern.compile("\"");
-		Match match = new Match();
+		match = new Match();
 		for(int i = 0; i < dataArr.length; i++)
 		{
 			Matcher m = patt.matcher(dataArr[i]);
@@ -80,9 +91,14 @@ public class MatchButtonActivity extends Activity {
 			}
 			if(entry.contains("date"))
 			{
+				Log.i("here", entry);
 				patt = Pattern.compile(".*date.*:");
 				m = patt.matcher(entry);
 				entry = m.replaceAll("");
+				//Log.i("here", entry);
+				if(entry.charAt(entry.length() - 1) == '}')
+					entry = entry.substring(0, (entry.length() - 1)); //get rid of erroneous } that regex won't remove
+				Log.i("here2", entry);
 				match.setDate(entry);
 			}
 			if(entry.contains("links"))
@@ -90,13 +106,27 @@ public class MatchButtonActivity extends Activity {
 				patt = Pattern.compile(".*links.*:");
 				m = patt.matcher(entry);
 				entry = m.replaceAll("");
-				match.setParentTourny(entry);
+				if(entry.equals("null"))
+					match.setLinks("No links are available for this match");
+				else
+					match.setLinks(entry);
+			}
+			if(entry.contains("time"))
+			{
+				patt = Pattern.compile(".*time.*T");
+				m = patt.matcher(entry);
+				entry = m.replaceAll("");
+				patt = Pattern.compile("Z");
+				m = patt.matcher(entry);
+				entry = m.replaceAll("");
+				match.setTime(entry);
 			}
 		}
-		tv.setText(match.getPlayer1() + " vs " + match.getPlayer2());
-		
-		//Matcher m = patt.matcher(obj);
-		//obj = m.replaceAll("");
+		tvTitle.setText(match.getPlayer1() + " vs " + match.getPlayer2());
+		tvDate.setText("Match date: " + match.getDate());
+		tvTime.setText("Match time: " + match.getTime());
+		tvLinks.setText(match.getLinks());
+		tvParentTourny.setText(match.getParentTourny());
 	}
 
 }

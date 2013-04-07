@@ -163,7 +163,7 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 			final String values = MiscJsonHelpers.getValuesFromJsonObject(obj);
 			Button newButton = new Button(this); //construct a button
 			if(obj.getString("parentTournament").length() != 0) //some if/elses for setting the text
-				newButton.setText(obj.getString("player1") + " vs " + obj.getString("player2") + ": " + obj.getString("parentTournament") + "(" + obj.getString("status") + ")");
+				newButton.setText(obj.getString("player1") + " vs " + obj.getString("player2") + ": " + obj.getString("parentTournament") + " (" + obj.getString("status") + ")");
 			else
 				newButton.setText(obj.getString("player1") + " vs " + obj.getString("player2") + "(" + obj.getString("status") + ")");
 

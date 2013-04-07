@@ -6,9 +6,7 @@
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/R$style.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/ParentPreferencesFragment.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/Tournament.class \
-/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/TournamentActivity$1.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/Match.class \
-/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/TournamentActivity$2.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/MatchPreferencesFragment$3.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/TournamentPreferencesFragment$3.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/TournamentFactory.class \
