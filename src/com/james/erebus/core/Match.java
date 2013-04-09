@@ -45,6 +45,34 @@ public class Match {
 		this.time = time;
 	}
 	
+	private boolean subbed;
+	public boolean isSubbed()
+	{
+		return subbed;
+	}
+	public void setSubbed(boolean isSubbed)
+	{
+		subbed = isSubbed;
+	}
 	
+	private String status;
+	public String getStatus()
+	{
+		return status;
+	}
+	public void setStatus(String status)
+	{
+		this.status = status;
+	}
+	
+	public boolean equals(Match m)
+	{
+		if(player1.equals(m.getPlayer1()) && player2.equals(m.getPlayer2()) && parentTourny.equals(m.getParentTourny())
+				&& date.equals(m.getDate()) && links.equals(m.getLinks()) && time.equals(m.getTime()))
+		{
+			return true;
+		}
+		return false;
+	}
 
 }

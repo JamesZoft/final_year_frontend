@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.*;
 import java.util.HashMap;
 
@@ -13,7 +14,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.os.StrictMode;
+import android.provider.SyncStateContract.Constants;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -28,6 +31,7 @@ import com.james.erebus.JSONJava.JSONException;
 import com.james.erebus.JSONJava.JSONObject;
 import com.james.erebus.misc.MiscJsonHelpers;
 import com.james.erebus.networking.MatchRetriever;
+import com.james.erebus.networking.MatchSubscriptionManager;
 
 public class MatchActivity extends Activity implements MatchPreferencesFragment.NoticeDialogListener, OnClickListener {
 
@@ -121,6 +125,16 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 
 
 	}
+	
+	private Match matchIsInList(Match m, List<Match> matches)
+	{
+		for(Match match : matches)
+		{
+			if(match.equals(m))
+				return match;
+		}
+		return null;
+	}
 
 	private void freeTextSearchFilter()
 	{
@@ -160,7 +174,8 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 		for(int i = 0; i < matches.length(); i++) //for each match
 		{
 			JSONObject obj = (JSONObject) matches.get(i); //construct a json object for it
-			final String values = MiscJsonHelpers.getValuesFromJsonObject(obj);
+			Match match = MiscJsonHelpers.jsonToMatch(obj);
+			//final String values = MiscJsonHelpers.getValuesFromJsonObject(obj);
 			Button newButton = new Button(this); //construct a button
 			if(obj.getString("parentTournament").length() != 0) //some if/elses for setting the text
 				newButton.setText(obj.getString("player1") + " vs " + obj.getString("player2") + ": " + obj.getString("parentTournament") + " (" + obj.getString("status") + ")");
@@ -169,6 +184,9 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 
 			newButton.setOnClickListener(this);
 			newButton.setTag(obj);
+			MatchSubscriptionManager msm = new MatchSubscriptionManager();
+			ArrayList<Match> matches = msm.getSubbedMatches();
+			Match m = matchIsInList(match, matches);
 			if(matchOptions == null) //if the user hasnt clicked the filter button yet
 			{
 				matchButtons.add(newButton);
@@ -191,8 +209,15 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 			{
 				matchButtons.add(newButton);
 			}
+			else if(matchIsInList(m, matches) != null && matchOptions.contains(TournyMatchOptions.subbed)) // if it's in the list, it's subbed to
+			{
+					matchButtons.add(newButton);
+			}
+			else if(matchIsInList(m, matches) == null && matchOptions.contains(TournyMatchOptions.unsubbed))  // if it's not in the list, it's not subbed to
+			{
+				matchButtons.add(newButton);
+			}
 		}
-
 		for(Button newButton : matchButtons)
 		{
 			newButton.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -218,7 +243,7 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 	public void onClick(View v) {
 		JSONObject values = (JSONObject)v.getTag();
 		Intent intent = new Intent(this, MatchButtonActivity.class);
-		intent.putExtra("com.james.erebus.MatchButtonActivity.dataValues", values.toString());
+		intent.putExtra("com.james.erebus.MatchButtonActivity.dataValues", values);
 		startActivity(intent);
 	}
 }

@@ -33,6 +33,9 @@
 # onClick res/layout/activity_tournament.xml #generated:35
 -keepclassmembers class * { *** freeTextSearch(...); }
 
+# onClick res/layout/activity_match_button.xml #generated:59
+-keepclassmembers class * { *** matchSubUnsub(...); }
+
 # onClick res/layout/activity_main.xml #generated:33
 -keepclassmembers class * { *** onMatchButtonPress(...); }
 

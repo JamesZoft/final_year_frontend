@@ -1,6 +1,6 @@
 package com.james.erebus.networking;
 
-public class TournamentSubscriptionManager {
+public class TournamentSubscriptionManager extends SubscriptionManager {
 
 	/**
 	 * @param args

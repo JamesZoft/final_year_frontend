@@ -25,7 +25,10 @@
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/TournamentPreferencesFragment$1.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/TournamentButtonActivity.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/ParentPreferencesFragment$NoticeDialogListener.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/SubscriptionManager.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/MatchSubscriptionManager.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/TournamentRetriever.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/TournamentSubscriptionManager.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/MatchRetriever.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/Retriever.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/R.class \
@@ -48,6 +51,7 @@
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/Cookie.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/JSONStringer.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/CDL.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/JSONObject$1.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/JSONString.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/CookieList.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/JSONException.class \

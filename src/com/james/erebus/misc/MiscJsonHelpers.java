@@ -3,7 +3,11 @@ package com.james.erebus.misc;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.util.Log;
+
+import com.james.erebus.JSONJava.JSONException;
 import com.james.erebus.JSONJava.JSONObject;
+import com.james.erebus.core.Match;
 
 public class MiscJsonHelpers {
 
@@ -34,6 +38,82 @@ public class MiscJsonHelpers {
 		return obj;
 	}
 	
+	public static JSONObject matchToJson(Match m)
+	{
+		JSONObject match = new JSONObject();
+		try {
+			match.put("date", m.getDate());
+			match.put("links", m.getLinks());
+			match.put("parentTournament", m.getParentTourny());
+			match.put("player1", m.getPlayer1());
+			match.put("player2", m.getPlayer2());
+			match.put("status", m.getStatus());
+			match.put("time", m.getTime());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return match;
+	}
+	
+	
+	
+	public static Match jsonToMatch(JSONObject obj)
+	{
+		Match match = new Match();
+
+		try{
+			match.setPlayer1(obj.getString("player1"));
+		}
+		catch(JSONException e)
+		{
+			System.out.println("No value for player1");
+		}
+		try{
+			match.setPlayer2(obj.getString("player2"));
+		}
+		catch(JSONException e)
+		{
+			System.out.println("No value for player2");
+		}
+		try{
+			match.setParentTourny(obj.getString("parentTournament"));
+		}
+		catch(JSONException e)
+		{
+			System.out.println("No value for parentTournament");
+		}
+		try{
+			match.setDate(obj.getString("date"));
+		}
+		catch(JSONException e)
+		{
+			System.out.println("No value for date");
+		}
+		try{
+			match.setLinks(obj.getString("links"));
+		}
+		catch(JSONException e)
+		{
+			System.out.println("No value for links");
+		}
+		try{
+			String entry = obj.getString("time");
+			Pattern patt = Pattern.compile(".*T");
+			Matcher m = patt.matcher(entry);
+			entry = m.replaceAll("");
+			patt = Pattern.compile("Z");
+			m = patt.matcher(entry);
+			entry = m.replaceAll("");
+			match.setTime(entry);
+		}
+		catch(JSONException e)
+		{
+			System.out.println("No value for time");
+		}
+
+		return match;
+
+	}
 	
 	/*matchactivity
 	  private void filterResults()
