@@ -51,7 +51,6 @@
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/Cookie.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/JSONStringer.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/CDL.class \
-/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/JSONObject$1.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/JSONString.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/CookieList.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/JSONException.class \

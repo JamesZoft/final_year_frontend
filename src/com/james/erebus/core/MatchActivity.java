@@ -125,13 +125,16 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 
 
 	}
-	
+
 	private Match matchIsInList(Match m, List<Match> matches)
 	{
-		for(Match match : matches)
+		if(!matches.isEmpty())
 		{
-			if(match.equals(m))
-				return match;
+			for(Match match : matches)
+			{
+				if(match.equals(m))
+					return match;
+			}
 		}
 		return null;
 	}
@@ -185,7 +188,7 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 			newButton.setOnClickListener(this);
 			newButton.setTag(obj);
 			MatchSubscriptionManager msm = new MatchSubscriptionManager();
-			ArrayList<Match> matches = msm.getSubbedMatches();
+			ArrayList<Match> matches = msm.getSubbedMatches(this);
 			Match m = matchIsInList(match, matches);
 			if(matchOptions == null) //if the user hasnt clicked the filter button yet
 			{
@@ -209,11 +212,11 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 			{
 				matchButtons.add(newButton);
 			}
-			else if(matchIsInList(m, matches) != null && matchOptions.contains(TournyMatchOptions.subbed)) // if it's in the list, it's subbed to
+			else if(m != null && matchOptions.contains(TournyMatchOptions.subbed)) // if it's in the list, it's subbed to
 			{
-					matchButtons.add(newButton);
+				matchButtons.add(newButton);
 			}
-			else if(matchIsInList(m, matches) == null && matchOptions.contains(TournyMatchOptions.unsubbed))  // if it's not in the list, it's not subbed to
+			else if(m == null && matchOptions.contains(TournyMatchOptions.unsubbed))  // if it's not in the list, it's not subbed to
 			{
 				matchButtons.add(newButton);
 			}

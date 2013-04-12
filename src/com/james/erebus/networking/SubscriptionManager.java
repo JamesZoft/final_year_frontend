@@ -1,43 +1,25 @@
 package com.james.erebus.networking;
 
-
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+
+import android.content.Context;
 
 import com.james.erebus.JSONJava.JSONArray;
 import com.james.erebus.JSONJava.JSONException;
-import com.james.erebus.JSONJava.JSONObject;
-import com.james.erebus.JSONJava.JSONTokener;
 
 public class SubscriptionManager {
 
-		public void writeSubbed(JSONArray ja, String fileName)
+		public void writeSubbed(Context c, JSONArray ja, String fileName)
 		{
-			File f = new File(fileName);
-			if(!f.exists())
-			{
-				try {
-					f.createNewFile();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				f.canRead();
-				f.canWrite();
-			}
-			try{
-				FileWriter bw = new FileWriter(f);
-				for(int i = 0; i < ja.length(); i++)
-				{
-					JSONObject obj = ja.getJSONObject(i);
-					obj.write(bw);
-				}
-				bw.flush();
-				bw.close();
-			}
-			catch(JSONException e)
-			{
+			FileOutputStream fos;
+			try {
+				fos = c.openFileOutput(fileName, Context.MODE_PRIVATE);
+				fos.write(ja.toString().getBytes());
+				fos.close();
+			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -45,35 +27,25 @@ public class SubscriptionManager {
 			
 		}
 		
-		public JSONArray readSubbed(String fileName)
+		public JSONArray readSubbed(Context c, String fileName)
 		{
-			File f = new File(fileName);
-			if(!f.exists())
-			{
-				try {
-					f.createNewFile();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				f.canRead();
-				f.canWrite();
-			}
 			try{
-				FileReader fir = new FileReader(f);
-				JSONTokener jtoken = new JSONTokener(fir);
-				JSONArray ja1 = new JSONArray();
-				while(jtoken.more())
+				FileInputStream fis = c.openFileInput(fileName);
+				JSONArray ja;
+				int ch;
+				StringBuffer strBuf = new StringBuffer("");
+				while((ch = fis.read()) != -1)
 				{
-					ja1.put(jtoken.nextValue());
+					strBuf.append((char)ch);
 				}
-				System.out.println(ja1.toString());
-				fir.close();
-				return ja1;
+				fis.close();
+				ja = new JSONArray(strBuf.toString());
+				return ja;
 			}
-			catch(JSONException e)
-			{
+			catch (IOException e) {
 				e.printStackTrace();
-			} catch (IOException e) {
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return null;

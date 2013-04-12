@@ -1,6 +1,7 @@
 package com.james.erebus.core;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,7 +24,7 @@ import android.support.v4.app.NavUtils;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 public class MatchButtonActivity extends Activity {
-	
+
 	Match match;
 
 	@Override
@@ -39,8 +40,8 @@ public class MatchButtonActivity extends Activity {
 			JSONObject o = (JSONObject) b.get("com.james.erebus.MatchButtonActivity.dataValues");
 			displayData(o);
 		}
+
 		
-		setSubButtonText();
 	}
 
 	@Override
@@ -59,33 +60,47 @@ public class MatchButtonActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	private void setSubButtonText()
 	{
 		Button subButton = (Button) findViewById(com.james.erebus.R.id.matchSubscribeButton);
-		if(match.isSubbed())
-			subButton.setText("Subscribed");
-		else
-			subButton.setText("Unsubscribed");
+		
+		String buttonText = isMatchSubbed() ? "Subscribed" : "Unsubscribed";
+		subButton.setText(buttonText);
 	}
 	
-	public void matchSubUnsub(View v) throws IOException, JSONException
+	private boolean isMatchSubbed()
 	{
 		MatchSubscriptionManager msm = new MatchSubscriptionManager();
-		if(!msm.isMatchSubbed(match))
+		ArrayList<Match> matches = msm.getSubbedMatches(this);
+		for(Match m : matches)
 		{
-			
+			if(m.equals(match))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void matchSubUnsub(View v) throws IOException, JSONException
+	{
+
+		MatchSubscriptionManager msm = new MatchSubscriptionManager();
+		if(!msm.isMatchSubbed(this, match))
+		{
+
 			msm.subToMatch(match, this);
 		}
 		else
 		{
-			msm.unsubFromMatch(match);
+			msm.unsubFromMatch(this, match);
 		}
-		match.setSubbed(!match.isSubbed());	
-		
+		//match.setSubbed(!match.isSubbed());	
+
 		setSubButtonText();
 	}
-	
+
 	private void displayData(JSONObject data)
 	{
 		TextView tvTitle = (TextView)findViewById(com.james.erebus.R.id.matchButtonTitleBox);
@@ -98,14 +113,15 @@ public class MatchButtonActivity extends Activity {
 		tvParentTourny.setTextSize(30f);
 		TextView tvTime = (TextView)findViewById(com.james.erebus.R.id.matchButtonTimeBox);
 		tvTime.setTextSize(30f);
-		
-		
+
+
 		match = MiscJsonHelpers.jsonToMatch(data);
 		tvTitle.setText(match.getPlayer1() + " vs " + match.getPlayer2());
 		tvDate.setText("Match date: " + match.getDate());
 		tvTime.setText("Match time: " + match.getTime());
 		tvLinks.setText(match.getLinks());
 		tvParentTourny.setText(match.getParentTourny());
+		setSubButtonText();
 	}
 
 }

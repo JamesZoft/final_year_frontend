@@ -22,9 +22,9 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 		 //subbedMatches = new ArrayList<Match>();
 	}
 	
-	public boolean isMatchSubbed(Match m)
+	public boolean isMatchSubbed(Context c, Match m)
 	{
-		ArrayList<Match> matches = getSubbedMatches();
+		ArrayList<Match> matches = getSubbedMatches(c);
 		for(Match match : matches)
 		{
 			if(m.equals(match))
@@ -33,9 +33,9 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 		return false;
 	}
 
-	public ArrayList<Match> getSubbedMatches()
+	public ArrayList<Match> getSubbedMatches(Context c)
 	{
-		JSONArray ja = readSubbed("subbedMatches.json");
+		JSONArray ja = readSubbed(c, "subbedMatches.json");
 		if(ja != null)
 		{
 			ArrayList<Match> matches = new ArrayList<Match>();
@@ -58,7 +58,7 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 	
 	public boolean subToMatch(Match m, Context c) throws IOException, JSONException
 	{
-		JSONArray ja = readSubbed("subbedMatches.json");
+		JSONArray ja = readSubbed(c, "subbedMatches.json");
 		if(ja != null)
 		{
 			ArrayList<Match> subbedMatches = new ArrayList<Match>();
@@ -81,14 +81,14 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 		else
 			ja = new JSONArray();
 		ja.put(MiscJsonHelpers.matchToJson(m));
-		writeSubbed(ja, "subbedMatches.json");
+		writeSubbed(c, ja, "subbedMatches.json");
 		return false;
 	}
 	
-	public boolean unsubFromMatch(Match m)
+	public boolean unsubFromMatch(Context c, Match m)
 	{
 		boolean retVal = false;
-		JSONArray ja = readSubbed("subbedMatches.json");
+		JSONArray ja = readSubbed(c, "subbedMatches.json");
 		
 		ArrayList<Match> subbedMatches = new ArrayList<Match>();
 		for(int i = 0; i < ja.length(); i++)
@@ -110,7 +110,7 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 			else
 				returnJa.put(MiscJsonHelpers.matchToJson(subbedMatches.get(i)));
 		}
-		writeSubbed(returnJa, "subbedMatches.json");
+		writeSubbed(c, returnJa, "subbedMatches.json");
 		return retVal;
 	}
 
