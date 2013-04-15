@@ -87,8 +87,8 @@ public class TournamentSubscriptionManager extends SubscriptionManager {
 	public ArrayList<Tournament> compareSubbedTournaments(Context c)
 	{
 		ArrayList<Tournament> subbedTournaments = getSubbedTournaments(c);
-		TournamentRetriever mr = new TournamentRetriever();
-		JSONArray ja = mr.retrieve(mr.getURI());
+		TournamentRetriever tr = new TournamentRetriever();
+		JSONArray ja = tr.retrieve(tr.getURI());
 		if(ja == null)
 			return null;
 		ArrayList<Tournament> updatedTournaments = (ArrayList<Tournament>) MiscJsonHelpers.jsonTournamentArrayToTournamentList(ja);

@@ -91,14 +91,17 @@ public abstract class NotificationManager {
 			{
 				Notification notif = new Notification("The match " + m.getPlayer1() + " vs " + m.getPlayer2() + 
 						" has changed. Press 'view' to view it, or 'clear' to clear this notification", m);
-				
-				for(Notification n : NotificationManager.notifications)
+				ArrayList<Notification> notifsCopy = new ArrayList<Notification> (NotificationManager.notifications);
+				boolean shouldAdd = true;
+				for(Notification n : notifsCopy)
 				{
-					if(!notif.equalsNotification(n))
-						NotificationManager.notifications.add(notif);
+					if(notif.equalsNotification(n))
+						shouldAdd = false;
 				}
-				if(NotificationManager.notifications.isEmpty())
+				if(shouldAdd)
 					NotificationManager.notifications.add(notif);
+				//if(NotificationManager.notifications.isEmpty())
+				//	NotificationManager.notifications.add(notif);
 			}
 		}
 		if(NotificationManager.changedTournaments != null && !NotificationManager.changedTournaments.isEmpty())
@@ -107,13 +110,17 @@ public abstract class NotificationManager {
 			{
 				Notification notif = new Notification("The tournament " + t.getName() + " has changed. " +
 						"Press 'view' to view it, or 'clear' to clear this notification", t);
-				for(Notification n : NotificationManager.notifications)
+				ArrayList<Notification> notifsCopy = new ArrayList<Notification> (NotificationManager.notifications);
+				boolean shouldAdd = true;
+				for(Notification n : notifsCopy)
 				{
-					if(!notif.equalsNotification(n))
-						NotificationManager.notifications.add(notif);
+					if(notif.equalsNotification(n))
+						shouldAdd = false;
 				}
-				if(NotificationManager.notifications.isEmpty())
+				if(shouldAdd)
 					NotificationManager.notifications.add(notif);
+				//if(NotificationManager.notifications.isEmpty())
+				//	NotificationManager.notifications.add(notif);
 			}
 		}
 	}
