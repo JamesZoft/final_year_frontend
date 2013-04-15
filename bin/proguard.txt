@@ -29,6 +29,9 @@
 # onClick res/layout/activity_tournament.xml #generated:11
 -keepclassmembers class * { *** confirmPrefs(...); }
 
+# onClick res/layout/activity_notification.xml #generated:27
+-keepclassmembers class * { *** displayNotifications(...); }
+
 # onClick res/layout/activity_match.xml #generated:35
 # onClick res/layout/activity_tournament.xml #generated:35
 -keepclassmembers class * { *** freeTextSearch(...); }
@@ -36,10 +39,10 @@
 # onClick res/layout/activity_match_button.xml #generated:59
 -keepclassmembers class * { *** matchSubUnsub(...); }
 
-# onClick res/layout/activity_main.xml #generated:33
+# onClick res/layout/activity_main.xml #generated:34
 -keepclassmembers class * { *** onMatchButtonPress(...); }
 
-# onClick res/layout/activity_main.xml #generated:42
+# onClick res/layout/activity_main.xml #generated:44
 -keepclassmembers class * { *** onNotificationsButtonPress(...); }
 
 # onClick res/layout/activity_main.xml #generated:24
@@ -51,4 +54,7 @@
 
 # onClick res/layout/main.xml #generated:13
 -keepclassmembers class * { *** sendMessage(...); }
+
+# onClick res/layout/activity_tournament_button.xml #generated:113
+-keepclassmembers class * { *** tournamentSubUnsub(...); }
 

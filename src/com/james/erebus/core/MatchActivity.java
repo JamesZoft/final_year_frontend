@@ -1,22 +1,14 @@
 package com.james.erebus.core;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.regex.*;
-import java.util.HashMap;
 
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.os.StrictMode;
-import android.provider.SyncStateContract.Constants;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -32,12 +24,13 @@ import com.james.erebus.JSONJava.JSONObject;
 import com.james.erebus.misc.MiscJsonHelpers;
 import com.james.erebus.networking.MatchRetriever;
 import com.james.erebus.networking.MatchSubscriptionManager;
+import com.james.erebus.networking.NotificationManager;
 
 public class MatchActivity extends Activity implements MatchPreferencesFragment.NoticeDialogListener, OnClickListener {
 
 	private static ArrayList<TournyMatchOptions> selectedItems;
-	JSONArray matches;
-	LinearLayout layout;
+	private JSONArray matches;
+	private LinearLayout layout;
 
 
 	public void confirmPrefs(View v) {
@@ -78,19 +71,12 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 
 	}
 
-	public boolean refresh(View view)
-	{
-		boolean refreshComplete = false;
-
-		return refreshComplete;
-	}
-
 	public void freeTextSearch(View v) throws URISyntaxException
 	{
 		EditText et = (EditText) findViewById(com.james.erebus.R.id.searchTextMatches);
 		ArrayList<String> searchWords = new ArrayList<String>(Arrays.asList(et.getText().toString().split(" ")));
 		ArrayList<Button> buttons = new ArrayList<Button>();
-		final Context matchButtonContext = this;
+		//final Context matchButtonContext = this;
 		for(int i = 0; i < matches.length(); i++)
 		{
 			try {
@@ -100,10 +86,10 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 				{
 					if(values.contains(s))
 					{
-						final URI uri = new URI("");
+					//	final URI uri = new URI("");
 						Button newButton = new Button(this); //construct a button
 						if(obj.getString("parentTournament").length() != 0) //some if/elses for setting the text
-							newButton.setText(obj.getString("player1") + " vs " + obj.getString("player2") + ": " + obj.getString("parentTournament") + "(" + obj.getString("status") + ")");
+							newButton.setText(obj.getString("player1") + " vs " + obj.getString("player2") + ": " + obj.getString("parentTournament") + " (" + obj.getString("status") + ")");
 						else
 							newButton.setText(obj.getString("player1") + " vs " + obj.getString("player2") + "(" + obj.getString("status") + ")");
 						newButton.setOnClickListener(this);
@@ -126,7 +112,7 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 
 	}
 
-	private Match matchIsInList(Match m, List<Match> matches)
+	/*private Match matchIsInList(Match m, List<Match> matches)
 	{
 		if(!matches.isEmpty())
 		{
@@ -151,12 +137,30 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 			return;
 		}
 
+	}*/
+	
+	public void refresh(View v)
+	{
+		getMatches();
+		try {
+			displayMatches();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void getMatches()
 	{
 		MatchRetriever m = new MatchRetriever();
 		matches = m.retrieve(m.getURI());
+		MatchSubscriptionManager msm = new MatchSubscriptionManager();
+		//NotificationManager nm = new NotificationManager();
+		ArrayList<Match> newMatches = msm.compareSubbedMatches(this);
+		if(newMatches != null && !newMatches.isEmpty())
+		{
+			NotificationManager.setChangedMatches(newMatches);
+		}
 	}
 
 	private void displayMatches() throws JSONException
@@ -188,38 +192,41 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 			newButton.setOnClickListener(this);
 			newButton.setTag(obj);
 			MatchSubscriptionManager msm = new MatchSubscriptionManager();
-			ArrayList<Match> matches = msm.getSubbedMatches(this);
-			Match m = matchIsInList(match, matches);
+			boolean toBeAdded = true;
 			if(matchOptions == null) //if the user hasnt clicked the filter button yet
 			{
 				matchButtons.add(newButton);
+				continue;
 			}
-			else if(matchOptions.isEmpty()) // if the user deselected all of the filters
+			if(matchOptions.isEmpty()) // if the user deselected all of the filters
 			{
 				matchButtons.add(newButton);
+				continue;
 			}
-			else if(obj.getString("status").equals("future") && matchOptions.contains(TournyMatchOptions.future))
+			if(!match.getStatus().equals("future") && matchOptions.contains(TournyMatchOptions.future))
 			{
-				matchButtons.add(newButton);
+				toBeAdded = false;
 			}
 			//if the user only wants matches in the past
-			else if(obj.getString("status").equals("past") && matchOptions.contains(TournyMatchOptions.past))
+			if(!match.getStatus().equals("past") && matchOptions.contains(TournyMatchOptions.past))
 			{
-				matchButtons.add(newButton);
+				toBeAdded = false;
 			}
 			//if the user only wants matches that are ongoing 
-			else if(obj.getString("status").equals("ongoing") && matchOptions.contains(TournyMatchOptions.ongoing))
+			if(!match.getStatus().equals("ongoing") && matchOptions.contains(TournyMatchOptions.ongoing))
 			{
-				matchButtons.add(newButton);
+				toBeAdded = false;
 			}
-			else if(m != null && matchOptions.contains(TournyMatchOptions.subbed)) // if it's in the list, it's subbed to
+			if(!msm.isMatchSubbed(this, match) && matchOptions.contains(TournyMatchOptions.subbed)) // if it's in the list, it's subbed to
 			{
-				matchButtons.add(newButton);
+				toBeAdded = false;
 			}
-			else if(m == null && matchOptions.contains(TournyMatchOptions.unsubbed))  // if it's not in the list, it's not subbed to
+			if(msm.isMatchSubbed(this, match) && matchOptions.contains(TournyMatchOptions.unsubbed))  // if it's not in the list, it's not subbed to
 			{
-				matchButtons.add(newButton);
+				toBeAdded = false;
 			}
+			if(toBeAdded)
+				matchButtons.add(newButton);
 		}
 		for(Button newButton : matchButtons)
 		{
@@ -234,6 +241,7 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
 		super.onCreate(savedInstanceState);
 		setContentView(com.james.erebus.R.layout.activity_match);
+		this.setTitle("Matches");
 		getMatches();
 		try {
 			displayMatches();

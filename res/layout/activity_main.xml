@@ -28,7 +28,8 @@
 	        android:background="@drawable/custom_button"
 	        android:onClick="onTournamentButtonPress"
 	        android:layout_weight="1"
-	        android:text="@string/tournys" >
+	        android:text="@string/tournys" 
+	        android:singleLine="true">
 	    </Button>
 		<Button
 		    android:id="@+id/matches"
@@ -37,7 +38,8 @@
 		    android:background="@drawable/custom_button"
 		    android:onClick="onMatchButtonPress"
 		    android:layout_weight="1"
-		    android:text="@string/matches" >
+		    android:text="@string/matches" 
+		    android:singleLine="true">
 		</Button>
 		<Button android:id="@+id/notifications"
 		    android:layout_width="0dip"
@@ -45,7 +47,8 @@
 		    android:background="@drawable/custom_button"
 		    android:onClick="onNotificationsButtonPress"
 		    android:layout_weight="1"
-		    android:text="@string/notifications">
+		    android:text="@string/notifications"
+		    android:singleLine="true">
 		</Button>
 
 	</LinearLayout>

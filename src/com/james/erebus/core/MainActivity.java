@@ -19,6 +19,8 @@ public class MainActivity extends Activity {
     	 //requestWindowFeature(Window.);
     	super.onCreate(savedInstanceState);
         setContentView(com.james.erebus.R.layout.activity_main);
+        //Button b = (Button) findViewById(com.james.erebus.R.id.tournys);
+        
 		// Show the Up button in the action bar.
 		//getActionBar().setDisplayHomeAsUpEnabled(true);
         

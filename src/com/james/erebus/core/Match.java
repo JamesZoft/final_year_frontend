@@ -65,13 +65,26 @@ public class Match {
 		this.status = status;
 	}
 	
-	public boolean equals(Match m)
+	private int id;
+	public int getId()
 	{
-		if(player1.equals(m.getPlayer1()) && player2.equals(m.getPlayer2()) && parentTourny.equals(m.getParentTourny())
-				&& date.equals(m.getDate()) && links.equals(m.getLinks()) && time.equals(m.getTime()))
-		{
+		return id;
+	}
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+	
+	public boolean equalsMatch(Match m)
+	{
+		return (id == m.getId());
+	}
+	
+	public boolean isDifferentTo(Match m)
+	{
+		if(!player1.equals(m.getPlayer1()) || !player2.equals(m.getPlayer2()) || !parentTourny.equals(m.getParentTourny())
+				|| !date.equals(m.getDate()) || !links.equals(m.getLinks()) || !time.equals(m.getTime()))
 			return true;
-		}
 		return false;
 	}
 

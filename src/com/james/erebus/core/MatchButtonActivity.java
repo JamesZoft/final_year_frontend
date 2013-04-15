@@ -2,8 +2,6 @@ package com.james.erebus.core;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import com.james.erebus.JSONJava.JSONException;
 import com.james.erebus.JSONJava.JSONObject;
@@ -12,10 +10,8 @@ import com.james.erebus.networking.MatchSubscriptionManager;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.SyncStateContract.Constants;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +29,7 @@ public class MatchButtonActivity extends Activity {
 		setContentView(com.james.erebus.R.layout.activity_match_button);
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		this.setTitle("");
 		//Log.i("intent action values", this.getIntent().getStringExtra("com.james.erebus.MatchButtonActivity.dataValues"));
 		Bundle b = this.getIntent().getExtras();
 		if(b != null)
@@ -40,8 +37,6 @@ public class MatchButtonActivity extends Activity {
 			JSONObject o = (JSONObject) b.get("com.james.erebus.MatchButtonActivity.dataValues");
 			displayData(o);
 		}
-
-		
 	}
 
 	@Override
@@ -75,7 +70,7 @@ public class MatchButtonActivity extends Activity {
 		ArrayList<Match> matches = msm.getSubbedMatches(this);
 		for(Match m : matches)
 		{
-			if(m.equals(match))
+			if(m.equalsMatch(match))
 			{
 				return true;
 			}

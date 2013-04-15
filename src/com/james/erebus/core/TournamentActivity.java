@@ -7,7 +7,9 @@ import com.james.erebus.JSONJava.JSONArray;
 import com.james.erebus.JSONJava.JSONException;
 import com.james.erebus.JSONJava.JSONObject;
 import com.james.erebus.misc.MiscJsonHelpers;
+import com.james.erebus.networking.NotificationManager;
 import com.james.erebus.networking.TournamentRetriever;
+import com.james.erebus.networking.TournamentSubscriptionManager;
 
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -101,8 +103,8 @@ public class TournamentActivity extends Activity implements TournamentPreference
 
 	private void displayTournaments() throws JSONException
 	{
-		TournamentRetriever t = new TournamentRetriever();
-		tournaments = t.retrieve(t.getURI()); //get all matches from match database
+		//TournamentRetriever t = new TournamentRetriever();
+		//tournaments = t.retrieve(t.getURI()); //get all tournaments from tournament database
 		layout = (LinearLayout) findViewById(com.james.erebus.R.id.tournamentButtonsLayout);
 		if(tournaments == null)
 		{
@@ -115,37 +117,51 @@ public class TournamentActivity extends Activity implements TournamentPreference
 		ArrayList<TournyMatchOptions> tournamentOptions = getSelectedItems(); //get the filters that were selected
 		layout.removeAllViews();
 		ArrayList<Button> tournamentButtons = new ArrayList<Button>();
-		for(int i = 0; i < tournaments.length(); i++) //for each match
+		for(int i = 0; i < tournaments.length(); i++) //for each tournament
 		{
 			JSONObject obj = (JSONObject) tournaments.get(i); //construct a json object for it
 			Button newButton = new Button(this); //construct a button
-
+			Tournament tournament = MiscJsonHelpers.jsonToTournament(obj);
 			newButton.setText(obj.getString("name"));
 
 			newButton.setOnClickListener(this);
 			newButton.setTag(obj);
+			TournamentSubscriptionManager tsm = new TournamentSubscriptionManager();
+			boolean toBeAdded = true;
 			if(tournamentOptions == null) //if the user hasnt clicked the filter button yet
 			{
 				tournamentButtons.add(newButton);
+				continue;
 			}
-			else if(tournamentOptions.isEmpty()) // if the user deselected all of the filters
+			if(tournamentOptions.isEmpty()) // if the user deselected all of the filters
 			{
 				tournamentButtons.add(newButton);
+				continue;
 			}
-			else if(obj.getBoolean("future") == true && tournamentOptions.contains(TournyMatchOptions.future))
+			if(!tournament.getFuture().equals("true") && tournamentOptions.contains(TournyMatchOptions.future))
 			{
-				tournamentButtons.add(newButton);
+				toBeAdded = false;
 			}
-			//if the user only wants matches in the past
-			else if(obj.getBoolean("past") == true && tournamentOptions.contains(TournyMatchOptions.past))
+			//if the user only wants tournaments in the past
+			if(!tournament.getPast().equals("true") && tournamentOptions.contains(TournyMatchOptions.past))
 			{
-				tournamentButtons.add(newButton);
+				toBeAdded = false;
 			}
-			//if the user only wants matches that are ongoing 
-			else if(obj.getBoolean("ongoing") == true && tournamentOptions.contains(TournyMatchOptions.ongoing))
+			//if the user only wants tournaments that are ongoing 
+			if(!tournament.getOngoing().equals("true") && tournamentOptions.contains(TournyMatchOptions.ongoing))
 			{
-				tournamentButtons.add(newButton);
+				toBeAdded = false;
 			}
+			if(!tsm.isTournamentSubbed(this, tournament) && tournamentOptions.contains(TournyMatchOptions.subbed)) // if it's in the list, it's subbed to
+			{
+				toBeAdded = false;
+			}
+			if(tsm.isTournamentSubbed(this, tournament) && tournamentOptions.contains(TournyMatchOptions.unsubbed))  // if it's not in the list, it's not subbed to
+			{
+				toBeAdded = false;
+			}
+			if(toBeAdded)
+				tournamentButtons.add(newButton);
 		}
 
 		for(Button newButton : tournamentButtons)
@@ -154,12 +170,38 @@ public class TournamentActivity extends Activity implements TournamentPreference
 			layout.addView(newButton);
 		}
 	}
+	
+	public void refresh(View v)
+	{
+		getTournaments();
+		try {
+			displayTournaments();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void getTournaments()
+	{
+		TournamentRetriever t = new TournamentRetriever();
+		tournaments = t.retrieve(t.getURI());
+		TournamentSubscriptionManager msm = new TournamentSubscriptionManager();
+		//NotificationManager nm = new NotificationManager();
+		ArrayList<Tournament> newTournaments = msm.compareSubbedTournaments(this);
+		if(newTournaments != null && !newTournaments.isEmpty())
+		{
+			NotificationManager.setChangedTournaments(newTournaments);
+		}
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
 		super.onCreate(savedInstanceState);
 		setContentView(com.james.erebus.R.layout.activity_tournament);
+		this.setTitle("Tournaments");
+		getTournaments();
 		try {
 			displayTournaments();
 		} catch (JSONException e) {
@@ -171,7 +213,7 @@ public class TournamentActivity extends Activity implements TournamentPreference
 	public void onClick(View v) {
 		JSONObject values = (JSONObject)v.getTag();
 		Intent intent = new Intent(this, TournamentButtonActivity.class);
-		intent.putExtra("com.james.erebus.TournamentButtonActivity.dataValues", values.toString());
+		intent.putExtra("com.james.erebus.TournamentButtonActivity.dataValues", values);
 		startActivity(intent);
 	}
 

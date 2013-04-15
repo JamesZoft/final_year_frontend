@@ -1,11 +1,10 @@
 package com.james.erebus.networking;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.james.erebus.JSONJava.JSONArray;
 import com.james.erebus.JSONJava.JSONException;
@@ -15,6 +14,7 @@ import com.james.erebus.misc.MiscJsonHelpers;
 
 public class MatchSubscriptionManager extends SubscriptionManager {
 	
+	private static final String filename = "subbedMatches.json";
 	//ArrayList<Match> subbedMatches;
 	
 	public MatchSubscriptionManager()
@@ -27,15 +27,57 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 		ArrayList<Match> matches = getSubbedMatches(c);
 		for(Match match : matches)
 		{
-			if(m.equals(match))
+			if(m.equalsMatch(match))
 				return true;
 		}
 		return false;
 	}
+	
+	/**
+	 * 
+	 * @param c - The context in which this method is invoked
+	 * @return - The ArrayList of updated matches if it's newer, else null
+	 */
+	public ArrayList<Match> compareSubbedMatches(Context c)
+	{
+		ArrayList<Match> subbedMatches = getSubbedMatches(c);
+		MatchRetriever mr = new MatchRetriever();
+		JSONArray ja = mr.retrieve(mr.getURI());
+		if(ja == null)
+			return null;
+		ArrayList<Match> updatedMatches = (ArrayList<Match>) MiscJsonHelpers.jsonMatchArrayToMatchList(ja);
+		ArrayList<Match> changedMatches = new ArrayList<Match>();
+		JSONArray newSubbedJa = new JSONArray();
+		boolean shouldAdd;
+		for(Match m : subbedMatches)
+		{
+			shouldAdd = true;
+			for(Match m2 : updatedMatches)
+			{
+				if(m.equalsMatch(m2))
+				{
+					if(m.isDifferentTo(m2))
+					{
+						Log.i("l54:matchsubmanager", "added changed match");
+						changedMatches.add(m2);
+						newSubbedJa.put(MiscJsonHelpers.matchToJson(m2));
+						shouldAdd = false;
+						break;
+					}
+				}
+			}
+			if(shouldAdd)
+				newSubbedJa.put(MiscJsonHelpers.matchToJson(m));
+		}
+		writeSubbed(c, newSubbedJa, filename);
+		return changedMatches;
+	}
+	
+	
 
 	public ArrayList<Match> getSubbedMatches(Context c)
 	{
-		JSONArray ja = readSubbed(c, "subbedMatches.json");
+		JSONArray ja = readSubbed(c, filename);
 		if(ja != null)
 		{
 			ArrayList<Match> matches = new ArrayList<Match>();
@@ -58,7 +100,7 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 	
 	public boolean subToMatch(Match m, Context c) throws IOException, JSONException
 	{
-		JSONArray ja = readSubbed(c, "subbedMatches.json");
+		JSONArray ja = readSubbed(c, filename);
 		if(ja != null)
 		{
 			ArrayList<Match> subbedMatches = new ArrayList<Match>();
@@ -72,7 +114,7 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 			}
 			for(int i = 0; i < subbedMatches.size(); i++)
 			{
-				if(subbedMatches.get(i).equals(m))
+				if(subbedMatches.get(i).equalsMatch(m))
 				{
 					return false;
 				}
@@ -81,14 +123,14 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 		else
 			ja = new JSONArray();
 		ja.put(MiscJsonHelpers.matchToJson(m));
-		writeSubbed(c, ja, "subbedMatches.json");
+		writeSubbed(c, ja, filename);
 		return false;
 	}
 	
 	public boolean unsubFromMatch(Context c, Match m)
 	{
 		boolean retVal = false;
-		JSONArray ja = readSubbed(c, "subbedMatches.json");
+		JSONArray ja = readSubbed(c, filename);
 		
 		ArrayList<Match> subbedMatches = new ArrayList<Match>();
 		for(int i = 0; i < ja.length(); i++)
@@ -102,7 +144,7 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 		JSONArray returnJa = new JSONArray();
 		for(int i = 0; i < subbedMatches.size(); i++)
 		{
-			if(subbedMatches.get(i).equals(m))
+			if(subbedMatches.get(i).equalsMatch(m))
 			{
 				retVal = true;
 				//this is the match we want to remove, so don't add it
@@ -110,7 +152,7 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 			else
 				returnJa.put(MiscJsonHelpers.matchToJson(subbedMatches.get(i)));
 		}
-		writeSubbed(c, returnJa, "subbedMatches.json");
+		writeSubbed(c, returnJa, filename);
 		return retVal;
 	}
 

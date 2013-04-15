@@ -8,6 +8,7 @@
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/Tournament.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/Match.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/MatchPreferencesFragment$3.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/NotificationActivity$2.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/TournamentPreferencesFragment$3.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/TournamentFactory.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/TournamentPreferencesFragment$2.class \
@@ -19,13 +20,16 @@
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/MatchPreferencesFragment$2.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/CustomOnItemSelectedListener.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/TournamentPreferencesFragment.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/Notification.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/TournyMatchOptions.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/MainActivity.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/NotificationActivity.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/NotificationActivity$1.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/TournamentPreferencesFragment$1.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/TournamentButtonActivity.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/ParentPreferencesFragment$NoticeDialogListener.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/SubscriptionManager.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/NotificationManager.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/MatchSubscriptionManager.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/TournamentRetriever.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/TournamentSubscriptionManager.class \
@@ -39,6 +43,7 @@
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/R$bool.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/R$color.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/misc/MiscJsonHelpers.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/misc/misc.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/R$array.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/XML.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/XMLTokener.class \
