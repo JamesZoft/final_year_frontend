@@ -119,7 +119,7 @@ public class TournamentSubscriptionManager extends SubscriptionManager {
 		return changedTournaments;
 	}
 	
-	public boolean unsubFromTournament(Context c, Tournament m)
+	public boolean unsubFromTournament(Context c, Tournament t)
 	{
 		boolean retVal = false;
 		JSONArray ja = readSubbed(c, "subbedTournaments.json");
@@ -136,7 +136,7 @@ public class TournamentSubscriptionManager extends SubscriptionManager {
 		JSONArray returnJa = new JSONArray();
 		for(int i = 0; i < subbedTournaments.size(); i++)
 		{
-			if(subbedTournaments.get(i).equals(m))
+			if(subbedTournaments.get(i).equalsTournament(t))
 			{
 				retVal = true;
 				//this is the tournament we want to remove, so don't add it

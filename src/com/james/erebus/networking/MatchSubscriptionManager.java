@@ -3,6 +3,8 @@ package com.james.erebus.networking;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.http.message.BasicNameValuePair;
+
 import android.content.Context;
 import android.util.Log;
 
@@ -123,6 +125,7 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 		else
 			ja = new JSONArray();
 		ja.put(MiscJsonHelpers.matchToJson(m));
+		addMatchSubscriptionToServer(MiscNetworkingHelpers.regId, Integer.toString(m.getId()));
 		writeSubbed(c, ja, filename);
 		return false;
 	}
@@ -152,8 +155,21 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 			else
 				returnJa.put(MiscJsonHelpers.matchToJson(subbedMatches.get(i)));
 		}
+		
 		writeSubbed(c, returnJa, filename);
 		return retVal;
+	}
+	
+	@SuppressWarnings("serial")
+	private void addMatchSubscriptionToServer(final String regId, final String matchEntryId)
+	{
+		Log.v("addmatchsubtoserver", regId);
+		Log.v("addmatchsubtoserver", matchEntryId);
+		MiscNetworkingHelpers.sendInformationToServer(regId, "subscriptions.json", 
+				new ArrayList<BasicNameValuePair>() {{ 
+					add(new BasicNameValuePair("subscription[device_id]", regId));
+					add(new BasicNameValuePair("subscription[match_entry_id]", matchEntryId));
+					}});
 	}
 
 }

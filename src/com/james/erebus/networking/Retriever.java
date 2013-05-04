@@ -39,7 +39,9 @@ public abstract class Retriever {
 			HttpProtocolParams.setVersion(httpParameters, HttpVersion.HTTP_1_1);
 			HttpGet httpget = new HttpGet(uri);
 			HttpResponse response = httpclient.execute(httpget);
+			
 			HttpEntity entity = response.getEntity();
+			
 			if (entity != null) {
 				InputStream instream = entity.getContent();
 				try {

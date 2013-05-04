@@ -1,28 +1,34 @@
 # view res/layout/activity_main.xml #generated:7
 -keep class android.support.v4.view.ViewPager { <init>(...); }
 
-# view AndroidManifest.xml #generated:25
+# view AndroidManifest.xml #generated:29
+-keep class com.google.android.gcm.GCMBroadcastReceiver { <init>(...); }
+
+# view AndroidManifest.xml #generated:28
+-keep class com.james.erebus.GCMIntentService { <init>(...); }
+
+# view AndroidManifest.xml #generated:45
 -keep class com.james.erebus.core.DisplayMessageActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:57
+# view AndroidManifest.xml #generated:77
 -keep class com.james.erebus.core.DropDownListDemo { <init>(...); }
 
-# view AndroidManifest.xml #generated:16
+# view AndroidManifest.xml #generated:36
 -keep class com.james.erebus.core.MainActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:33
+# view AndroidManifest.xml #generated:53
 -keep class com.james.erebus.core.MatchActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:65
+# view AndroidManifest.xml #generated:85
 -keep class com.james.erebus.core.MatchButtonActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:49
+# view AndroidManifest.xml #generated:69
 -keep class com.james.erebus.core.NotificationActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:41
+# view AndroidManifest.xml #generated:61
 -keep class com.james.erebus.core.TournamentActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:73
+# view AndroidManifest.xml #generated:93
 -keep class com.james.erebus.core.TournamentButtonActivity { <init>(...); }
 
 # onClick res/layout/activity_match.xml #generated:11

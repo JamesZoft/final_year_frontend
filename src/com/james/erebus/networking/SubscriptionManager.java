@@ -4,6 +4,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import org.apache.http.message.BasicNameValuePair;
 
 import android.content.Context;
 
@@ -26,6 +29,8 @@ public class SubscriptionManager {
 			}
 			
 		}
+		
+	
 		
 		public JSONArray readSubbed(Context c, String fileName)
 		{
