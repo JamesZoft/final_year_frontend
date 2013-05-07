@@ -46,8 +46,8 @@ public abstract class Retriever {
 				InputStream instream = entity.getContent();
 				try {
 					JSONTokener jt = new JSONTokener(instream);
-					JSONArray matches = new JSONArray(jt);
-					return matches;
+					JSONArray retrievedInfo = new JSONArray(jt);
+					return retrievedInfo;
 				} finally {
 					instream.close();
 				}

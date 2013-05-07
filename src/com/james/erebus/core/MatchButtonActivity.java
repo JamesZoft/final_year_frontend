@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -80,20 +81,19 @@ public class MatchButtonActivity extends Activity {
 
 	public void matchSubUnsub(View v) throws IOException, JSONException
 	{
-
 		MatchSubscriptionManager msm = new MatchSubscriptionManager();
+		Button subButton = (Button) findViewById(com.james.erebus.R.id.matchSubscribeButton);
+		subButton.setEnabled(false);
 		if(!msm.isMatchSubbed(this, match))
 		{
 
-			msm.subToMatch(match, this);
+			msm.subToMatch(match, this, subButton);
 		}
 		else
 		{
-			msm.unsubFromMatch(this, match);
+			msm.unsubFromMatch(this, match, subButton);
 		}
-		//match.setSubbed(!match.isSubbed());	
-
-		setSubButtonText();
+		subButton.setEnabled(true);
 	}
 
 	private void displayData(JSONObject data)

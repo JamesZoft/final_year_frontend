@@ -30,6 +30,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(com.james.erebus.R.layout.activity_main);
 		GCMRegistrar.checkDevice(this);
+		
 		GCMRegistrar.checkManifest(this);
 		final String regId = GCMRegistrar.getRegistrationId(this);
 
@@ -40,7 +41,7 @@ public class MainActivity extends Activity {
 		}
 		Log.v("reg_id", regId);
 
-		register();
+		//register();
 	}
 
 	/**

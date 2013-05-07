@@ -3,6 +3,9 @@ package com.james.erebus.networking;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.http.conn.HttpHostConnectException;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.content.Context;
 import android.util.Log;
 
@@ -76,6 +79,7 @@ public class TournamentSubscriptionManager extends SubscriptionManager {
 			ja = new JSONArray();
 		ja.put(MiscJsonHelpers.tournamentToJson(t));
 		writeSubbed(c, ja, "subbedTournaments.json");
+		addTournamentSubscriptionToServer(MiscNetworkingHelpers.regId, Integer.toString(t.getId()));
 		return false;
 	}
 	
@@ -145,7 +149,53 @@ public class TournamentSubscriptionManager extends SubscriptionManager {
 				returnJa.put(MiscJsonHelpers.tournamentToJson(subbedTournaments.get(i)));
 		}
 		writeSubbed(c, returnJa, "subbedTournaments.json");
+		removeTournamentSubscriptionToServer(MiscNetworkingHelpers.regId, Integer.toString(t.getId()));
 		return retVal;
 	}
-
+	
+	@SuppressWarnings("serial")
+	private void addTournamentSubscriptionToServer(final String regId, final String tournamentEntryId)
+	{
+		Log.v("addtournamentsubtoserver", regId);
+		Log.v("addtournamentsubtoserver", tournamentEntryId);
+		try {
+			MiscNetworkingHelpers.postInformationToServer(regId, "subscriptions.json", 
+					new ArrayList<BasicNameValuePair>() {{ 
+						add(new BasicNameValuePair("subscription[device_registration_id]", regId));
+						add(new BasicNameValuePair("subscription[model_id]", tournamentEntryId));
+						add(new BasicNameValuePair("subscription[model_type]", "TournamentEntry"));
+						}});
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void removeTournamentSubscriptionToServer(final String regId, final String tournamentEntryId)
+	{
+		
+		
+		SubscriptionRetriever sr = new SubscriptionRetriever();
+		JSONArray subs = sr.retrieve(sr.getURI());
+		for(int i = 0; i < subs.length(); i++)
+		{
+			try {
+				JSONObject obj = (JSONObject) subs.get(i);
+				String tournamentEntryIdRetrieved = Integer.toString(obj.getInt("tournament_entry_id")).toLowerCase();
+				if(tournamentEntryIdRetrieved != "null")
+					if(tournamentEntryIdRetrieved.equals(tournamentEntryId))
+					{
+						try {
+							MiscNetworkingHelpers.deleteInformationFromServer(regId, "subscriptions/" + Integer.toString(obj.getInt("id")) + ".json");
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 }
