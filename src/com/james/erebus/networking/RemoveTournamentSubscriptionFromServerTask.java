@@ -15,8 +15,8 @@ import android.widget.Button;
 import com.james.erebus.JSONJava.JSONException;
 import com.james.erebus.JSONJava.JSONObject;
 
-public class RemoveMatchSubscriptionFromServerTask extends TimerTask{
-
+public class RemoveTournamentSubscriptionFromServerTask extends TimerTask{
+	
 	private static JSONObject obj;
 	private static String regId;
 	private static boolean success;
@@ -61,8 +61,8 @@ public class RemoveMatchSubscriptionFromServerTask extends TimerTask{
 			if(failures < 2)
 			{
 				Log.e("RemoveMatchSubscriptionFromServerTask", "Failed to delete match, re-trying...");
-				RemoveMatchSubscriptionFromServerTask task = new RemoveMatchSubscriptionFromServerTask();
-				Timer t = new Timer("RemoveMatchSubscriptionFromServerTimer");
+				RemoveTournamentSubscriptionFromServerTask task = new RemoveTournamentSubscriptionFromServerTask();
+				Timer t = new Timer("RemoveTournamentSubscriptionFromServerTimer");
 				Date d = new Date();
 				d.setDate(Calendar.getInstance().getTime().getDate());
 				d.setHours(Calendar.getInstance().getTime().getHours());
@@ -110,17 +110,17 @@ public class RemoveMatchSubscriptionFromServerTask extends TimerTask{
 
 	public void setButton(Button b)
 	{
-		RemoveMatchSubscriptionFromServerTask.b = b;
+		RemoveTournamentSubscriptionFromServerTask.b = b;
 	}
 
 	public void setRegId(String regId)
 	{
-		RemoveMatchSubscriptionFromServerTask.regId = regId;
+		RemoveTournamentSubscriptionFromServerTask.regId = regId;
 	}
 
 	public void setJsonMatchObject(JSONObject obj)
 	{
-		RemoveMatchSubscriptionFromServerTask.obj = obj;
+		RemoveTournamentSubscriptionFromServerTask.obj = obj;
 	}
 
 }

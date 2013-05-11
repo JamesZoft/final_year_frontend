@@ -18,7 +18,6 @@ public class Notification {
 		this.t = t;
 	}
 	
-	
 	/**
 	 * 
 	 * @return 0 if this notification holds a match, 1 if a tournament, and 2 if nothing

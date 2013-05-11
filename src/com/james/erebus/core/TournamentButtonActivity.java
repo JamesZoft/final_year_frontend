@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.james.erebus.JSONJava.JSONException;
 import com.james.erebus.JSONJava.JSONObject;
+import com.james.erebus.misc.AppConsts;
 import com.james.erebus.misc.MiscJsonHelpers;
 import com.james.erebus.networking.TournamentSubscriptionManager;
 
@@ -114,17 +115,25 @@ public class TournamentButtonActivity extends Activity {
 	
 	public void tournamentSubUnsub(View v) throws IOException, JSONException
 	{
-
+		Button subButton = (Button) findViewById(com.james.erebus.R.id.tournamentSubscribeButton);
 		TournamentSubscriptionManager tsm = new TournamentSubscriptionManager();
 		if(!tsm.isTournamentSubbed(this, tournament))
 		{
 
-			tsm.subToTournament(tournament, this);
+			tsm.subToTournament(tournament, this, subButton);
 		}
 		else
 		{
-			tsm.unsubFromTournament(this, tournament);
+			tsm.unsubFromTournament(this, tournament, subButton);
 		}
-		setSubButtonText();
+		//setSubButtonText();
 	}
+	
+	@Override
+	public void onResume()
+	{
+		AppConsts.currentActivity = this;
+		super.onResume();
+	}
+
 }

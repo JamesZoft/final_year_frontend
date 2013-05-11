@@ -47,7 +47,7 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 	{
 		ArrayList<Match> subbedMatches = getSubbedMatches(c);
 		MatchRetriever mr = new MatchRetriever();
-		JSONArray ja = mr.retrieve(mr.getURI());
+		JSONArray ja = mr.retrieve(mr.getURI(), mr.getMatchesFilename());
 		if(ja == null)
 			return null;
 		ArrayList<Match> updatedMatches = (ArrayList<Match>) MiscJsonHelpers.jsonMatchArrayToMatchList(ja);
@@ -103,7 +103,7 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 	}
 
 
-	public boolean subToMatch(Match m, Context c, Button b) throws IOException, JSONException
+	public void subToMatch(Match m, Context c, Button b) throws IOException, JSONException
 	{
 
 		JSONArray ja = readSubbed(c, filename);
@@ -122,7 +122,7 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 			{
 				if(subbedMatches.get(i).equalsMatch(m))
 				{
-					return false;
+					//already subbed
 				}
 			}
 		}
@@ -131,10 +131,9 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 		ja.put(MiscJsonHelpers.matchToJson(m));
 		addMatchSubscriptionToServer(MiscNetworkingHelpers.regId, Integer.toString(m.getId()), b);
 		writeSubbed(c, ja, filename);
-		return false;
 	}
 
-	public boolean unsubFromMatch(Context c, Match m, Button b)
+	public void unsubFromMatch(Context c, Match m, Button b)
 	{
 		JSONArray ja = readSubbed(c, filename);
 
@@ -160,7 +159,7 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 		}
 
 		writeSubbed(c, returnJa, filename);
-		return removeMatchSubscriptionToServer(MiscNetworkingHelpers.regId, Integer.toString(m.getId()), b);
+		removeMatchSubscriptionFromServer(MiscNetworkingHelpers.regId, Integer.toString(m.getId()), b);
 	}
 
 	@SuppressWarnings("serial")
@@ -174,10 +173,10 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 		t.schedule(task, Calendar.getInstance().getTime());
 	}
 
-	private boolean removeMatchSubscriptionToServer(final String regId, final String matchEntryId, Button b)
+	private void removeMatchSubscriptionFromServer(final String regId, final String matchEntryId, Button b)
 	{
 		SubscriptionRetriever sr = new SubscriptionRetriever();
-		JSONArray subs = sr.retrieve(sr.getURI());
+		JSONArray subs = sr.retrieve(sr.getURI(), sr.getSubscriptionsFilename());
 		for(int i = 0; i < subs.length(); i++)
 		{
 			try {
@@ -204,7 +203,7 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 					else
 					{
 						Log.e("removeMatchSub", "unable to remove sub, connection to server not available");
-						return false;
+						//return false;
 					}
 				}
 
@@ -213,7 +212,7 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 				e.printStackTrace();
 			}
 		}
-		return true;
+		//return true;
 	}
 
 }

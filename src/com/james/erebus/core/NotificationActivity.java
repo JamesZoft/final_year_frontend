@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.james.erebus.JSONJava.JSONObject;
+import com.james.erebus.misc.AppConsts;
 import com.james.erebus.misc.MiscJsonHelpers;
 import com.james.erebus.networking.NotificationManager;
 
@@ -32,6 +33,14 @@ public class NotificationActivity extends Activity {
 		//getActionBar().setDisplayHomeAsUpEnabled(true);
 		displayNotifications(new View(this));
 	}
+	
+	@Override
+	public void onResume()
+	{
+		AppConsts.currentActivity = this;
+		super.onResume();
+	}
+
 
 	public void displayNotifications(View v)
 	{

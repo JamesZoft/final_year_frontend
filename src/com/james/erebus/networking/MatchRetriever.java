@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 public class MatchRetriever extends Retriever{
 
 	URI uri;
+	String matchesFilename;
 	
 	public MatchRetriever()
 	{
@@ -16,6 +17,12 @@ public class MatchRetriever extends Retriever{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		matchesFilename = "matches.json";
+	}
+	
+	public String getMatchesFilename()
+	{
+		return matchesFilename;
 	}
 	
 	public URI getURI()
@@ -27,8 +34,8 @@ public class MatchRetriever extends Retriever{
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		MatchRetriever m = new MatchRetriever();
-		m.retrieve(m.getURI());
+		//MatchRetriever m = new MatchRetriever();
+		//m.retrieve(m.getURI(), m.);
 
 	}
 	

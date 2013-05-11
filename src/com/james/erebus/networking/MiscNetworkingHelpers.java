@@ -1,5 +1,7 @@
 package com.james.erebus.networking;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,6 +23,12 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 
+import com.james.erebus.JSONJava.JSONArray;
+import com.james.erebus.JSONJava.JSONException;
+import com.james.erebus.JSONJava.JSONObject;
+import com.james.erebus.misc.AppConsts;
+
+import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -28,8 +36,49 @@ import android.util.Log;
 public class MiscNetworkingHelpers {
 
 	public static String regId;
-	
+
 	public static Handler handler = new Handler(Looper.getMainLooper());
+
+	public static void addEntryToInternalStorage(JSONObject obj, String filename)
+	{
+		try{
+			FileInputStream fis = AppConsts.currentActivity.openFileInput(filename);
+			JSONArray ja;
+			int ch;
+			StringBuffer strBuf = new StringBuffer("");
+			while((ch = fis.read()) != -1)
+			{
+				strBuf.append((char)ch);
+			}
+			fis.close();
+			ja = new JSONArray(strBuf.toString());
+			
+			boolean doesObjectExist = false;
+			for(int i = 0; i < ja.length(); i++)
+			{
+				if(ja.getJSONObject(i).get("id").equals(obj.get("id")))
+				{
+					doesObjectExist = true;
+					ja.put(i, obj);
+				}
+			}
+			if(!doesObjectExist)
+			{	
+				ja.put(obj);
+				
+			}
+			FileOutputStream fos = AppConsts.currentActivity.openFileOutput(filename, Context.MODE_PRIVATE);
+			fos.write(ja.toString().getBytes());
+			fos.close();
+		}
+		catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public static boolean postInformationToServer(String regId, String uriExtension, ArrayList<BasicNameValuePair> info) throws Exception
 	{

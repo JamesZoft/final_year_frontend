@@ -21,7 +21,9 @@ public class AddTournamentSubscriptionToServerTask extends TimerTask {
 	private static String tournamentEntryId;
 	private static boolean success;
 	private static Button b;
-	
+	private static int failures;
+	private static ArrayList<AlertDialog> dialogs = new ArrayList<AlertDialog>();
+
 	@SuppressWarnings("serial")
 	@Override
 	public void run() {
@@ -34,6 +36,10 @@ public class AddTournamentSubscriptionToServerTask extends TimerTask {
 					}});
 			if(success)
 			{
+				for(AlertDialog retryDialog : dialogs)
+				{
+					retryDialog.dismiss();
+				}
 				MiscNetworkingHelpers.handler.post(new Runnable() {
 
 					@Override
@@ -41,7 +47,7 @@ public class AddTournamentSubscriptionToServerTask extends TimerTask {
 						b.setText("Subscribed");
 					}  });
 			}
-			else
+			/*else
 			{
 				MiscNetworkingHelpers.handler.post(new Runnable() {
 
@@ -55,25 +61,58 @@ public class AddTournamentSubscriptionToServerTask extends TimerTask {
 					}  });
 
 
-				//atempting to initialize hardware accel
-			}
+			}*/
 		} catch(HttpHostConnectException e)
 		{
-			Log.e("AddTournamentSubscriptionToServerTask", "Failed to add match, re-adding...");
-			AddTournamentSubscriptionToServerTask task = new AddTournamentSubscriptionToServerTask();
-			Timer t = new Timer("AddTournamentSubscriptionToServerTimer");
-			Date d = new Date();
-			d.setDate(Calendar.getInstance().getTime().getDate());
-			d.setHours(Calendar.getInstance().getTime().getHours());
-			d.setMinutes(Calendar.getInstance().getTime().getMinutes());
-			d.setSeconds(Calendar.getInstance().getTime().getSeconds() + 10);
-			t.schedule(task, d);
+			if(failures < 2)
+			{
+				Log.e("AddTournamentSubscriptionToServerTask", "Failed to add tournament, re-adding...");
+				AddTournamentSubscriptionToServerTask task = new AddTournamentSubscriptionToServerTask();
+				Timer t = new Timer("AddTournamentSubscriptionToServerTimer");
+				Date d = new Date();
+				d.setDate(Calendar.getInstance().getTime().getDate());
+				d.setHours(Calendar.getInstance().getTime().getHours());
+				d.setMinutes(Calendar.getInstance().getTime().getMinutes());
+				d.setSeconds(Calendar.getInstance().getTime().getSeconds() + 10);
+				t.schedule(task, d);
+				MiscNetworkingHelpers.handler.post(new Runnable() {
+
+					@Override
+					public void run() {
+						AlertDialog.Builder builder = new AlertDialog.Builder(b.getContext());
+						builder.setMessage("No connection to the server - retrying")
+						.setTitle("Connection error");
+						AlertDialog dialog = builder.create();
+						dialogs.add(dialog);
+						dialog.show();
+					}  });
+				failures++;
+			}
+			else
+			{
+				MiscNetworkingHelpers.handler.post(new Runnable() {
+
+					@Override
+					public void run() {
+						AlertDialog.Builder builder = new AlertDialog.Builder(b.getContext());
+						builder.setMessage("No connection to the server - please check your wireless is on and connected to a network")
+						.setTitle("Connection error");
+						AlertDialog dialog = builder.create();
+						for(AlertDialog retryDialog : dialogs)
+						{
+							retryDialog.dismiss();
+						}
+						dialog.show();
+					}  });
+				failures = 0;
+			}
 		} catch(IOException e)
 		{
-			Log.e("AddMatchSubscriptionTask", "io exception happened :(");
+			Log.e("AddTournamentSubscriptionToServerTask", "io exception happened :(");
+			e.printStackTrace();
 		}
 		catch (Exception e) {
-			Log.e("AddMatchSubscriptionTask", "other exception happened :(");
+			Log.e("AddTournamentSubscriptionToServerTask", "other exception happened :(");
 			e.printStackTrace();
 		}
 	}

@@ -3,6 +3,9 @@ package com.james.erebus.core;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -21,7 +24,9 @@ import android.widget.TextView;
 import com.james.erebus.JSONJava.JSONArray;
 import com.james.erebus.JSONJava.JSONException;
 import com.james.erebus.JSONJava.JSONObject;
+import com.james.erebus.misc.AppConsts;
 import com.james.erebus.misc.MiscJsonHelpers;
+import com.james.erebus.networking.GetMatchesTask;
 import com.james.erebus.networking.MatchRetriever;
 import com.james.erebus.networking.MatchSubscriptionManager;
 import com.james.erebus.networking.NotificationManager;
@@ -108,8 +113,6 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 			newButton.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
 			layout.addView(newButton);
 		}
-
-
 	}
 
 	/*private Match matchIsInList(Match m, List<Match> matches)
@@ -124,24 +127,12 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 		}
 		return null;
 	}
-
-	private void freeTextSearchFilter()
-	{
-		layout  = (LinearLayout) findViewById(com.james.erebus.R.id.matchButtonsLayout);
-		if(matches == null)
-		{
-			TextView tv = new TextView(this);
-			tv.setText("The app was unable to retrieve information from the server: please check you have a" +
-					" valid internet connection, then try again.");
-			layout.addView(tv);
-			return;
-		}
-
-	}*/
+	
+	*/
 	
 	public void refresh(View v)
 	{
-		getMatches();
+		getMatches(true);
 		try {
 			displayMatches();
 		} catch (JSONException e) {
@@ -149,11 +140,22 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	public void onResume()
+	{
+		AppConsts.currentActivity = this;
+		super.onResume();
+	}
 
-	private void getMatches()
+
+	private void getMatches(boolean forceRefresh)
 	{
 		MatchRetriever m = new MatchRetriever();
-		matches = m.retrieve(m.getURI());
+		if(forceRefresh)
+			matches = m.forceRetrieveFromServer(m.getURI(), m.getMatchesFilename());
+		else
+			matches = m.retrieve(m.getURI(), m.getMatchesFilename());
 		MatchSubscriptionManager msm = new MatchSubscriptionManager();
 		//NotificationManager nm = new NotificationManager();
 		ArrayList<Match> newMatches = msm.compareSubbedMatches(this);
@@ -242,12 +244,19 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 		super.onCreate(savedInstanceState);
 		setContentView(com.james.erebus.R.layout.activity_match);
 		this.setTitle("Matches");
-		getMatches();
+		getMatches(false);
 		try {
 			displayMatches();
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		long thirtyMinutesInMillis = 18000000;
+		long fiveminutesinmillis = 300000;
+		long delayAndTimer = fiveminutesinmillis;
+		GetMatchesTask task = new GetMatchesTask();
+		GetMatchesTask.setContext(this);
+		Timer timer = new Timer("GetMatchesTimer");
+		timer.schedule(task, delayAndTimer, delayAndTimer);
 	}
 
 	@Override

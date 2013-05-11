@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.james.erebus.JSONJava.JSONException;
 import com.james.erebus.JSONJava.JSONObject;
+import com.james.erebus.misc.AppConsts;
 import com.james.erebus.misc.MiscJsonHelpers;
 import com.james.erebus.networking.MatchSubscriptionManager;
 
@@ -78,6 +79,14 @@ public class MatchButtonActivity extends Activity {
 		}
 		return false;
 	}
+	
+	@Override
+	public void onResume()
+	{
+		AppConsts.currentActivity = this;
+		super.onResume();
+	}
+
 
 	public void matchSubUnsub(View v) throws IOException, JSONException
 	{

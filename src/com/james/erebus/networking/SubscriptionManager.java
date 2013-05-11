@@ -1,5 +1,6 @@
 package com.james.erebus.networking;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -46,6 +47,9 @@ public class SubscriptionManager {
 				fis.close();
 				ja = new JSONArray(strBuf.toString());
 				return ja;
+			} catch(FileNotFoundException fnf)
+			{
+				
 			}
 			catch (IOException e) {
 				e.printStackTrace();

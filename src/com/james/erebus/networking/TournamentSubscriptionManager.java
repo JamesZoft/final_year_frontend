@@ -2,12 +2,15 @@ package com.james.erebus.networking;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Timer;
 
 import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Button;
 
 import com.james.erebus.JSONJava.JSONArray;
 import com.james.erebus.JSONJava.JSONException;
@@ -16,7 +19,7 @@ import com.james.erebus.core.Tournament;
 import com.james.erebus.misc.MiscJsonHelpers;
 
 public class TournamentSubscriptionManager extends SubscriptionManager {
-	
+
 	private static final String filename = "subbedTournaments.json";
 
 	public boolean isTournamentSubbed(Context c, Tournament t)
@@ -51,9 +54,9 @@ public class TournamentSubscriptionManager extends SubscriptionManager {
 			return new ArrayList<Tournament>();
 		}
 	}
-	
-	
-	public boolean subToTournament(Tournament t, Context c) throws IOException, JSONException
+
+
+	public boolean subToTournament(Tournament t, Context c, Button b) throws IOException, JSONException
 	{
 		JSONArray ja = readSubbed(c, "subbedTournaments.json");
 		if(ja != null)
@@ -79,10 +82,10 @@ public class TournamentSubscriptionManager extends SubscriptionManager {
 			ja = new JSONArray();
 		ja.put(MiscJsonHelpers.tournamentToJson(t));
 		writeSubbed(c, ja, "subbedTournaments.json");
-		addTournamentSubscriptionToServer(MiscNetworkingHelpers.regId, Integer.toString(t.getId()));
+		addTournamentSubscriptionToServer(MiscNetworkingHelpers.regId, Integer.toString(t.getId()), b);
 		return false;
 	}
-	
+
 	/**
 	 * 
 	 * @param c - The context in which this method is invoked
@@ -92,7 +95,7 @@ public class TournamentSubscriptionManager extends SubscriptionManager {
 	{
 		ArrayList<Tournament> subbedTournaments = getSubbedTournaments(c);
 		TournamentRetriever tr = new TournamentRetriever();
-		JSONArray ja = tr.retrieve(tr.getURI());
+		JSONArray ja = tr.retrieve(tr.getURI(), tr.getTournamentsFilename());
 		if(ja == null)
 			return null;
 		ArrayList<Tournament> updatedTournaments = (ArrayList<Tournament>) MiscJsonHelpers.jsonTournamentArrayToTournamentList(ja);
@@ -122,12 +125,12 @@ public class TournamentSubscriptionManager extends SubscriptionManager {
 		writeSubbed(c, newSubbedJa, filename);
 		return changedTournaments;
 	}
-	
-	public boolean unsubFromTournament(Context c, Tournament t)
+
+	public boolean unsubFromTournament(Context c, Tournament t, Button b)
 	{
 		boolean retVal = false;
 		JSONArray ja = readSubbed(c, "subbedTournaments.json");
-		
+
 		ArrayList<Tournament> subbedTournaments = new ArrayList<Tournament>();
 		for(int i = 0; i < ja.length(); i++)
 		{
@@ -149,14 +152,14 @@ public class TournamentSubscriptionManager extends SubscriptionManager {
 				returnJa.put(MiscJsonHelpers.tournamentToJson(subbedTournaments.get(i)));
 		}
 		writeSubbed(c, returnJa, "subbedTournaments.json");
-		removeTournamentSubscriptionToServer(MiscNetworkingHelpers.regId, Integer.toString(t.getId()));
+		removeTournamentSubscriptionToServer(MiscNetworkingHelpers.regId, Integer.toString(t.getId()), b);
 		return retVal;
 	}
-	
+
 	@SuppressWarnings("serial")
-	private void addTournamentSubscriptionToServer(final String regId, final String tournamentEntryId)
+	private void addTournamentSubscriptionToServer(final String regId, final String tournamentEntryId, Button b)
 	{
-		Log.v("addtournamentsubtoserver", regId);
+		/*Log.v("addtournamentsubtoserver", regId);
 		Log.v("addtournamentsubtoserver", tournamentEntryId);
 		try {
 			MiscNetworkingHelpers.postInformationToServer(regId, "subscriptions.json", 
@@ -168,33 +171,41 @@ public class TournamentSubscriptionManager extends SubscriptionManager {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
+
+		AddTournamentSubscriptionToServerTask task = new AddTournamentSubscriptionToServerTask();
+		task.setRegId(regId);
+		task.setButton(b);
+		task.setTournamentEntryId(tournamentEntryId);
+		Timer t = new Timer("AddTournamentSubscriptionToServerTimer");
+		t.schedule(task, Calendar.getInstance().getTime());
 	}
-	
-	private void removeTournamentSubscriptionToServer(final String regId, final String tournamentEntryId)
+
+	private void removeTournamentSubscriptionToServer(final String regId, final String tournamentEntryId, Button b)
 	{
-		
-		
 		SubscriptionRetriever sr = new SubscriptionRetriever();
-		JSONArray subs = sr.retrieve(sr.getURI());
-		for(int i = 0; i < subs.length(); i++)
+		JSONArray subs = sr.retrieve(sr.getURI(), sr.getSubscriptionsFilename());
+		if(subs != null)
 		{
-			try {
-				JSONObject obj = (JSONObject) subs.get(i);
-				String tournamentEntryIdRetrieved = Integer.toString(obj.getInt("tournament_entry_id")).toLowerCase();
-				if(tournamentEntryIdRetrieved != "null")
-					if(tournamentEntryIdRetrieved.equals(tournamentEntryId))
-					{
-						try {
-							MiscNetworkingHelpers.deleteInformationFromServer(regId, "subscriptions/" + Integer.toString(obj.getInt("id")) + ".json");
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+			for(int i = 0; i < subs.length(); i++)
+			{
+				try {
+					JSONObject obj = (JSONObject) subs.get(i);
+					String tournamentEntryIdRetrieved = Integer.toString(obj.getInt("model_id")).toLowerCase();
+					if(tournamentEntryIdRetrieved != "null")
+						if(tournamentEntryIdRetrieved.equals(tournamentEntryId))
+						{
+							RemoveTournamentSubscriptionFromServerTask task = new RemoveTournamentSubscriptionFromServerTask();
+							task.setButton(b);
+							task.setRegId(regId);
+							task.setJsonMatchObject(obj);
+							Timer t = new Timer("RemoveTournamentSubscriptionFromServerTimer");
+							t.schedule(task, Calendar.getInstance().getTime());
 						}
-					}
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}

@@ -2,11 +2,15 @@ package com.james.erebus.core;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Timer;
 
 import com.james.erebus.JSONJava.JSONArray;
 import com.james.erebus.JSONJava.JSONException;
 import com.james.erebus.JSONJava.JSONObject;
+import com.james.erebus.misc.AppConsts;
 import com.james.erebus.misc.MiscJsonHelpers;
+import com.james.erebus.networking.GetMatchesTask;
+import com.james.erebus.networking.GetTournamentsTask;
 import com.james.erebus.networking.NotificationManager;
 import com.james.erebus.networking.TournamentRetriever;
 import com.james.erebus.networking.TournamentSubscriptionManager;
@@ -173,7 +177,7 @@ public class TournamentActivity extends Activity implements TournamentPreference
 	
 	public void refresh(View v)
 	{
-		getTournaments();
+		getTournaments(true);
 		try {
 			displayTournaments();
 		} catch (JSONException e) {
@@ -182,13 +186,16 @@ public class TournamentActivity extends Activity implements TournamentPreference
 		}
 	}
 	
-	private void getTournaments()
+	private void getTournaments(boolean forceRefresh)
 	{
 		TournamentRetriever t = new TournamentRetriever();
-		tournaments = t.retrieve(t.getURI());
-		TournamentSubscriptionManager msm = new TournamentSubscriptionManager();
+		if(forceRefresh)
+			tournaments = t.forceRetrieveFromServer(t.getURI(), t.getTournamentsFilename());
+		else
+			tournaments = t.retrieve(t.getURI(), t.getTournamentsFilename());
+		TournamentSubscriptionManager tsm = new TournamentSubscriptionManager();
 		//NotificationManager nm = new NotificationManager();
-		ArrayList<Tournament> newTournaments = msm.compareSubbedTournaments(this);
+		ArrayList<Tournament> newTournaments = tsm.compareSubbedTournaments(this);
 		if(newTournaments != null && !newTournaments.isEmpty())
 		{
 			NotificationManager.setChangedTournaments(newTournaments);
@@ -201,12 +208,19 @@ public class TournamentActivity extends Activity implements TournamentPreference
 		super.onCreate(savedInstanceState);
 		setContentView(com.james.erebus.R.layout.activity_tournament);
 		this.setTitle("Tournaments");
-		getTournaments();
+		getTournaments(false);
 		try {
 			displayTournaments();
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		long fiveminutesinmillis = 300000;
+		long thirtyMinutesInMillis = 18000000;
+		long delayAndTimer = fiveminutesinmillis;
+		GetTournamentsTask task = new GetTournamentsTask();
+		GetTournamentsTask.setContext(this);
+		Timer timer = new Timer("GetTournamentsTimer");
+		timer.schedule(task, delayAndTimer, delayAndTimer);
 	}
 
 	@Override
@@ -216,6 +230,14 @@ public class TournamentActivity extends Activity implements TournamentPreference
 		intent.putExtra("com.james.erebus.TournamentButtonActivity.dataValues", values);
 		startActivity(intent);
 	}
+	
+	@Override
+	public void onResume()
+	{
+		AppConsts.currentActivity = this;
+		super.onResume();
+	}
+
 
 
 }

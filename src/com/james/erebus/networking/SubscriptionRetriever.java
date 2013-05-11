@@ -5,7 +5,8 @@ import java.net.URISyntaxException;
 
 public class SubscriptionRetriever extends Retriever{
 
-URI uri;
+	URI uri;
+	String filename;
 	
 	public SubscriptionRetriever()
 	{
@@ -15,6 +16,7 @@ URI uri;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		filename = "subscriptions.json";
 	}
 	
 	public SubscriptionRetriever(String subId)
@@ -25,6 +27,11 @@ URI uri;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public String getSubscriptionsFilename()
+	{
+		return filename;
 	}
 	
 	public URI getURI()

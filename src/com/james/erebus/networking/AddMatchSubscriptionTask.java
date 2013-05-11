@@ -37,6 +37,10 @@ public class AddMatchSubscriptionTask extends TimerTask{
 					}});
 			if(success)
 			{
+				for(AlertDialog retryDialog : dialogs)
+				{
+					retryDialog.dismiss();
+				}
 				MiscNetworkingHelpers.handler.post(new Runnable() {
 
 					@Override
@@ -44,7 +48,7 @@ public class AddMatchSubscriptionTask extends TimerTask{
 						b.setText("Subscribed");
 					}  });
 			}
-			else
+			/*else
 			{
 				MiscNetworkingHelpers.handler.post(new Runnable() {
 
@@ -59,8 +63,7 @@ public class AddMatchSubscriptionTask extends TimerTask{
 					}  });
 
 
-				//atempting to initialize hardware accel
-			}
+			}*/
 		} catch(HttpHostConnectException e)
 		{
 			if(failures < 2)
@@ -109,6 +112,7 @@ public class AddMatchSubscriptionTask extends TimerTask{
 		} catch(IOException e)
 		{
 			Log.e("AddMatchSubscriptionTask", "io exception happened :(");
+			e.printStackTrace();
 		}
 		catch (Exception e) {
 			Log.e("AddMatchSubscriptionTask", "other exception happened :(");

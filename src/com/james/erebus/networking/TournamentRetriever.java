@@ -18,7 +18,7 @@ import com.james.erebus.JSONJava.JSONTokener;
 
 
 public class TournamentRetriever extends Retriever{
-	
+	String tournamentsFilename;
 	URI uri;
 	
 	public TournamentRetriever()
@@ -28,11 +28,17 @@ public class TournamentRetriever extends Retriever{
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
+		tournamentsFilename = "tournaments.json";
 	}
 	
 	public URI getURI()
 	{
 		return uri;
+	}
+	
+	public String getTournamentsFilename()
+	{
+		return tournamentsFilename;
 	}
 
 	@Override
@@ -97,7 +103,7 @@ public class TournamentRetriever extends Retriever{
 
 	public void getBySubbed() 
 	{
-		JSONArray tournaments = retrieve(getURI());
+		JSONArray tournaments = retrieve(getURI(), getTournamentsFilename());
 		JSONArray subbedTournys = new JSONArray();
 		for(int i = 0; i < tournaments.length(); i++)
 		{

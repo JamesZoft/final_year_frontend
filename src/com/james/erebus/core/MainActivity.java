@@ -3,6 +3,7 @@ package com.james.erebus.core;
 
 
 import com.google.android.gcm.GCMRegistrar;
+import com.james.erebus.misc.AppConsts;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -21,6 +22,13 @@ public class MainActivity extends Activity {
 		intent.putExtra("sender", "585651294813");
 		startService(intent);
 	} 
+	
+	@Override
+	public void onResume()
+	{
+		AppConsts.currentActivity = this;
+		super.onResume();
+	}
 
 	/**
 	 * Called when the activity is first created.
@@ -40,7 +48,7 @@ public class MainActivity extends Activity {
 			Log.v("Gcm register tag", "Already registered");
 		}
 		Log.v("reg_id", regId);
-
+		
 		//register();
 	}
 

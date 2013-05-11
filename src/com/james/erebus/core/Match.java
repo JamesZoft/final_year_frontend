@@ -87,5 +87,12 @@ public class Match {
 			return true;
 		return false;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return "|Id: " + id + "|Time: " + time + "|status: " + status + "|player1: " + player1 + "|player2: " + player2 + "|parenttourny: "
+				+ parentTourny + "|links: " + links + "|date: " + date;
+	}
 
 }

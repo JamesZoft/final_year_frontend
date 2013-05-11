@@ -208,7 +208,7 @@ public class Tournament {
 	{
 		return "Name: " + name + "|Prize(s): " + prizes + "|Start date: " + startDate 
 				 + "|Format: " + format + "|Entry requirements: " + entryReqs + "|Location: " + location
-				 + "|Sponsor: " +  sponsor + "|Links: " + links;
+				 + "|Sponsor: " +  sponsor + "|Links: " + links + "|Ongoing: " + ongoing + "|Past: " + past + "|Future: " + future;
 	}
 
 }
