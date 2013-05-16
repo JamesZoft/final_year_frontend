@@ -1,6 +1,7 @@
 package com.james.erebus.core;
 
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -153,7 +154,12 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 	{
 		MatchRetriever m = new MatchRetriever();
 		if(forceRefresh)
-			matches = m.forceRetrieveFromServer(m.getURI(), m.getMatchesFilename());
+			try {
+				matches = m.forceRetrieveFromServer(m.getURI(), m.getMatchesFilename());
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		else
 			matches = m.retrieve(m.getURI(), m.getMatchesFilename());
 		MatchSubscriptionManager msm = new MatchSubscriptionManager();
@@ -252,7 +258,7 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 		}
 		long thirtyMinutesInMillis = 18000000;
 		long fiveminutesinmillis = 300000;
-		long delayAndTimer = fiveminutesinmillis;
+		long delayAndTimer = thirtyMinutesInMillis;
 		GetMatchesTask task = new GetMatchesTask();
 		GetMatchesTask.setContext(this);
 		Timer timer = new Timer("GetMatchesTimer");

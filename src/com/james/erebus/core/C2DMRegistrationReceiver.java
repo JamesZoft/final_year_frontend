@@ -19,7 +19,6 @@ public class C2DMRegistrationReceiver extends BroadcastReceiver {
 
       Log.d("C2DM", "dmControl: registrationId = " + registrationId
           + ", error = " + error);
-      // TODO Send this to my application server
     }
   }
 } 

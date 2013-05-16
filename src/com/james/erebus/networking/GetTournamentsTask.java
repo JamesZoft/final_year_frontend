@@ -1,5 +1,6 @@
 package com.james.erebus.networking;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.TimerTask;
 
@@ -14,7 +15,12 @@ public class GetTournamentsTask extends TimerTask{
 	@Override
 	public void run() {
 		TournamentRetriever t = new TournamentRetriever();
-		t.forceRetrieveFromServer(t.getURI(), t.getTournamentsFilename());
+		try {
+			t.forceRetrieveFromServer(t.getURI(), t.getTournamentsFilename());
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		TournamentSubscriptionManager tsm = new TournamentSubscriptionManager();
 		ArrayList<Tournament> newTournaments = tsm.compareSubbedTournaments(taskContext);
 		if(newTournaments != null && !newTournaments.isEmpty())

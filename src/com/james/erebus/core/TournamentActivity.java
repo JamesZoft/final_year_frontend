@@ -1,5 +1,6 @@
 package com.james.erebus.core;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Timer;
@@ -190,7 +191,12 @@ public class TournamentActivity extends Activity implements TournamentPreference
 	{
 		TournamentRetriever t = new TournamentRetriever();
 		if(forceRefresh)
-			tournaments = t.forceRetrieveFromServer(t.getURI(), t.getTournamentsFilename());
+			try {
+				tournaments = t.forceRetrieveFromServer(t.getURI(), t.getTournamentsFilename());
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		else
 			tournaments = t.retrieve(t.getURI(), t.getTournamentsFilename());
 		TournamentSubscriptionManager tsm = new TournamentSubscriptionManager();
@@ -216,7 +222,7 @@ public class TournamentActivity extends Activity implements TournamentPreference
 		}
 		long fiveminutesinmillis = 300000;
 		long thirtyMinutesInMillis = 18000000;
-		long delayAndTimer = fiveminutesinmillis;
+		long delayAndTimer = thirtyMinutesInMillis;
 		GetTournamentsTask task = new GetTournamentsTask();
 		GetTournamentsTask.setContext(this);
 		Timer timer = new Timer("GetTournamentsTimer");

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.UnknownHostException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -75,7 +76,7 @@ public abstract class Retriever {
 		return null;
 	}
 
-	public JSONArray forceRetrieveFromServer(URI uri, String filename)
+	public JSONArray forceRetrieveFromServer(URI uri, String filename) throws UnknownHostException
 	{
 		try{
 

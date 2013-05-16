@@ -2,11 +2,14 @@ package com.james.erebus.core;
 
 
 
+import java.util.Calendar;
+import java.util.Timer;
+
 import com.google.android.gcm.GCMRegistrar;
 import com.james.erebus.misc.AppConsts;
+import com.james.erebus.networking.GcmRegisterDeviceTask;
 
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,13 +18,13 @@ import android.view.View;
 public class MainActivity extends Activity {
 
 	public final static String EXTRA_MESSAGE = "com.james.erebus.MESSAGE";
-
-	public void register() {
+/*
+	private void register() {
 		Intent intent = new Intent("com.google.android.c2dm.intent.REGISTER");
 		intent.putExtra("app",PendingIntent.getBroadcast(this, 0, new Intent(), 0));
 		intent.putExtra("sender", "585651294813");
 		startService(intent);
-	} 
+	} */
 	
 	@Override
 	public void onResume()
@@ -38,7 +41,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(com.james.erebus.R.layout.activity_main);
 		GCMRegistrar.checkDevice(this);
-		
+
 		GCMRegistrar.checkManifest(this);
 		final String regId = GCMRegistrar.getRegistrationId(this);
 
@@ -48,8 +51,6 @@ public class MainActivity extends Activity {
 			Log.v("Gcm register tag", "Already registered");
 		}
 		Log.v("reg_id", regId);
-		
-		//register();
 	}
 
 	/**

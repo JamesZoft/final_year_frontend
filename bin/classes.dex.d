@@ -30,6 +30,7 @@
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/ParentPreferencesFragment$NoticeDialogListener.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/SubscriptionManager.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/NotificationManager.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/GcmRegisterDeviceTask$2.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveMatchSubscriptionFromServerTask.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddMatchSubscriptionTask$3.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/MatchSubscriptionManager.class \
@@ -44,6 +45,7 @@
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveMatchSubscriptionFromServerTask$3.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddDeviceTask.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddTournamentSubscriptionToServerTask$4.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/GcmRegisterDeviceTask$1.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddTournamentSubscriptionToServerTask$3.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveTournamentSubscriptionFromServerTask.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddMatchSubscriptionTask$1.class \
@@ -55,10 +57,13 @@
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveTournamentSubscriptionFromServerTask$3.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveMatchSubscriptionFromServerTask$1.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddTournamentSubscriptionToServerTask$2.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddDeviceTask$2.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/MiscNetworkingHelpers.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/SubscriptionRetriever.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveTournamentSubscriptionFromServerTask$1.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/GcmRegisterDeviceTask.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/GetMatchesTask.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddDeviceTask$3.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/R.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/R$menu.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/Manifest$permission.class \

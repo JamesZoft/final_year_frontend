@@ -13,6 +13,7 @@ import com.james.erebus.JSONJava.JSONArray;
 import com.james.erebus.JSONJava.JSONObject;
 import com.james.erebus.core.Match;
 import com.james.erebus.core.Tournament;
+import com.james.erebus.misc.AppConsts;
 import com.james.erebus.misc.MiscJsonHelpers;
 import com.james.erebus.networking.AddDeviceTask;
 import com.james.erebus.networking.MatchRetriever;
@@ -186,6 +187,7 @@ public class GCMIntentService extends GCMBaseIntentService{
 	private void addDeviceToServer(final String regId)
 	{
 		AddDeviceTask task = new AddDeviceTask();
+		AddDeviceTask.setContext(AppConsts.currentActivity);
 		task.setRegId(regId);
 		Timer t = new Timer("AddDeviceTimer");
 		t.schedule(task, Calendar.getInstance().getTime());
