@@ -3,17 +3,20 @@ package com.james.erebus.core;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.james.erebus.JSONJava.JSONArray;
 import com.james.erebus.JSONJava.JSONException;
 import com.james.erebus.JSONJava.JSONObject;
 import com.james.erebus.misc.AppConsts;
 import com.james.erebus.misc.MiscJsonHelpers;
 import com.james.erebus.networking.MatchSubscriptionManager;
+import com.james.erebus.networking.SubscriptionRetriever;
 
 import android.os.Build;
 import android.os.Bundle;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -60,12 +63,30 @@ public class MatchButtonActivity extends Activity {
 
 	private void setSubButtonText()
 	{
+		SubscriptionRetriever sr = new SubscriptionRetriever();
+		JSONArray ja = sr.retrieve(sr.getURI(), sr.getSubscriptionsFilename());
 		Button subButton = (Button) findViewById(com.james.erebus.R.id.matchSubscribeButton);
-		
-		String buttonText = isMatchSubbed() ? "Subscribed" : "Unsubscribed";
-		subButton.setText(buttonText);
+		for(int i = 0; i < ja.length(); i++)
+		{
+			try {
+				JSONObject obj = ja.getJSONObject(i);
+				Log.v("objsubbuttontext", obj.toString());
+				if(obj.get("model_type").equals("MatchEntry"))
+				{
+					if(match.getId() == Integer.parseInt(obj.get("model_id").toString()))
+					{	
+						subButton.setText("Subscribed");
+						return;
+					}
+				}
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		subButton.setText("Unsubscribed");
 	}
-	
+
 	private boolean isMatchSubbed()
 	{
 		MatchSubscriptionManager msm = new MatchSubscriptionManager();
@@ -79,7 +100,7 @@ public class MatchButtonActivity extends Activity {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public void onResume()
 	{

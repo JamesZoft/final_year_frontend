@@ -48,7 +48,7 @@ public class NotificationActivity extends Activity {
 		ArrayList<String> searchWords = new ArrayList<String>(Arrays.asList(et.getText().toString().split(" ")));
 		
 		//final NotificationManager nm = new NotificationManager();
-		NotificationManager.matchesAndTournysToNotifications();
+		//NotificationManager.matchesAndTournysToNotifications();
 		final LinearLayout notifsL = (LinearLayout) findViewById(com.james.erebus.R.id.notificationsLayout);
 		ArrayList<Notification> notifications = NotificationManager.getNotifcations();
 		notifsL.removeAllViews();

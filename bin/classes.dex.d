@@ -64,6 +64,7 @@
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/GcmRegisterDeviceTask.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/GetMatchesTask.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddDeviceTask$3.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/new_diagram.uxf \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/R.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/R$menu.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/Manifest$permission.class \
@@ -88,7 +89,6 @@
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/Cookie.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/JSONStringer.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/CDL.class \
-/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/JSONObject$1.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/JSONString.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/CookieList.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/JSONException.class \

@@ -12,6 +12,7 @@ import com.google.android.gcm.GCMBaseIntentService;
 import com.james.erebus.JSONJava.JSONArray;
 import com.james.erebus.JSONJava.JSONObject;
 import com.james.erebus.core.Match;
+import com.james.erebus.core.Notification;
 import com.james.erebus.core.Tournament;
 import com.james.erebus.misc.AppConsts;
 import com.james.erebus.misc.MiscJsonHelpers;
@@ -145,27 +146,39 @@ public class GCMIntentService extends GCMBaseIntentService{
 		{
 			Match m = convertGcmNotificationToMatch(message);
 			Log.v("converted match", m.toString());
-			MatchRetriever mr = new MatchRetriever();
-			MiscNetworkingHelpers.addEntryToInternalStorage(MiscJsonHelpers.matchToJson(m), mr.getMatchesFilename());
-			MatchSubscriptionManager msm = new MatchSubscriptionManager();
-			ArrayList<Match> newMatches = msm.compareSubbedMatches(this);
-			if(newMatches != null && !newMatches.isEmpty())
-			{
-				NotificationManager.setChangedMatches(newMatches);
-			}
+			NotificationManager.addNotification(new Notification("The match " + m.getPlayer1() + " vs " + m.getPlayer2() + 
+					" has changed. Press 'view' to view it, or 'clear' to clear this notification", m));
+			//MatchRetriever mr = new MatchRetriever();
+			//MiscNetworkingHelpers.addEntryToInternalStorage(MiscJsonHelpers.matchToJson(m), mr.getMatchesFilename());
+			//MatchSubscriptionManager msm = new MatchSubscriptionManager();
+			//ArrayList<Match> newMatches = msm.compareSubbedMatches(this);
+			//if(newMatches != null && !newMatches.isEmpty())
+			//{
+			/*
+			 * Notification notif = new Notification("The match " + m.getPlayer1() + " vs " + m.getPlayer2() + 
+						" has changed. Press 'view' to view it, or 'clear' to clear this notification", m);
+				
+				Notification notif = new Notification("The tournament " + t.getName() + " has changed. " +
+						"Press 'view' to view it, or 'clear' to clear this notification", t);
+			 */
+			
+			//	NotificationManager.setChangedMatches(newMatches);
+			//}
 		}
 		else if(message.contains("new_tournament_data_available"))
 		{
 			Tournament t = convertGcmNotificationToTournament(message);
 			Log.v("converted tourny", t.toString());
-			TournamentRetriever tr = new TournamentRetriever();
-			MiscNetworkingHelpers.addEntryToInternalStorage(MiscJsonHelpers.tournamentToJson(t), tr.getTournamentsFilename());
-			TournamentSubscriptionManager tsm = new TournamentSubscriptionManager();
-			ArrayList<Tournament> newTournaments = tsm.compareSubbedTournaments(this);
-			if(newTournaments != null && !newTournaments.isEmpty())
-			{
-				NotificationManager.setChangedTournaments(newTournaments);
-			}
+			NotificationManager.addNotification(new Notification("The tournament " + t.getName() + " has changed. " +
+					"Press 'view' to view it, or 'clear' to clear this notification", t));
+			//TournamentRetriever tr = new TournamentRetriever();
+			//MiscNetworkingHelpers.addEntryToInternalStorage(MiscJsonHelpers.tournamentToJson(t), tr.getTournamentsFilename());
+			//TournamentSubscriptionManager tsm = new TournamentSubscriptionManager();
+			//ArrayList<Tournament> newTournaments = tsm.compareSubbedTournaments(this);
+			//if(newTournaments != null && !newTournaments.isEmpty())
+			//{
+			//	NotificationManager.setChangedTournaments(newTournaments);
+			//}
 		}
 	}
 

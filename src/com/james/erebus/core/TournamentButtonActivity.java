@@ -3,14 +3,17 @@ package com.james.erebus.core;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.james.erebus.JSONJava.JSONArray;
 import com.james.erebus.JSONJava.JSONException;
 import com.james.erebus.JSONJava.JSONObject;
 import com.james.erebus.misc.AppConsts;
 import com.james.erebus.misc.MiscJsonHelpers;
+import com.james.erebus.networking.SubscriptionRetriever;
 import com.james.erebus.networking.TournamentSubscriptionManager;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -93,10 +96,31 @@ public class TournamentButtonActivity extends Activity {
 	
 	private void setSubButtonText()
 	{
+		SubscriptionRetriever sr = new SubscriptionRetriever();
+		JSONArray ja = sr.retrieve(sr.getURI(), sr.getSubscriptionsFilename());
 		Button subButton = (Button) findViewById(com.james.erebus.R.id.tournamentSubscribeButton);
-		
-		String buttonText = isTournamentSubbed() ? "Subscribed" : "Unsubscribed";
-		subButton.setText(buttonText);
+		for(int i = 0; i < ja.length(); i++)
+		{
+			try {
+				JSONObject obj = ja.getJSONObject(i);
+				Log.v("objsubbuttontext", obj.toString());
+				if(obj.get("model_type").equals("TournamentEntry"))
+				{
+					
+					//Log.v("tournyid", Integer.toString(tournament.getId()));
+					//Log.v("retrievedtournyid", Integer.toString(retrievedTournament.getId()));
+					if(tournament.getId() == Integer.parseInt(obj.get("model_id").toString()))
+					{
+						subButton.setText("Subscribed");
+						return;
+					}
+				}
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		subButton.setText("Unsubscribed");
 	}
 	
 	private boolean isTournamentSubbed()

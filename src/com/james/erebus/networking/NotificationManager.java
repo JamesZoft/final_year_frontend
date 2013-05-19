@@ -11,7 +11,7 @@ public abstract class NotificationManager {
 	private static ArrayList<Match> changedMatches;
 	private static ArrayList<Tournament> changedTournaments;
 
-	private static ArrayList<Notification> notifications;
+	private static ArrayList<Notification> notifications = new ArrayList<Notification>();
 	
 	public static ArrayList<Match> getchangedMatches()
 	{
@@ -79,6 +79,11 @@ public abstract class NotificationManager {
 	public static void setChangedMatches(ArrayList<Match> changedMatches)
 	{
 		NotificationManager.changedMatches = changedMatches;
+	}
+	
+	public static void addNotification(Notification n)
+	{
+		NotificationManager.notifications.add(n);
 	}
 	
 	public static void matchesAndTournysToNotifications()
