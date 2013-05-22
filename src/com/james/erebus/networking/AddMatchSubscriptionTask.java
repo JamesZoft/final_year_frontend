@@ -107,14 +107,24 @@ public class AddMatchSubscriptionTask extends TimerTask{
 
 		} catch(IOException e)
 		{
-			b.setEnabled(true);
-			b.setClickable(true);
+			MiscNetworkingHelpers.handler.post(new Runnable() {
+
+				@Override
+				public void run() {
+					b.setClickable(true);
+					b.setEnabled(true);
+				}  });
 			Log.e("AddMatchSubscriptionTask", "io exception happened :(");
 			e.printStackTrace();
 		}
 		catch (Exception e) {
-			b.setEnabled(true);
-			b.setClickable(true);
+			MiscNetworkingHelpers.handler.post(new Runnable() {
+
+				@Override
+				public void run() {
+					b.setClickable(true);
+					b.setEnabled(true);
+				}  });
 			Log.e("AddMatchSubscriptionTask", "other exception happened :(");
 			e.printStackTrace();
 		}

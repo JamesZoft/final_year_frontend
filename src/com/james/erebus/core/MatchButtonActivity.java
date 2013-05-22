@@ -1,6 +1,7 @@
 package com.james.erebus.core;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 
 import com.james.erebus.JSONJava.JSONArray;
 import com.james.erebus.JSONJava.JSONException;
@@ -65,11 +66,12 @@ public class MatchButtonActivity extends Activity {
 
 	/**
 	 * Sets the subscription button text
+	 * @throws UnknownHostException 
 	 */
-	private void setSubButtonText()
+	private void setSubButtonText() throws UnknownHostException
 	{
 		SubscriptionRetriever sr = new SubscriptionRetriever();
-		JSONArray ja = sr.retrieve(sr.getURI(), sr.getSubscriptionsFilename());
+		JSONArray ja = sr.forceRetrieveFromServer(sr.getURI(), sr.getSubscriptionsFilename());
 		Button subButton = (Button) findViewById(com.james.erebus.R.id.matchSubscribeButton);
 		for(int i = 0; i < ja.length(); i++)
 		{
@@ -85,7 +87,6 @@ public class MatchButtonActivity extends Activity {
 					}
 				}
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -148,7 +149,11 @@ public class MatchButtonActivity extends Activity {
 		tvTime.setText("Match time: " + match.getTime());
 		tvLinks.setText(match.getLinks());
 		tvParentTourny.setText(match.getParentTourny());
-		setSubButtonText();
+		try {
+			setSubButtonText();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

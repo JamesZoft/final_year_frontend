@@ -1,6 +1,7 @@
 package com.james.erebus.core;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 
 import com.james.erebus.JSONJava.JSONArray;
 import com.james.erebus.JSONJava.JSONException;
@@ -101,16 +102,21 @@ public class TournamentButtonActivity extends Activity {
 		tvSponsor.setText("Sponsor(s): " + tournament.getSponsor());
 		tvEntryReqs.setText("Entry requirements: " + tournament.getEntryReqs());
 		tvPrizes.setText("Prize(s): " + tournament.getPrizes());
-		setSubButtonText();
+		try {
+			setSubButtonText();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
 	 * Sets the text in the subscribe/unsubscribe button
+	 * @throws UnknownHostException 
 	 */
-	private void setSubButtonText()
+	private void setSubButtonText() throws UnknownHostException
 	{
 		SubscriptionRetriever sr = new SubscriptionRetriever();
-		JSONArray ja = sr.retrieve(sr.getURI(), sr.getSubscriptionsFilename());
+		JSONArray ja = sr.forceRetrieveFromServer(sr.getURI(), sr.getSubscriptionsFilename());
 		Button subButton = (Button) findViewById(com.james.erebus.R.id.tournamentSubscribeButton);
 		for(int i = 0; i < ja.length(); i++)
 		{

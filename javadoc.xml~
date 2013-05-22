@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project default="javadoc">
     <target name="javadoc">
-        <javadoc access="private" additionalparam=" -linkoffline http://d.android.com/reference file:/home/james/android-sdk/adt-bundle-linux-x86/sdk/docs/reference" author="true" classpath="libs/gcm.jar:libs/android-support-v13.jar" destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="com.james.erebus,com.james.erebus.misc,com.james.erebus.core,com.james.erebus.networking,com.james.erebus.JSONJava" source="1.6" sourcepath="src:gen" splitindex="true" use="true" version="true">
+        <javadoc access="private" additionalparam=" -linkoffline http://d.android.com/reference file:/home/james/android-sdk/adt-bundle-linux-x86/sdk/docs/reference" author="true" classpath="libs/gcm.jar:libs/android-support-v13.jar;/home/james/android-sdk/adt-bundle-linux-x86/sdk/platforms/android-4.2/android.jar" destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="com.james.erebus,com.james.erebus.misc,com.james.erebus.core,com.james.erebus.networking,com.james.erebus.JSONJava" source="1.6" sourcepath="src:gen" splitindex="true" use="true" version="true">
             <link href="file:/home/james/workspace/ErebusNew/doc/"/>
         </javadoc>
     </target>

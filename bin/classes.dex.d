@@ -30,6 +30,9 @@
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/ParentPreferencesFragment$NoticeDialogListener.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveMatchSubscriptionFromServerTask$4.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/SubscriptionManager.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddMatchSubscriptionTask$6.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddTournamentSubscriptionToServerTask$6.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveTournamentSubscriptionFromServerTask$6.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/NotificationManager.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveMatchSubscriptionFromServerTask.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddMatchSubscriptionTask$3.class \
@@ -54,12 +57,17 @@
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveTournamentSubscriptionFromServerTask$2.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddTournamentSubscriptionToServerTask$1.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddMatchSubscriptionTask$4.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveTournamentSubscriptionFromServerTask$5.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/Retriever.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveMatchSubscriptionFromServerTask$6.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveMatchSubscriptionFromServerTask$5.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveTournamentSubscriptionFromServerTask$3.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddMatchSubscriptionTask$5.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveMatchSubscriptionFromServerTask$1.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddTournamentSubscriptionToServerTask$2.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddDeviceTask$2.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/MiscNetworkingHelpers.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddTournamentSubscriptionToServerTask$7.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/SubscriptionRetriever.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveTournamentSubscriptionFromServerTask$1.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/GetMatchesTask.class \

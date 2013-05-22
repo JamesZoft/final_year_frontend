@@ -25,7 +25,6 @@ import com.james.erebus.JSONJava.JSONTokener;
 import com.james.erebus.misc.AppConsts;
 
 import android.content.Context;
-import android.os.Build;
 import android.util.Log;
 
 /**

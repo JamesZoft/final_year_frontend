@@ -60,8 +60,13 @@ public class RemoveMatchSubscriptionFromServerTask extends TimerTask{
 			}
 		} 
 		catch (JSONException e) {
-			b.setEnabled(true);
-			b.setClickable(true);
+			MiscNetworkingHelpers.handler.post(new Runnable() {
+
+				@Override
+				public void run() {
+					b.setClickable(true);
+					b.setEnabled(true);
+				}  });
 			e.printStackTrace();
 		} catch(HttpHostConnectException e)
 		{
@@ -109,8 +114,13 @@ public class RemoveMatchSubscriptionFromServerTask extends TimerTask{
 			}
 		}
 		catch (Exception e) {
-			b.setEnabled(true);
-			b.setClickable(true);
+			MiscNetworkingHelpers.handler.post(new Runnable() {
+
+				@Override
+				public void run() {
+					b.setClickable(true);
+					b.setEnabled(true);
+				}  });
 			e.printStackTrace();
 		}
 	}

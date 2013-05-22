@@ -123,15 +123,25 @@ public class AddTournamentSubscriptionToServerTask extends TimerTask {
 			}
 		} catch(IOException e)
 		{
-			b.setClickable(true);
-			b.setEnabled(true);
+			MiscNetworkingHelpers.handler.post(new Runnable() {
+
+				@Override
+				public void run() {
+					b.setClickable(true);
+					b.setEnabled(true);
+				}  });
 			Log.e("AddTournamentSubscriptionToServerTask", "io exception happened :(");
 			e.printStackTrace();
 		}
 		catch (Exception e) 
 		{
-			b.setClickable(true);
-			b.setEnabled(true);
+			MiscNetworkingHelpers.handler.post(new Runnable() {
+
+				@Override
+				public void run() {
+					b.setClickable(true);
+					b.setEnabled(true);
+				}  });
 			Log.e("AddTournamentSubscriptionToServerTask", "other exception happened :(");
 			e.printStackTrace();
 		}
