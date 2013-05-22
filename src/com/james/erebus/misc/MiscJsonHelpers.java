@@ -11,11 +11,19 @@ import com.james.erebus.JSONJava.JSONObject;
 import com.james.erebus.core.Match;
 import com.james.erebus.core.Tournament;
 
+/**
+ * Class to hold JSON helper methods
+ * @author james
+ *
+ */
+
 public class MiscJsonHelpers {
 
 	
 	/**
-	 * @param args
+	 * Gets all of the values from a {@link com.james.erebus.JSONJava.JSONObject} and returns them as a String
+	 * @param o the JSONObject to be used
+	 * @return A String containing only the values of the JSONObject
 	 */
 	public static String getValuesFromJsonObject(JSONObject o)
 	{
@@ -41,6 +49,11 @@ public class MiscJsonHelpers {
 		return obj;
 	}
 	
+	/**
+	 * Converts a {@link com.james.erebus.core.Match} to a {@link com.james.erebus.JSONJava.JSONObject}
+	 * @param m The Match to be converted
+	 * @return The converted Match as a JSONObject
+	 */
 	public static JSONObject matchToJson(Match m)
 	{
 		JSONObject match = new JSONObject();
@@ -59,6 +72,12 @@ public class MiscJsonHelpers {
 		return match;
 	}
 	
+	/**
+	 * Converts an {@link com.james.erebus.JSONJava.JSONArray} into a {@link java.util.List} of 
+	 * {@link com.james.erebus.core.Tournament}
+	 * @param ja The JSONArray to be converted
+	 * @return The List of converted Tournaments
+	 */
 	public static List<Tournament> jsonTournamentArrayToTournamentList(JSONArray ja)
 	{
 		ArrayList<Tournament> updatedTournaments = new ArrayList<Tournament>();
@@ -74,6 +93,12 @@ public class MiscJsonHelpers {
 		return updatedTournaments;
 	}
 	
+	/**
+	 * Converts an {@link com.james.erebus.JSONJava.JSONArray} into a {@link java.util.List} of 
+	 * {@link com.james.erebus.core.Match}
+	 * @param ja The JSONArray to be converted
+	 * @return The List of converted Matches
+	 */
 	public static List<Match> jsonMatchArrayToMatchList(JSONArray ja)
 	{
 		ArrayList<Match> updatedMatches = new ArrayList<Match>();
@@ -89,6 +114,11 @@ public class MiscJsonHelpers {
 		return updatedMatches;
 	}
 	
+	/**
+	 * Converts a {@link com.james.erebus.JSONJava.JSONObject} into a {@link com.james.erebus.core.Match}
+	 * @param obj The JSONObject to be converted
+	 * @return The converted Match
+	 */
 	public static Match jsonToMatch(JSONObject obj)
 	{
 		Match match = new Match();
@@ -161,6 +191,11 @@ public class MiscJsonHelpers {
 
 	}
 	
+	/**
+	 * Converts a {@link com.james.erebus.core.Tournament} into a {@link com.james.erebus.JSONJava.JSONObject}
+	 * @param t The Tournament to be converted
+	 * @return The converted JSONObject
+	 */
 	public static JSONObject tournamentToJson(Tournament t)
 	{
 		JSONObject tournament = new JSONObject();
@@ -184,8 +219,11 @@ public class MiscJsonHelpers {
 		return tournament;
 	}
 	
-	
-	
+	/**
+	 * Converts a {@link com.james.erebus.JSONJava.JSONObject} into a {@link com.james.erebus.core.Tournament}
+	 * @param obj The JSONObject to be converted
+	 * @return The converted Tournament
+	 */
 	public static Tournament jsonToTournament(JSONObject obj)
 	{
 		Tournament tournament = new Tournament();

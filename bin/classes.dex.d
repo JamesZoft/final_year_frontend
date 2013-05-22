@@ -28,9 +28,9 @@
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/TournamentPreferencesFragment$1.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/TournamentButtonActivity.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/core/ParentPreferencesFragment$NoticeDialogListener.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveMatchSubscriptionFromServerTask$4.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/SubscriptionManager.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/NotificationManager.class \
-/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/GcmRegisterDeviceTask$2.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveMatchSubscriptionFromServerTask.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddMatchSubscriptionTask$3.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/MatchSubscriptionManager.class \
@@ -41,15 +41,16 @@
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/TournamentSubscriptionManager.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddDeviceTask$1.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddTournamentSubscriptionToServerTask.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveTournamentSubscriptionFromServerTask$4.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveMatchSubscriptionFromServerTask$2.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveMatchSubscriptionFromServerTask$3.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddDeviceTask.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddTournamentSubscriptionToServerTask$4.class \
-/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/GcmRegisterDeviceTask$1.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddTournamentSubscriptionToServerTask$3.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveTournamentSubscriptionFromServerTask.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddMatchSubscriptionTask$1.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/MatchRetriever.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddTournamentSubscriptionToServerTask$5.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveTournamentSubscriptionFromServerTask$2.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddTournamentSubscriptionToServerTask$1.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddMatchSubscriptionTask$4.class \
@@ -61,7 +62,6 @@
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/MiscNetworkingHelpers.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/SubscriptionRetriever.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/RemoveTournamentSubscriptionFromServerTask$1.class \
-/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/GcmRegisterDeviceTask.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/GetMatchesTask.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/networking/AddDeviceTask$3.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/new_diagram.uxf \
@@ -89,6 +89,7 @@
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/Cookie.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/JSONStringer.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/CDL.class \
+/home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/JSONObject$1.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/JSONString.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/CookieList.class \
 /home/james/workspace/ErebusNew/bin/classes/com/james/erebus/JSONJava/JSONException.class \

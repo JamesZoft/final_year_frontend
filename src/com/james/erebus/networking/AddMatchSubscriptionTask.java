@@ -10,11 +10,16 @@ import java.util.TimerTask;
 import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.message.BasicNameValuePair;
 
+
 import android.app.AlertDialog;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.widget.Button;
+
+/**
+ * A {@link java.util.TimerTask} for adding a {@link com.james.erebus.core.Match} subscription to the server
+ * @author james
+ *
+ */
 
 public class AddMatchSubscriptionTask extends TimerTask{
 
@@ -23,9 +28,10 @@ public class AddMatchSubscriptionTask extends TimerTask{
 	private static boolean success;
 	private static Button b;
 	private static int failures;
+	
 	private static ArrayList<AlertDialog> dialogs = new ArrayList<AlertDialog>();
 
-	@SuppressWarnings("serial")
+	@SuppressWarnings({ "serial", "deprecation" })
 	@Override
 	public void run() {
 		try {
@@ -37,7 +43,10 @@ public class AddMatchSubscriptionTask extends TimerTask{
 					}});
 			if(success)
 			{
-				for(AlertDialog retryDialog : dialogs)
+				
+				//MatchSubscriptionManager msm = new MatchSubscriptionManager();
+				//msm.subToMatch(AddMatchSubscriptionTask.match, AddMatchSubscriptionTask.context, AddMatchSubscriptionTask.b);
+				for(AlertDialog retryDialog : AddMatchSubscriptionTask.dialogs)
 				{
 					retryDialog.dismiss();
 				}
@@ -45,37 +54,21 @@ public class AddMatchSubscriptionTask extends TimerTask{
 
 					@Override
 					public void run() {
-						b.setText("Subscribed");
+						AddMatchSubscriptionTask.b.setText("Subscribed");
+						AddMatchSubscriptionTask.b.setEnabled(true);
+						AddMatchSubscriptionTask.b.setClickable(true);
 					}  });
 			}
-			/*else
-			{
-				MiscNetworkingHelpers.handler.post(new Runnable() {
-
-					@Override
-					public void run() {
-						AlertDialog.Builder builder = new AlertDialog.Builder(b.getContext());
-						builder.setMessage("No connection to the server - please check your wireless is on and connected to a network")
-						.setTitle("Connection error");
-						AlertDialog dialog = builder.create();
-						
-						dialog.show();
-					}  });
-
-
-			}*/
-		} catch(HttpHostConnectException e)
+		} 
+		catch(HttpHostConnectException e)
 		{
 			if(failures < 2)
 			{
 				Log.e("AddMatchSubscriptionTask", "Failed to add match, re-adding...");
 				AddMatchSubscriptionTask task = new AddMatchSubscriptionTask();
 				Timer t = new Timer("AddMatchSubscriptionTimer");
-				Date d = new Date();
-				d.setDate(Calendar.getInstance().getTime().getDate());
-				d.setHours(Calendar.getInstance().getTime().getHours());
-				d.setMinutes(Calendar.getInstance().getTime().getMinutes());
-				d.setSeconds(Calendar.getInstance().getTime().getSeconds() + 10);
+				Date d = Calendar.getInstance().getTime();
+				d.setSeconds(d.getSeconds() + 10);
 				t.schedule(task, d);
 				MiscNetworkingHelpers.handler.post(new Runnable() {
 
@@ -92,10 +85,13 @@ public class AddMatchSubscriptionTask extends TimerTask{
 			}
 			else
 			{
+				
 				MiscNetworkingHelpers.handler.post(new Runnable() {
 
 					@Override
 					public void run() {
+						b.setEnabled(true);
+						b.setClickable(true);
 						AlertDialog.Builder builder = new AlertDialog.Builder(b.getContext());
 						builder.setMessage("No connection to the server - please check your wireless is on and connected to a network")
 						.setTitle("Connection error");
@@ -111,30 +107,41 @@ public class AddMatchSubscriptionTask extends TimerTask{
 
 		} catch(IOException e)
 		{
+			b.setEnabled(true);
+			b.setClickable(true);
 			Log.e("AddMatchSubscriptionTask", "io exception happened :(");
 			e.printStackTrace();
 		}
 		catch (Exception e) {
+			b.setEnabled(true);
+			b.setClickable(true);
 			Log.e("AddMatchSubscriptionTask", "other exception happened :(");
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Sets the {@link android.widget.Button} reference to be used
+	 * @param b The Button reference to set the Button field to
+	 */
 	public void setButton(Button b)
 	{
 		AddMatchSubscriptionTask.b = b;		
 	}
 
-	public boolean getSuccess()
-	{
-		return success;
-	}
-
+	/**
+	 * Sets the registration id
+	 * @param regId The String to set the registration id to
+	 */
 	public void setRegId(String regId)
 	{
 		AddMatchSubscriptionTask.regId = regId;
 	}
 
+	/**
+	 * Sets the match id that is being subscribed to
+	 * @param matchEntryId The String to set the match id to
+	 */
 	public void setMatchEntryId(String matchEntryId)
 	{
 		AddMatchSubscriptionTask.matchEntryId = matchEntryId;

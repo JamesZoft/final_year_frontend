@@ -1,5 +1,11 @@
 package com.james.erebus.core;
 
+/**
+ * Class that represents a notification
+ * @author james
+ *
+ */
+
 public class Notification {
 
 	String text;
@@ -20,7 +26,8 @@ public class Notification {
 	
 	/**
 	 * 
-	 * @return 0 if this notification holds a match, 1 if a tournament, and 2 if nothing
+	 * @return 0 if this notification holds a {@link com.james.erebus.core.Match}, 1 if a 
+	 * {@link com.james.erebus.core.Tournament}, and 2 if nothing
 	 */
 	public int tournyOrMatch()
 	{
@@ -31,6 +38,10 @@ public class Notification {
 		return 2;
 	}
 	
+	/**
+	 * 
+	 * @return The tournament in this notification, if there is one
+	 */
 	public Tournament getTournament()
 	{
 		if(t != null)
@@ -38,6 +49,10 @@ public class Notification {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @return The match in this notification, if there is one
+	 */
 	public Match getMatch()
 	{
 		if(m != null)
@@ -45,19 +60,54 @@ public class Notification {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @return The text in this notification
+	 */
 	public String getText()
 	{
 		return text;
 	}
 	
+	/**
+	 * 
+	 * @param text The text to set the notification text to
+	 */
 	public void setText(String text)
 	{
 		this.text = text;
 	}
 	
+	/**
+	 * 
+	 * @param n The {@link com.james.erebus.core.Notification} to compare to
+	 * @return True if the notification is equal to this Notification, else false
+	 */
 	public boolean equalsNotification(Notification n)
 	{
-		return(text.equals(n.getText()));
+		if(m != null)
+		{
+			if(n.getMatch() != null)
+			{
+				if(m.equalsMatch(n.getMatch()))
+				{
+					if(n.getText().equals(text))
+						return true;
+				}
+			}
+		}
+		else if(t != null)
+		{
+			if(n.getTournament() != null)
+			{
+				if(t.equalsTournament(n.getTournament()))
+				{
+					if(n.getText().equals(text))
+						return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }

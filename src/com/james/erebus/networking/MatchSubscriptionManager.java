@@ -1,11 +1,11 @@
 package com.james.erebus.networking;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Timer;
 
-import org.apache.http.message.BasicNameValuePair;
 
 import android.content.Context;
 import android.util.Log;
@@ -17,16 +17,28 @@ import com.james.erebus.JSONJava.JSONObject;
 import com.james.erebus.core.Match;
 import com.james.erebus.misc.MiscJsonHelpers;
 
+/**
+ * Child class of {@link com.james.erebus.networking.SubscriptionManager} that specifies the filename
+ * that subscribed matches get saved to and adds methods to add, remove and get subscribed matches
+ * @author james
+ *
+ */
+
 public class MatchSubscriptionManager extends SubscriptionManager {
 
 	private static final String filename = "subbedMatches.json";
-	//ArrayList<Match> subbedMatches;
 
 	public MatchSubscriptionManager()
 	{
-		//subbedMatches = new ArrayList<Match>();
+		
 	}
 
+	/**
+	 * Checks if a {@link com.james.erebus.core.Match} is subscribed to
+	 * @param c The {@link android.content.Context} in which this is being asked
+	 * @param m The Match to be checked
+	 * @return True if the match is subscribed, false if not
+	 */
 	public boolean isMatchSubbed(Context c, Match m)
 	{
 		ArrayList<Match> matches = getSubbedMatches(c);
@@ -40,7 +52,7 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 
 	/**
 	 * 
-	 * @param c - The context in which this method is invoked
+	 * @param c - The {@link android.content.Context} in which this method is invoked
 	 * @return - The ArrayList of updated matches if it's newer, else null
 	 */
 	public ArrayList<Match> compareSubbedMatches(Context c)
@@ -78,8 +90,11 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 		return changedMatches;
 	}
 
-
-
+	/**
+	 * Gets all currently subscribed matches
+	 * @param c The {@link android.content.Context} in which this is being asked 
+	 * @return The {@link java.util.ArrayList} of subscribed {@link com.james.erebus.core.Match}
+	 */
 	public ArrayList<Match> getSubbedMatches(Context c)
 	{
 		JSONArray ja = readSubbed(c, filename);
@@ -102,7 +117,14 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 		}
 	}
 
-
+	/**
+	 * Adds the specified {@link com.james.erebus.Match} to the internal list of subscribed matches
+	 * @param m the Match to be added
+	 * @param c The {@link android.content.Context} in which this is being asked
+	 * @param b The subscribe/unsubscribe button of which the text will change
+	 * @throws IOException
+	 * @throws JSONException
+	 */
 	public void subToMatch(Match m, Context c, Button b) throws IOException, JSONException
 	{
 
@@ -129,10 +151,16 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 		else
 			ja = new JSONArray();
 		ja.put(MiscJsonHelpers.matchToJson(m));
-		addMatchSubscriptionToServer(MiscNetworkingHelpers.regId, Integer.toString(m.getId()), b);
+		addMatchSubscriptionToServer(MiscNetworkingHelpers.regId, b, m, c);
 		writeSubbed(c, ja, filename);
 	}
 
+	/**
+	 * Removes the specified {@link com.james.erebus.Match} from the internal list of subscribed matches
+	 * @param m the Match to be added
+	 * @param c The {@link android.content.Context} in which this is being asked
+	 * @param b The subscribe/unsubscribe button of which the text will change
+	 */
 	public void unsubFromMatch(Context c, Match m, Button b)
 	{
 		JSONArray ja = readSubbed(c, filename);
@@ -157,26 +185,43 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 			else
 				returnJa.put(MiscJsonHelpers.matchToJson(subbedMatches.get(i)));
 		}
-
+		try {
+			removeMatchSubscriptionFromServer(MiscNetworkingHelpers.regId, Integer.toString(m.getId()), b);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		writeSubbed(c, returnJa, filename);
-		removeMatchSubscriptionFromServer(MiscNetworkingHelpers.regId, Integer.toString(m.getId()), b);
 	}
 
-	@SuppressWarnings("serial")
-	private void addMatchSubscriptionToServer(final String regId, final String matchEntryId, Button b)
+	/**
+	 * Adds a {@link com.james.erebus.core.Match} subscription to the server
+	 * @param regId The registration ID of this app
+	 * @param b The subscribe/unsubscribe button of which the text will change
+	 * @param m the Match to be added
+	 * @param c The {@link android.content.Context} in which this is being asked
+	 */
+	private void addMatchSubscriptionToServer(final String regId, Button b, Match m, Context c)
 	{
 		AddMatchSubscriptionTask task = new AddMatchSubscriptionTask();
 		task.setRegId(regId);
 		task.setButton(b);
-		task.setMatchEntryId(matchEntryId);
+		task.setMatchEntryId(Integer.toString(m.getId()));
 		Timer t = new Timer("AddMatchSubscriptionTimer");
 		t.schedule(task, Calendar.getInstance().getTime());
 	}
 
-	private void removeMatchSubscriptionFromServer(final String regId, final String matchEntryId, Button b)
+	/**
+	 * Removes a {@link com.james.erebus.core.Match} subscription from the server
+	 * @param regId The registration ID of this app
+	 * @param matchEntryId The ID of this match
+	 * @param b The {@link android.widget.Button} which was pressed to invoke this method
+	 * @throws UnknownHostException 
+	 */
+	private void removeMatchSubscriptionFromServer(final String regId, final String matchEntryId, Button b) throws UnknownHostException
 	{
 		SubscriptionRetriever sr = new SubscriptionRetriever();
-		JSONArray subs = sr.retrieve(sr.getURI(), sr.getSubscriptionsFilename());
+		JSONArray subs = sr.forceRetrieveFromServer(sr.getURI(), sr.getSubscriptionsFilename());
 		for(int i = 0; i < subs.length(); i++)
 		{
 			try {
@@ -212,7 +257,6 @@ public class MatchSubscriptionManager extends SubscriptionManager {
 				e.printStackTrace();
 			}
 		}
-		//return true;
 	}
 
 }

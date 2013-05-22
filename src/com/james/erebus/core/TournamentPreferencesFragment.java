@@ -9,6 +9,13 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 
+/**
+ * Class that controls data flow and what is on the filter Fragment that shows when pressing
+ * the filter button on the Tournament activity screen
+ * @author james
+ *
+ */
+
 public class TournamentPreferencesFragment extends ParentPreferencesFragment{
 	
 	private static ArrayList<TournyMatchOptions> selectedItems;
@@ -91,6 +98,10 @@ public class TournamentPreferencesFragment extends ParentPreferencesFragment{
 		return builder.create();
 	}
 	
+	/**
+	 * 
+	 * @return The selected items in this Fragment
+	 */
 	public static ArrayList<TournyMatchOptions> getSelectedItems()
 	{
 		return selectedItems;

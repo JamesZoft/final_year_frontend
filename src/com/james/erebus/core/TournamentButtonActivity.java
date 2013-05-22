@@ -1,7 +1,6 @@
 package com.james.erebus.core;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import com.james.erebus.JSONJava.JSONArray;
 import com.james.erebus.JSONJava.JSONException;
@@ -19,6 +18,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
+
+/**
+ * The java file for the TournamentButton activity, which is the screen that shows when you click on one of the tournaments
+ * on the {@link com.james.erebus.core.Tournament} activity screen
+ * @author james
+ *
+ */
 
 public class TournamentButtonActivity extends Activity {
 
@@ -59,6 +65,10 @@ public class TournamentButtonActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	/**
+	 * Displays all of the available {@link com.james.erebus.core.Tournament} data
+	 * @param data The data to be displayed in JSON format
+	 */
 	private void displayData(JSONObject data)
 	{
 		TextView tvTitle = (TextView)findViewById(com.james.erebus.R.id.tournamentButtonTitleBox);
@@ -94,6 +104,9 @@ public class TournamentButtonActivity extends Activity {
 		setSubButtonText();
 	}
 	
+	/**
+	 * Sets the text in the subscribe/unsubscribe button
+	 */
 	private void setSubButtonText()
 	{
 		SubscriptionRetriever sr = new SubscriptionRetriever();
@@ -106,9 +119,6 @@ public class TournamentButtonActivity extends Activity {
 				Log.v("objsubbuttontext", obj.toString());
 				if(obj.get("model_type").equals("TournamentEntry"))
 				{
-					
-					//Log.v("tournyid", Integer.toString(tournament.getId()));
-					//Log.v("retrievedtournyid", Integer.toString(retrievedTournament.getId()));
 					if(tournament.getId() == Integer.parseInt(obj.get("model_id").toString()))
 					{
 						subButton.setText("Subscribed");
@@ -116,31 +126,25 @@ public class TournamentButtonActivity extends Activity {
 					}
 				}
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		subButton.setText("Unsubscribed");
 	}
 	
-	private boolean isTournamentSubbed()
-	{
-		TournamentSubscriptionManager tsm = new TournamentSubscriptionManager();
-		ArrayList<Tournament> tournaments = tsm.getSubbedTournaments(this);
-		for(Tournament t : tournaments)
-		{
-			if(t.equalsTournament(tournament))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
 	
+	/**
+	 * Subscribes or unsubscribes from a tournament depending on whether the tournament is subscribed to or not
+	 * @param v The current {@link android.view.View}
+	 * @throws IOException
+	 * @throws JSONException
+	 */
 	public void tournamentSubUnsub(View v) throws IOException, JSONException
 	{
 		Button subButton = (Button) findViewById(com.james.erebus.R.id.tournamentSubscribeButton);
 		TournamentSubscriptionManager tsm = new TournamentSubscriptionManager();
+		subButton.setClickable(false);
+		subButton.setEnabled(false);
 		if(!tsm.isTournamentSubbed(this, tournament))
 		{
 
@@ -150,7 +154,6 @@ public class TournamentButtonActivity extends Activity {
 		{
 			tsm.unsubFromTournament(this, tournament, subButton);
 		}
-		//setSubButtonText();
 	}
 	
 	@Override

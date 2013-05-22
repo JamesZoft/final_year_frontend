@@ -4,6 +4,12 @@ package com.james.erebus.networking;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+/**
+ * Child class of {@link com.james.erebus.networking.Retriever} that specifies the URI and filename for match-specific retrieval
+ * @author james
+ *
+ */
+
 public class MatchRetriever extends Retriever{
 
 	URI uri;
@@ -20,54 +26,23 @@ public class MatchRetriever extends Retriever{
 		matchesFilename = "matches.json";
 	}
 	
+	/**
+	 * 
+	 * @return The filename that holds match information
+	 */
 	public String getMatchesFilename()
 	{
 		return matchesFilename;
 	}
 	
+	/**
+	 * 
+	 * @return The {@link java.net.URI} that leads to the match information on the server
+	 */
 	public URI getURI()
 	{
 		return uri;
 	}
-	
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		//MatchRetriever m = new MatchRetriever();
-		//m.retrieve(m.getURI(), m.);
 
-	}
-	
-	
-
-	public void getByPlayer()
-	{
-		
-	}
-
-	@Override
-	public void getByOngoing() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void getByPast() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void getByFuture() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updatePage() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

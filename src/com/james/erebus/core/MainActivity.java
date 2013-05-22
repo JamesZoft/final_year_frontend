@@ -1,13 +1,7 @@
 package com.james.erebus.core;
 
-
-
-import java.util.Calendar;
-import java.util.Timer;
-
 import com.google.android.gcm.GCMRegistrar;
 import com.james.erebus.misc.AppConsts;
-import com.james.erebus.networking.GcmRegisterDeviceTask;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,16 +9,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+
+/**
+ * The java file for the Main activity, which is the first screen that appears when starting the application
+ * @author james
+ *
+ */
 public class MainActivity extends Activity {
 
 	public final static String EXTRA_MESSAGE = "com.james.erebus.MESSAGE";
-/*
-	private void register() {
-		Intent intent = new Intent("com.google.android.c2dm.intent.REGISTER");
-		intent.putExtra("app",PendingIntent.getBroadcast(this, 0, new Intent(), 0));
-		intent.putExtra("sender", "585651294813");
-		startService(intent);
-	} */
 	
 	@Override
 	public void onResume()
@@ -52,20 +45,29 @@ public class MainActivity extends Activity {
 		}
 		Log.v("reg_id", regId);
 	}
-
+	
 	/**
-	 * Called when the user clicks the Send button
+	 * Called when the user clicks the Matches button
+	 * @param view The current {@link android.view.View}
 	 */
 	public void onMatchButtonPress(View view) {
 		Intent intent = new Intent(this, MatchActivity.class);
 		startActivity(intent);
 	}
 
+	/**
+	 * Called when the user clicks the Tournaments button
+	 * @param view The current {@link android.view.View}
+	 */
 	public void onTournamentButtonPress(View view) {
 		Intent intent = new Intent(this, TournamentActivity.class);
 		startActivity(intent);
 	}
 
+	/**
+	 * Called when the user clicks the Notifications button
+	 * @param view The current {@link android.view.View}
+	 */
 	public void onNotificationsButtonPress(View view) {
 		Intent intent = new Intent(this, NotificationActivity.class);
 		startActivity(intent);

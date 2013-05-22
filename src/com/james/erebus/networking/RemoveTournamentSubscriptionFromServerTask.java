@@ -15,6 +15,12 @@ import android.widget.Button;
 import com.james.erebus.JSONJava.JSONException;
 import com.james.erebus.JSONJava.JSONObject;
 
+/**
+ * A {@link java.util.TimerTask} for removing a tournament subscription from the server
+ * @author james
+ *
+ */
+
 public class RemoveTournamentSubscriptionFromServerTask extends TimerTask{
 	
 	private static JSONObject obj;
@@ -24,6 +30,7 @@ public class RemoveTournamentSubscriptionFromServerTask extends TimerTask{
 	private static int failures;
 	private static ArrayList<AlertDialog> dialogs = new ArrayList<AlertDialog>();
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void run() {
 		try {
@@ -37,37 +44,35 @@ public class RemoveTournamentSubscriptionFromServerTask extends TimerTask{
 				MiscNetworkingHelpers.handler.post(new Runnable() {
 					@Override
 					public void run() {
+						b.setClickable(true);
+						b.setEnabled(true);
 						b.setText("Unsubscribed");
 					}  });
 			}
-			/*else
+			else
 			{
 				MiscNetworkingHelpers.handler.post(new Runnable() {
 					@Override
 					public void run() {
-						AlertDialog.Builder builder = new AlertDialog.Builder(b.getContext());
-						builder.setMessage("No connection to the server - please check your wireless is on and connected to a network")
-						.setTitle("Connection error");
-						AlertDialog dialog = builder.create();
-						dialog.show();
+						b.setClickable(true);
+						b.setEnabled(true);
 					}  });
-
-			}*/
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
+			}
+		} 
+		catch (JSONException e) {
+			b.setClickable(true);
+			b.setEnabled(true);
 			e.printStackTrace();
-		} catch(HttpHostConnectException e)
+		} 
+		catch(HttpHostConnectException e)
 		{
 			if(failures < 2)
 			{
-				Log.e("RemoveMatchSubscriptionFromServerTask", "Failed to delete match, re-trying...");
+				Log.e("RemoveTournamentSubscriptionFromServerTask", "Failed to delete tournament, re-trying...");
 				RemoveTournamentSubscriptionFromServerTask task = new RemoveTournamentSubscriptionFromServerTask();
 				Timer t = new Timer("RemoveTournamentSubscriptionFromServerTimer");
-				Date d = new Date();
-				d.setDate(Calendar.getInstance().getTime().getDate());
-				d.setHours(Calendar.getInstance().getTime().getHours());
-				d.setMinutes(Calendar.getInstance().getTime().getMinutes());
-				d.setSeconds(Calendar.getInstance().getTime().getSeconds() + 10);
+				Date d = Calendar.getInstance().getTime();
+				d.setSeconds(d.getSeconds() + 10);
 				t.schedule(task, d);
 				MiscNetworkingHelpers.handler.post(new Runnable() {
 
@@ -89,6 +94,8 @@ public class RemoveTournamentSubscriptionFromServerTask extends TimerTask{
 
 					@Override
 					public void run() {
+						b.setClickable(true);
+						b.setEnabled(true);
 						AlertDialog.Builder builder = new AlertDialog.Builder(b.getContext());
 						builder.setMessage("No connection to the server - please check your wireless is on and connected to a network")
 						.setTitle("Connection error");
@@ -103,22 +110,33 @@ public class RemoveTournamentSubscriptionFromServerTask extends TimerTask{
 			}
 		}
 		catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Sets the {@link android.widget.Button} reference to be used
+	 * @param b The Button reference to set the Button field to
+	 */
 	public void setButton(Button b)
 	{
-		RemoveTournamentSubscriptionFromServerTask.b = b;
+		RemoveTournamentSubscriptionFromServerTask.b = b;		
 	}
 
+	/**
+	 * Sets the registration id
+	 * @param regId The String to set the registration id to
+	 */
 	public void setRegId(String regId)
 	{
 		RemoveTournamentSubscriptionFromServerTask.regId = regId;
 	}
 
-	public void setJsonMatchObject(JSONObject obj)
+	/**
+	 * Sets the {@link com.james.erebus.JSONJava.JSONObject} to be used in this task
+	 * @param obj the JSONObject to be used
+	 */
+	public void setJsonTournamentObject(JSONObject obj)
 	{
 		RemoveTournamentSubscriptionFromServerTask.obj = obj;
 	}

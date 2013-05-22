@@ -13,10 +13,15 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
 
+/**
+ * A {@link java.util.TimerTask} for adding a device to the server
+ * @author james
+ *
+ */
+
 public class AddDeviceTask extends TimerTask{
 	
 	private static String regId;
-	private static boolean success;
 	private static int failures;
 	private static ArrayList<AlertDialog> dialogs = new ArrayList<AlertDialog>();
 	private static Context context;
@@ -24,16 +29,17 @@ public class AddDeviceTask extends TimerTask{
 	@SuppressWarnings({ "deprecation", "serial" })
 	@Override
 	public void run() {
+		//boolean success;
 		try{
 			MiscNetworkingHelpers.postInformationToServer(AddDeviceTask.regId, "devices.json", 
 					new ArrayList<BasicNameValuePair>() { { add(new BasicNameValuePair("gcm_device[registration_id]", AddDeviceTask.regId)); } });
-			success = true;
+		//	success = true;
 			for(AlertDialog retryDialog : AddDeviceTask.dialogs)
 			{
 				retryDialog.dismiss();
 			}
 		} catch (HttpHostConnectException e) {
-			success = false;
+		//	success = false;
 			if(AddDeviceTask.failures < 2)
 			{
 				Log.e("AddDeviceTask", "Failed to register device, re-trying...");
@@ -80,17 +86,20 @@ public class AddDeviceTask extends TimerTask{
 		
 		
 	}
-	
-	public boolean getSuccess()
-	{
-		return success;
-	}
-	
+
+	/**
+	 * Sets the registration id
+	 * @param regId The String to set the registration id to
+	 */
 	public void setRegId(String regId)
 	{
 		AddDeviceTask.regId = regId;
 	}
 	
+	/**
+	 * Sets the {@link android.content.Context}
+	 * @param c The context to set the context field to
+	 */
 	public static void setContext(Context c)
 	{
 		AddDeviceTask.context = c;

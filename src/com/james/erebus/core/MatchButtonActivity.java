@@ -1,7 +1,6 @@
 package com.james.erebus.core;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import com.james.erebus.JSONJava.JSONArray;
 import com.james.erebus.JSONJava.JSONException;
@@ -11,11 +10,8 @@ import com.james.erebus.misc.MiscJsonHelpers;
 import com.james.erebus.networking.MatchSubscriptionManager;
 import com.james.erebus.networking.SubscriptionRetriever;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +19,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 
-@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+/**
+ * The java file for the MatchButton activity, which is the screen that shows when you click on one of the matches
+ * on the {@link com.james.erebus.core.Match} activity screen
+ * @author james
+ *
+ */
+
 public class MatchButtonActivity extends Activity {
 
 	Match match;
@@ -61,6 +63,9 @@ public class MatchButtonActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Sets the subscription button text
+	 */
 	private void setSubButtonText()
 	{
 		SubscriptionRetriever sr = new SubscriptionRetriever();
@@ -87,20 +92,6 @@ public class MatchButtonActivity extends Activity {
 		subButton.setText("Unsubscribed");
 	}
 
-	private boolean isMatchSubbed()
-	{
-		MatchSubscriptionManager msm = new MatchSubscriptionManager();
-		ArrayList<Match> matches = msm.getSubbedMatches(this);
-		for(Match m : matches)
-		{
-			if(m.equalsMatch(match))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
 	@Override
 	public void onResume()
 	{
@@ -109,10 +100,17 @@ public class MatchButtonActivity extends Activity {
 	}
 
 
+	/**
+	 * Method called when the subscribe/unsubscribe button is pressed
+	 * @param v The current {@link android.view.View}
+	 * @throws IOException
+	 * @throws JSONException
+	 */
 	public void matchSubUnsub(View v) throws IOException, JSONException
 	{
 		MatchSubscriptionManager msm = new MatchSubscriptionManager();
 		Button subButton = (Button) findViewById(com.james.erebus.R.id.matchSubscribeButton);
+		subButton.setClickable(false);
 		subButton.setEnabled(false);
 		if(!msm.isMatchSubbed(this, match))
 		{
@@ -123,9 +121,13 @@ public class MatchButtonActivity extends Activity {
 		{
 			msm.unsubFromMatch(this, match, subButton);
 		}
-		subButton.setEnabled(true);
+		//subButton.setEnabled(true);
 	}
 
+	/**
+	 * Displays all of the {@link com.james.erebus.core.Match} data available on the screen
+	 * @param data The data to be displayed in JSON format
+	 */
 	private void displayData(JSONObject data)
 	{
 		TextView tvTitle = (TextView)findViewById(com.james.erebus.R.id.matchButtonTitleBox);

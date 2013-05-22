@@ -4,10 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
@@ -16,7 +13,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpConnectionParams;
@@ -33,12 +29,25 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+/**
+ * A helper class which provides the necessary methods to POST and DELETE information to and from the server
+ * and to add information to internal files
+ * @author james
+ *
+ */
+
 public class MiscNetworkingHelpers {
 
 	public static String regId;
 
 	public static Handler handler = new Handler(Looper.getMainLooper());
 
+	
+	/**
+	 * Adds a {@link com.james.erebus.JSONJava.JSONObject} to a file on the internal storage
+	 * @param obj The object to be added
+	 * @param filename The name of the file which will be added to
+	 */
 	public static void addEntryToInternalStorage(JSONObject obj, String filename)
 	{
 		try{
@@ -72,17 +81,22 @@ public class MiscNetworkingHelpers {
 			fos.close();
 		}
 		catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Posts information to the server
+	 * @param regId The registration ID of this app
+	 * @param uriExtension The URI extension to post to in String form
+	 * @param info The information to be posted
+	 * @return If the information was posted successfully
+	 * @throws Exception
+	 */
 	public static boolean postInformationToServer(String regId, String uriExtension, ArrayList<BasicNameValuePair> info) throws Exception
 	{
-		//try{
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpParams httpParameters = httpclient.getParams();
 		HttpConnectionParams.setTcpNoDelay(httpParameters, true); 
@@ -107,14 +121,15 @@ public class MiscNetworkingHelpers {
 			Log.v("postInformationToServer", "failure :(");
 			return false;
 		}
-
-		//	}  
-		//catch (IOException e) 
-		//{
-		//	e.printStackTrace();
-		//}
 	}
 
+	/**
+	 * Deletes information from the server
+	 * @param regId The registration ID of this app
+	 * @param uriExtension The URI extension to post to
+	 * @return If the information was deleted successfully
+	 * @throws Exception
+	 */
 	public static boolean deleteInformationFromServer(String regId, String uriExtension) throws Exception
 	{
 		HttpClient httpclient = new DefaultHttpClient();
@@ -137,6 +152,4 @@ public class MiscNetworkingHelpers {
 			return false;
 		}
 	} 
-
-
 }

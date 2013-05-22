@@ -2,7 +2,6 @@ package com.james.erebus.networking;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,15 +28,22 @@ import android.content.Context;
 import android.os.Build;
 import android.util.Log;
 
+/**
+ * Parent class that implements network retrieval of information from the main back-end server
+ * @author james
+ *
+ */
 
 public abstract class Retriever {
 
-	/**
-	 * @param args
-	 */
-
 	protected final String baseUrl = "http://teamfrag.net:3001";
 
+	/**
+	 * Method to retrieve information, first looking in the cache
+	 * @param uri The URI to fall back on if the cache is empty
+	 * @param filename The cache filename to look in
+	 * @return A {@link com.james.erebus.JSONJava.JSONArray} of the information that is returned
+	 */
 	public JSONArray retrieve(URI uri, String filename)
 	{
 
@@ -45,7 +51,7 @@ public abstract class Retriever {
 			File f = new File(AppConsts.currentActivity.getFilesDir() + "/" + filename);
 			Log.v("newfilename", f.getCanonicalPath());
 			boolean needToDownload = false;
-			if(f.length() == 0) //returns 0 if file doesnt exist or length is 0
+			if(f.length() <= 2) //returns 0 if file doesnt exist or length is 0, or if the file contains an empty json array []
 			{
 				needToDownload = true;
 				f.createNewFile(); //create a new file, doesn't matter here because it either doesn't exist or has nothing in it
@@ -76,6 +82,13 @@ public abstract class Retriever {
 		return null;
 	}
 
+	/**
+	 * Retrieves information straight from the server, bypassing the cache
+	 * @param uri The URI to retrieve from
+	 * @param filename The filename to write the the retrieved information into
+	 * @return A {@link com.james.erebus.JSONJava.JSONArray} of the retrieved information
+	 * @throws UnknownHostException
+	 */
 	public JSONArray forceRetrieveFromServer(URI uri, String filename) throws UnknownHostException
 	{
 		try{
@@ -111,20 +124,5 @@ public abstract class Retriever {
 			e.printStackTrace();
 		} 
 		return null;
-	}
-
-	public abstract void updatePage(); 
-
-	public abstract void getByPast();
-
-	public abstract void getByFuture();
-
-	public abstract void getByOngoing();
-
-	protected void disableConnectionReuseIfNecessary() {
-		// HTTP connection reuse which was buggy pre-froyo
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO) {
-			System.setProperty("http.keepAlive", "false");
-		}
 	}
 }

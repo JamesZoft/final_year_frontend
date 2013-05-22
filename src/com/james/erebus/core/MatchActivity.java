@@ -4,9 +4,7 @@ import java.net.URISyntaxException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -30,7 +28,12 @@ import com.james.erebus.misc.MiscJsonHelpers;
 import com.james.erebus.networking.GetMatchesTask;
 import com.james.erebus.networking.MatchRetriever;
 import com.james.erebus.networking.MatchSubscriptionManager;
-import com.james.erebus.networking.NotificationManager;
+
+/**
+ * The java file for the Match activity, which is the screen that shows all of the matches currently available 
+ * @author james
+ *
+ */
 
 public class MatchActivity extends Activity implements MatchPreferencesFragment.NoticeDialogListener, OnClickListener {
 
@@ -39,9 +42,10 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 	private LinearLayout layout;
 
 
+	
 	public void confirmPrefs(View v) {
 		DialogFragment newFragment = new MatchPreferencesFragment();
-		newFragment.show(getFragmentManager(), "missiles");
+		newFragment.show(getFragmentManager(), "");
 	}
 
 	@Override
@@ -62,21 +66,29 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 	}
 
 
+	/**
+	 * 
+	 * @return The {@link java.util.ArrayList} of selected items from the Fragment
+	 */
 	public static ArrayList<TournyMatchOptions> getSelectedItems()
 	{
 		return selectedItems;
 	}
 
+	/**
+	 * 
+	 * @param items The list of items to set the selectedItems field to
+	 */
 	private void setSelectedItems( ArrayList<TournyMatchOptions> items)
 	{
 		selectedItems = items;
 	}
 
-	public void configureDisplayedMatches(LinearLayout layout)
-	{
-
-	}
-
+	/**
+	 * Method called when the free text search button is pressed
+	 * @param v The current {@link android.view.View}
+	 * @throws URISyntaxException
+	 */
 	public void freeTextSearch(View v) throws URISyntaxException
 	{
 		EditText et = (EditText) findViewById(com.james.erebus.R.id.searchTextMatches);
@@ -92,7 +104,6 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 				{
 					if(values.contains(s))
 					{
-					//	final URI uri = new URI("");
 						Button newButton = new Button(this); //construct a button
 						if(obj.getString("parentTournament").length() != 0) //some if/elses for setting the text
 							newButton.setText(obj.getString("player1") + " vs " + obj.getString("player2") + ": " + obj.getString("parentTournament") + " (" + obj.getString("status") + ")");
@@ -116,21 +127,10 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 		}
 	}
 
-	/*private Match matchIsInList(Match m, List<Match> matches)
-	{
-		if(!matches.isEmpty())
-		{
-			for(Match match : matches)
-			{
-				if(match.equals(m))
-					return match;
-			}
-		}
-		return null;
-	}
-	
-	*/
-	
+	/**
+	 * Method called when the refresh button is pressed
+	 * @param v The current {@link android.view.View}
+	 */
 	public void refresh(View v)
 	{
 		getMatches(true);
@@ -141,7 +141,7 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void onResume()
 	{
@@ -150,6 +150,10 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 	}
 
 
+	/**
+	 * Retrieves the list of {@link com.james.erebus.core.Match matches} 
+	 * @param forceRefresh This parameter controls whether the method goes to the cache or not
+	 */
 	private void getMatches(boolean forceRefresh)
 	{
 		MatchRetriever m = new MatchRetriever();
@@ -162,15 +166,12 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 			}
 		else
 			matches = m.retrieve(m.getURI(), m.getMatchesFilename());
-		MatchSubscriptionManager msm = new MatchSubscriptionManager();
-		//NotificationManager nm = new NotificationManager();
-		ArrayList<Match> newMatches = msm.compareSubbedMatches(this);
-		if(newMatches != null && !newMatches.isEmpty())
-		{
-			NotificationManager.setChangedMatches(newMatches);
-		}
 	}
 
+	/**
+	 * Displays the matches on the activity screen
+	 * @throws JSONException
+	 */
 	private void displayMatches() throws JSONException
 	{
 		layout  = (LinearLayout) findViewById(com.james.erebus.R.id.matchButtonsLayout);
@@ -257,10 +258,9 @@ public class MatchActivity extends Activity implements MatchPreferencesFragment.
 			e.printStackTrace();
 		}
 		long thirtyMinutesInMillis = 18000000;
-		long fiveminutesinmillis = 300000;
+		//long fiveminutesinmillis = 300000; //used for testing purposes
 		long delayAndTimer = thirtyMinutesInMillis;
 		GetMatchesTask task = new GetMatchesTask();
-		GetMatchesTask.setContext(this);
 		Timer timer = new Timer("GetMatchesTimer");
 		timer.schedule(task, delayAndTimer, delayAndTimer);
 	}

@@ -1,16 +1,15 @@
 package com.james.erebus.networking;
 
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.TimerTask;
 
-import android.content.Context;
-
-import com.james.erebus.core.Tournament;
+/**
+ * A {@link java.util.TimerTask} for getting tournament information from the server
+ * @author james
+ *
+ */
 
 public class GetTournamentsTask extends TimerTask{
-
-	private static Context taskContext;
 
 	@Override
 	public void run() {
@@ -21,17 +20,6 @@ public class GetTournamentsTask extends TimerTask{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		TournamentSubscriptionManager tsm = new TournamentSubscriptionManager();
-		ArrayList<Tournament> newTournaments = tsm.compareSubbedTournaments(taskContext);
-		if(newTournaments != null && !newTournaments.isEmpty())
-		{
-			NotificationManager.setChangedTournaments(newTournaments);
-		}
 	}
 	
-	public static void setContext(Context c)
-	{
-		GetTournamentsTask.taskContext = c;
-	}
-
 }

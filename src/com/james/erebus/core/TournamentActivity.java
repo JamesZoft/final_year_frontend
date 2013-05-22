@@ -10,9 +10,7 @@ import com.james.erebus.JSONJava.JSONException;
 import com.james.erebus.JSONJava.JSONObject;
 import com.james.erebus.misc.AppConsts;
 import com.james.erebus.misc.MiscJsonHelpers;
-import com.james.erebus.networking.GetMatchesTask;
 import com.james.erebus.networking.GetTournamentsTask;
-import com.james.erebus.networking.NotificationManager;
 import com.james.erebus.networking.TournamentRetriever;
 import com.james.erebus.networking.TournamentSubscriptionManager;
 
@@ -30,6 +28,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/**
+ * The java file for the {@link com.james.erebus.core.Tournament} activity, which shows all currently available Tournaments
+ * @author james
+ *
+ */
+
 public class TournamentActivity extends Activity implements TournamentPreferencesFragment.NoticeDialogListener, OnClickListener{
 
 	private static ArrayList<TournyMatchOptions> selectedItems;
@@ -38,7 +42,7 @@ public class TournamentActivity extends Activity implements TournamentPreference
 
 	public void confirmPrefs(View v) {
 		DialogFragment newFragment = new TournamentPreferencesFragment();
-		newFragment.show(getFragmentManager(), "missiles");
+		newFragment.show(getFragmentManager(), "");
 	}
 
 	@Override
@@ -59,16 +63,28 @@ public class TournamentActivity extends Activity implements TournamentPreference
 	}
 	
 
+	/**
+	 * 
+	 * @return the selected items in the filter fragment
+	 */
 	public static ArrayList<TournyMatchOptions> getSelectedItems()
 	{
 		return selectedItems;
 	}
 
+	/**
+	 * 
+	 * @param items The {@link java.util.ArrayList} of items to be set 
+	 */
 	private void setSelectedItems(ArrayList<TournyMatchOptions> items)
 	{
 		selectedItems = items;
 	}
 	
+	/**
+	 * This method is called when the free text search button is pressed
+	 * @param v The current {@link android.view.View}
+	 */
 	public void freeTextSearch(View v)
 	{
 		EditText et = (EditText) findViewById(com.james.erebus.R.id.searchTextTournaments);
@@ -106,10 +122,12 @@ public class TournamentActivity extends Activity implements TournamentPreference
 
 	}
 
+	/**
+	 * Displays the tournaments on the Activity screen
+	 * @throws JSONException
+	 */
 	private void displayTournaments() throws JSONException
 	{
-		//TournamentRetriever t = new TournamentRetriever();
-		//tournaments = t.retrieve(t.getURI()); //get all tournaments from tournament database
 		layout = (LinearLayout) findViewById(com.james.erebus.R.id.tournamentButtonsLayout);
 		if(tournaments == null)
 		{
@@ -176,6 +194,10 @@ public class TournamentActivity extends Activity implements TournamentPreference
 		}
 	}
 	
+	/**
+	 * This method is called when the refresh button is pressed
+	 * @param v The current {@link android.view.View}
+	 */
 	public void refresh(View v)
 	{
 		getTournaments(true);
@@ -187,6 +209,10 @@ public class TournamentActivity extends Activity implements TournamentPreference
 		}
 	}
 	
+	/**
+	 * Gets the list of tournaments
+	 * @param forceRefresh Controls whether the method will ignore the cache or not
+	 */
 	private void getTournaments(boolean forceRefresh)
 	{
 		TournamentRetriever t = new TournamentRetriever();
@@ -199,13 +225,6 @@ public class TournamentActivity extends Activity implements TournamentPreference
 			}
 		else
 			tournaments = t.retrieve(t.getURI(), t.getTournamentsFilename());
-		TournamentSubscriptionManager tsm = new TournamentSubscriptionManager();
-		//NotificationManager nm = new NotificationManager();
-		ArrayList<Tournament> newTournaments = tsm.compareSubbedTournaments(this);
-		if(newTournaments != null && !newTournaments.isEmpty())
-		{
-			NotificationManager.setChangedTournaments(newTournaments);
-		}
 	}
 
 	@Override
@@ -220,11 +239,10 @@ public class TournamentActivity extends Activity implements TournamentPreference
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		long fiveminutesinmillis = 300000;
+		//long fiveminutesinmillis = 300000; // used for test purposes
 		long thirtyMinutesInMillis = 18000000;
 		long delayAndTimer = thirtyMinutesInMillis;
 		GetTournamentsTask task = new GetTournamentsTask();
-		GetTournamentsTask.setContext(this);
 		Timer timer = new Timer("GetTournamentsTimer");
 		timer.schedule(task, delayAndTimer, delayAndTimer);
 	}

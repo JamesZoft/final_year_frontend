@@ -1,5 +1,10 @@
 package com.james.erebus.core;
 
+/**
+ * The java file for the {@link com.james.erebus.core.Notification} activity screen - this screen shows all the current notifications
+ * 
+ */
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -42,13 +47,15 @@ public class NotificationActivity extends Activity {
 	}
 
 
+	/**
+	 * Displays all of the {@link com.james.erebus.core.Notification notifications} on screen
+	 * @param v The current {@link android.view.View}
+	 */
 	public void displayNotifications(View v)
 	{
  		EditText et = (EditText) findViewById(com.james.erebus.R.id.searchTextNotifications);
 		ArrayList<String> searchWords = new ArrayList<String>(Arrays.asList(et.getText().toString().split(" ")));
 		
-		//final NotificationManager nm = new NotificationManager();
-		//NotificationManager.matchesAndTournysToNotifications();
 		final LinearLayout notifsL = (LinearLayout) findViewById(com.james.erebus.R.id.notificationsLayout);
 		ArrayList<Notification> notifications = NotificationManager.getNotifcations();
 		notifsL.removeAllViews();
@@ -114,44 +121,6 @@ public class NotificationActivity extends Activity {
 		}
 	}
 	
-/*public void freeTextSearch(View v) throws URISyntaxException
-	{
-		EditText et = (EditText) findViewById(com.james.erebus.R.id.searchTextNotifications);
-		ArrayList<String> searchWords = new ArrayList<String>(Arrays.asList(et.getText().toString().split(" ")));
-		ArrayList<Button> buttons = new ArrayList<Button>();
-		//final Context matchButtonContext = this;
-		for(int i = 0; i < matches.length(); i++)
-		{
-			try {
-				JSONObject obj = matches.getJSONObject(i);
-				final String values = MiscJsonHelpers.getValuesFromJsonObject(obj);
-				for(String s : searchWords)
-				{
-					if(values.contains(s))
-					{
-					//	final URI uri = new URI("");
-						Button newButton = new Button(this); //construct a button
-						if(obj.getString("parentTournament").length() != 0) //some if/elses for setting the text
-							newButton.setText(obj.getString("player1") + " vs " + obj.getString("player2") + ": " + obj.getString("parentTournament") + " (" + obj.getString("status") + ")");
-						else
-							newButton.setText(obj.getString("player1") + " vs " + obj.getString("player2") + "(" + obj.getString("status") + ")");
-						newButton.setOnClickListener(this);
-						newButton.setTag(obj);
-						buttons.add(newButton);
-					}
-				}
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		layout.removeAllViews();
-		for(Button newButton : buttons)
-		{
-			newButton.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
-			layout.addView(newButton);
-		}*/
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {

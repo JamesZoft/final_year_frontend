@@ -9,6 +9,12 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 
+/**
+ * Class that controls data flow and what is on the filter Fragment that shows when pressing
+ * the filter button on the {@link com.james.erebus.core.Match} activity screen
+ * @author james
+ *
+ */
 
 public class MatchPreferencesFragment extends ParentPreferencesFragment{
 	
@@ -92,6 +98,10 @@ public class MatchPreferencesFragment extends ParentPreferencesFragment{
 		return builder.create();
 	}
 	
+	/**
+	 * 
+	 * @return The selected items from the Fragment
+	 */
 	public static ArrayList<TournyMatchOptions> getSelectedItems()
 	{
 		return selectedItems;

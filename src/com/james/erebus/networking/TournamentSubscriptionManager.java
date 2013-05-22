@@ -1,12 +1,10 @@
 package com.james.erebus.networking;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Timer;
-
-import org.apache.http.conn.HttpHostConnectException;
-import org.apache.http.message.BasicNameValuePair;
 
 import android.content.Context;
 import android.util.Log;
@@ -18,10 +16,23 @@ import com.james.erebus.JSONJava.JSONObject;
 import com.james.erebus.core.Tournament;
 import com.james.erebus.misc.MiscJsonHelpers;
 
+/**
+ * Child class of {@link com.james.erebus.networking.SubscriptionManager} for managing {@link com.james.erebus.core.Tournament}
+ * subscriptions
+ * @author james
+ *
+ */
+
 public class TournamentSubscriptionManager extends SubscriptionManager {
 
 	private static final String filename = "subbedTournaments.json";
 
+	/**
+	 * Method to check if a {@link com.james.erebus.core.Tournament} is subscribed to
+	 * @param c The {@link android.content.Context} in which this method is invoked
+	 * @param t The Tournament being checked
+	 * @return True if the Tournament is subscribed to, false if not
+	 */
 	public boolean isTournamentSubbed(Context c, Tournament t)
 	{
 		ArrayList<Tournament> tournaments = getSubbedTournaments(c);
@@ -33,6 +44,11 @@ public class TournamentSubscriptionManager extends SubscriptionManager {
 		return false;
 	}
 
+	/**
+	 * 
+	 * @param c The {@link android.content.Context} in which this method is invoked
+	 * @return an {@link java.util.ArrayList} of subscribed {@link com.james.erebus.core.Tournament tournaments}
+	 */
 	public ArrayList<Tournament> getSubbedTournaments(Context c)
 	{
 		JSONArray ja = readSubbed(c, "subbedTournaments.json");
@@ -55,7 +71,16 @@ public class TournamentSubscriptionManager extends SubscriptionManager {
 		}
 	}
 
-
+	/**
+	 * Subscribes to a {@link com.james.erebus.core.Tournament} both internally and also calls
+	 * the method to send this subscription to the server
+	 * @param t The Tournament to be subscribed to
+	 * @param c The {@link android.content.Context} in which this method is invoked
+	 * @param b The {@link android.widget.Button} which was pressed to invoke this method
+	 * @return True if the Tournament was subscribed to successfully, false if not
+	 * @throws IOException
+	 * @throws JSONException
+	 */
 	public boolean subToTournament(Tournament t, Context c, Button b) throws IOException, JSONException
 	{
 		JSONArray ja = readSubbed(c, "subbedTournaments.json");
@@ -82,15 +107,16 @@ public class TournamentSubscriptionManager extends SubscriptionManager {
 			ja = new JSONArray();
 		ja.put(MiscJsonHelpers.tournamentToJson(t));
 		writeSubbed(c, ja, "subbedTournaments.json");
-		addTournamentSubscriptionToServer(MiscNetworkingHelpers.regId, Integer.toString(t.getId()), b);
+		addTournamentSubscriptionToServer(MiscNetworkingHelpers.regId, Integer.toString(t.getId()), b, t, c);
 		return false;
 	}
 
 	/**
-	 * 
+	 * Compare
 	 * @param c - The context in which this method is invoked
 	 * @return - The ArrayList of updated tournaments if it's newer, else null
 	 */
+	/*
 	public ArrayList<Tournament> compareSubbedTournaments(Context c)
 	{
 		ArrayList<Tournament> subbedTournaments = getSubbedTournaments(c);
@@ -125,7 +151,16 @@ public class TournamentSubscriptionManager extends SubscriptionManager {
 		writeSubbed(c, newSubbedJa, filename);
 		return changedTournaments;
 	}
-
+	*/
+	
+	/**
+	 * Unsubscribes from a {@link com.james.erebus.core.Tournament} both internally and also calls
+	 * the method to send this subscription to the server
+	 * @param c The {@link android.content.Context} in which this method is invoked
+	 * @param t The Tournament to be unsubscribed from
+	 * @param b The {@link android.widget.Button} which was pressed to invoke this method
+	 * @return True if the Tournament was unsubscribed from successfully, false if not
+	 */
 	public boolean unsubFromTournament(Context c, Tournament t, Button b)
 	{
 		boolean retVal = false;
@@ -151,29 +186,29 @@ public class TournamentSubscriptionManager extends SubscriptionManager {
 			else
 				returnJa.put(MiscJsonHelpers.tournamentToJson(subbedTournaments.get(i)));
 		}
+		try {
+			removeTournamentSubscriptionToServer(MiscNetworkingHelpers.regId, Integer.toString(t.getId()), b);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		writeSubbed(c, returnJa, "subbedTournaments.json");
-		removeTournamentSubscriptionToServer(MiscNetworkingHelpers.regId, Integer.toString(t.getId()), b);
 		return retVal;
 	}
 
-	@SuppressWarnings("serial")
-	private void addTournamentSubscriptionToServer(final String regId, final String tournamentEntryId, Button b)
+	/**
+	 * Adds a {@link com.james.erebus.core.Tournament} subscription to the server
+	 * @param regId The registration ID for this app
+	 * @param tournamentEntryId The Tournament id
+	 * @param b The {@link android.widget.Button} that was pressed to invoke this method
+	 * @param tournament The Tournament being subscribed to
+	 * @param c The {@link android.content.Context} in which this method was invoked
+	 */
+	private void addTournamentSubscriptionToServer(final String regId, final String tournamentEntryId, Button b, Tournament tournament, Context c)
 	{
-		/*Log.v("addtournamentsubtoserver", regId);
-		Log.v("addtournamentsubtoserver", tournamentEntryId);
-		try {
-			MiscNetworkingHelpers.postInformationToServer(regId, "subscriptions.json", 
-					new ArrayList<BasicNameValuePair>() {{ 
-						add(new BasicNameValuePair("subscription[device_registration_id]", regId));
-						add(new BasicNameValuePair("subscription[model_id]", tournamentEntryId));
-						add(new BasicNameValuePair("subscription[model_type]", "TournamentEntry"));
-						}});
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-
 		AddTournamentSubscriptionToServerTask task = new AddTournamentSubscriptionToServerTask();
+		task.setContext(c);
+		task.setTournament(tournament);
 		task.setRegId(regId);
 		task.setButton(b);
 		task.setTournamentEntryId(tournamentEntryId);
@@ -181,10 +216,17 @@ public class TournamentSubscriptionManager extends SubscriptionManager {
 		t.schedule(task, Calendar.getInstance().getTime());
 	}
 
-	private void removeTournamentSubscriptionToServer(final String regId, final String tournamentEntryId, Button b)
+	/**
+	 * Removes a {@link com.james.erebus.core.Tournament} subscription from the server
+	 * @param regId The registration ID for this app
+	 * @param tournamentEntryId The Tournament id
+	 * @param b The {@link android.widget.Button} that was pressed to invoke this method
+	 * @throws UnknownHostException
+	 */
+	private void removeTournamentSubscriptionToServer(final String regId, final String tournamentEntryId, Button b) throws UnknownHostException
 	{
 		SubscriptionRetriever sr = new SubscriptionRetriever();
-		JSONArray subs = sr.retrieve(sr.getURI(), sr.getSubscriptionsFilename());
+		JSONArray subs = sr.forceRetrieveFromServer(sr.getURI(), sr.getSubscriptionsFilename());
 		if(subs != null)
 		{
 			for(int i = 0; i < subs.length(); i++)
@@ -193,15 +235,18 @@ public class TournamentSubscriptionManager extends SubscriptionManager {
 					JSONObject obj = (JSONObject) subs.get(i);
 					String tournamentEntryIdRetrieved = Integer.toString(obj.getInt("model_id")).toLowerCase();
 					if(tournamentEntryIdRetrieved != "null")
+					{
 						if(tournamentEntryIdRetrieved.equals(tournamentEntryId))
 						{
 							RemoveTournamentSubscriptionFromServerTask task = new RemoveTournamentSubscriptionFromServerTask();
 							task.setButton(b);
 							task.setRegId(regId);
-							task.setJsonMatchObject(obj);
+							task.setJsonTournamentObject(obj);
 							Timer t = new Timer("RemoveTournamentSubscriptionFromServerTimer");
 							t.schedule(task, Calendar.getInstance().getTime());
+							Log.v("removetournysub", "set task to remove tourny sub");
 						}
+					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
