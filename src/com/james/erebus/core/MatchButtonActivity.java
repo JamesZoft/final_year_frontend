@@ -13,6 +13,7 @@ import com.james.erebus.networking.SubscriptionRetriever;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -73,6 +74,20 @@ public class MatchButtonActivity extends Activity {
 		SubscriptionRetriever sr = new SubscriptionRetriever();
 		JSONArray ja = sr.forceRetrieveFromServer(sr.getURI(), sr.getSubscriptionsFilename());
 		Button subButton = (Button) findViewById(com.james.erebus.R.id.matchSubscribeButton);
+		if(ja == null)
+		{
+			subButton.setText("Unknown");
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage("Subscription information was not able to be retrieved")
+			.setTitle("Connection error");
+			AlertDialog dialog = builder.create();
+			dialog.show();
+			subButton.setEnabled(false);
+			subButton.setClickable(false);
+			return;
+		}
+		subButton.setEnabled(true);
+		subButton.setClickable(true);
 		for(int i = 0; i < ja.length(); i++)
 		{
 			try {
